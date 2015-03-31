@@ -1,0 +1,131 @@
+Scenario 1: Agent calls player
+
+Agent
+“Hi, is this *P* speaking?”
+
+Player
+“Yeah, who is this?”
+
+Agent
+“*P,* hope all is well.  This is *U* from *NAME OF AGENCY*.  We met last week.”
+
+Player
+“Oh, right. Yeah.”
+
+Agent
+“As I said last week, I’d love to bring you on as part of the *NAME OF AGENCY family.”
+
+Player
+“My family and I really liked your proposal.”
+
+Agent
+“Let’s meet this week.  I can get to *CITY OF PERSON* tomorrow.”
+
+Player
+“Tomorrow afternoon works for my family and me.”
+ 
+Agent
+“Great, I’ll book a conference room at my partner’s office for 3pm. I’ll see you tomorrow!”
+
+
+
+
+Scenario 2: Agent meets with player
+
+Agent
+“Hi *P*, welcome! Have a seat.”
+
+Player
+“Thanks, *U*.”
+
+Agent
+“Once again, * AGENCY* is excited to have you as a part the family. You’ll surely love it here. Here’s our contract. Feel free to ask me if you have any questions. I’ll be here to help you get situated in *CITY*.”
+
+Player
+“Thanks!”
+
+Agent
+“Here at *AGENCY*, we require players to update us via ** every ***. Is that okay with you?”
+
+Player
+“Perfect! Could I get some help getting situated here?”
+
+Agent
+“Yes of course! Let’s do *scenario option* first!”
+
+
+
+Scenario 3: At bank for first meeting
+ 
+Agent
+“We need to get you a bank account opened in *CITY*. Here’s a list of different banks in the area and all the packages they offer. I recommend you going to *BEST BANK*”
+
+Player
+“Awesome.”
+
+Agent
+“Great. I’ll see you tomorrow at *BANK*. Don’t be late!”
+
+
+AT BANK
+
+Agent
+“Hi *P*, let’s go meet with the bank representative.  Let me explain to *P* a few things. *P*, Sometimes they take advantage of you.  Here are things to know and ask for, I made a sheet for you.”
+
+Player
+“Thanks.”
+
+Agent
+“Keep the sheet on you for later.”
+
+Rep
+“Good morning gentlemen, how may I help you today?”
+
+Player
+“I would like to open a checking and savings account and apply for a credit card.”
+
+Rep
+“Great!  Let me get your personal information first and get your checking and savings accounts opened up first, then let’s move on to the credit card application.”
+
+Player
+“Hold on, there are few things I want to confirm first. *U”?”
+
+Player
+“Is there a minimum to open the account?”
+
+Rep
+“You need to have a minimum of $200 to open a standard checking account here.  PennySaver accounts can be opened without a starting balance.”
+
+Rep
+“Well I’ve just finished opening up your accounts. Here is your temporary debit card as well as a portfolio with your checks and account information. Your official debit card will come in the mail in about 10 days. Now to the credit card application. Here are the options we have at *BANK*.”
+
+Player
+“Which do you think I should choose?”
+
+Rep
+“Thank you very much! Let me process that right now. … Congratulations! You’ve been approved for *credit card*. Let me get everything verified. Here’s your credit card. Is there anything else I can help you with?”
+
+Player
+“No, thank you very much!”
+
+
+
+
+Scenario 8: Family incident #2: Mother falls down the stairs and is hospitalized
+
+Player
+“Hi *U*, my mother just got into an accident and is in the hospital right now. I really need to go see her and take care of my siblings. What should I do?”
+
+Agent
+“I’m sorry, but your contract with *SPORTS TEAM* requires that you stay here.” 
+or 
+“Let me talk to your team manager and work some things out.” 
+Or
+“Don’t worry, do what you need to do. I’ll get your plane tickets arranged as soon as possible”
+
+
+
+
+
+
+
