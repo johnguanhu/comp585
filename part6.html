@@ -1,11 +1,29 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+    <meta charset="UTF-8" />
+    <title>Business Education Game</title>
+    <script type="text/javascript" src="js/phaser.min.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
 
-var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
+<script type="text/javascript">
+
+
+
+var game = new Phaser.Game(550, 400, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
 function preload() {
 
-    game.load.tilemap('map', 'assets/tilemaps/maps/homephaser.json', null, Phaser.Tilemap.TILED_JSON);
+    game.load.tilemap('map', 'assets/tilemaps/maps/gymphaser.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('pokemontileset', 'assets/tilemaps/tiles/pokemontileset.png');
     game.load.image('masstileset', 'assets/tilemaps/tiles/masstileset.png');
+    game.load.image('gymset', 'assets/tilemaps/tiles/gymset.png');
     game.load.image('phaser', 'assets/sprites/phaser-dude.png');
 
 }
@@ -26,10 +44,10 @@ function create() {
 
     map.addTilesetImage('masstileset');
     map.addTilesetImage('pokemontileset');
+    map.addTilesetImage('gymset');
     
     layer1 = map.createLayer('backgroundLayer');
     layer2 = map.createLayer('blockedLayer');
-    layer3 = map.createLayer('collLayer');
 
     layer1.resizeWorld();
 
@@ -39,8 +57,6 @@ function create() {
 
     sprite = game.add.sprite(130, 150, 'phaser');
     sprite.scale.setTo(0.75,0.75);
-    sprite.inputEnabled = true;
-    sprite.events.onInputDown.add(onDown, this);
 
     game.physics.enable(sprite);
 
@@ -53,8 +69,7 @@ function create() {
 
     game.input.onDown.add(startLine, this);
     game.input.onUp.add(raycast, this);
-    //var mydata = JSON.parse(data);
-    
+
 }
 
 function startLine(pointer) {
@@ -129,24 +144,14 @@ function update() {
 
 }
 
-function onDown(sprite, pointer) {
-     var scene_one= [
-        "Hi, is this *P* speaking?",
-        "Yeah, who is this?",
-        "*P,* hope all is well.  This is *U* from *NAME OF AGENCY*.  We met last week.",
-        "Oh, right. Yeah.",
-        "As I said last week, I’d love to bring you on as part of the *NAME OF AGENCY famil.",
-        "My family and I really liked your proposal.",
-        "Let’s meet this week.  I can get to *CITY OF PERSON* tomorrow.",
-        "Tomorrow afternoon works for my family and me.",
-        "Great, I’ll book a conference room at my partner’s office for 3pm. I’ll see you tomorrow!"
-    ];
-    for (var i=0; i<scene_one.length; i++){
-    alert(scene_one[i]);}
-}
-
 function render() {
 
     game.debug.geom(line);
 
 }
+
+
+</script>
+
+</body>
+</html>
