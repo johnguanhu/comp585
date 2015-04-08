@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>hello phaser!</title>
+        <script src="js/phaser.min.js"></script>
+        <script type="text/javascript">
+        demandbool=false;
+function newDemand(){
+    demandbool=true;
+    demandPopup=game.add.sprite(w/2,h/2,'Speech');
+    demandPopup.events.onInputDown.add(function(){
+        demandPopup.destroy();
+    }
+}
+
+function demandMaker(){
+    demandTable[happiness][money].call();
+}
+
+function clientInteract(){
+    if (demandbool){
+        demandbool=false;
+        demandMaker();
+    }
+    else{
+        clientDialog[Math.floor(Math.random()*10)]
+    }
+}
+
+
+
+
+
+
+        </script>
+    </head>
+    <body>
+
+    <script type="text/javascript">
+
+var myVar=setInterval(function(){newDemand()},60);
+
+
+
+var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create });
+
+var w = 800, h = 600, happiness = 0, money = 0
+var a1= function(){thing = game.add.sprite(w - 100, 200, 'scroll')}
+var b1= function(){thing = game.add.sprite(w - 100, 200, 'money')}
+var a2= function(){thing = game.add.sprite(w - 300, 200, 'scroll')}
+var b2= function(){thing = game.add.sprite(w - 300, 200, 'money')}
+var table=[[a1,b1],[a2,b2]];
+
+function preload() {
+    game.load.image('scroll','scroll.png');
+    game.load.image('money', 'money.png');
+}
+
+function create() {
+    /*
+        Code from example diamond burst
+    */
+    game.stage.backgroundColor = '#337799';
+
+    thing= game.add.sprite(-100, 0, 'scroll');
+    rollTable = game.add.sprite(w - 100, 20, 'scroll');
+    rollTable.inputEnabled = true;
+    //rollTable.button=true;
+
+    rollStats = game.add.sprite(100, 20, 'money');
+    rollStats.inputEnabled=true;
+    //rollStats.button=true;
+
+
+
+
+    rollTable.events.onInputDown.add(function () {
+        thing.destroy();       
+
+        table[happiness][money].call();   
+        alert('ran the function');    
+
+       
+    });
+
+    rollStats.events.onInputDown.add(function () {
+       happiness=Math.floor(Math.random() * 2) ;
+       money= Math.floor(Math.random() * 2) ;
+       alert('rerolled stats');
+    });
+
+ 
+
+}
+
+
+    </script>
+
+    </body>
+</html>
