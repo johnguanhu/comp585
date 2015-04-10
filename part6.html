@@ -185,6 +185,7 @@ var dial=[[n1,l1],[n2,l2],[n3,l3],[n4,l4],[n5,l5],[n6,l6],[n7,l7],[n8,l8],[n9,l9
 }
 function collisionHandler (obj1, obj2) {
     dude.body.drag.setTo(3000);
+    // dude.body.immovable = true;
     dialog();
     game.stage.backgroundColor = '#992d2d';    
 }
@@ -201,6 +202,8 @@ function update() {
 
     game.physics.arcade.collide(sprite, layer2);
     game.physics.arcade.collide(sprite, layer3);
+    game.physics.arcade.collide(dude, layer2);
+    game.physics.arcade.collide(dude, layer3);
 
     sprite.body.velocity.x = 0;
     sprite.body.velocity.y = 0;
@@ -230,7 +233,6 @@ function render() {
     game.debug.geom(line);
 
 }
-
 
 </script>
 
