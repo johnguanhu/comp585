@@ -8,6 +8,7 @@
         game.load.image('gymset', 'assets/tilemaps/tiles/gymset.png');
         game.load.image('phaser', 'assets/sprites/phaser-dude.png');
         game.load.image('telephone', 'assets/telephone.png');
+        game.load.image('rectangle', 'assets/rectangle.png');
     }
 
     var map;
@@ -20,6 +21,8 @@
     var index=0;
     var dialogBool=false;
     var dial;
+    var wantsToCall=false;
+    var player_name = "STUD"
 
     function create() {
         game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -54,55 +57,67 @@
 
         telephone.enableBody = true;
         telephone.body.immovable=true;
+
+        agent_name= prompt("What is the your name");
     }
 
     function dialog(){
-        var  n1=      "Agent";
-        var  l1=      "Hi, is this *P* speaking?";
+        var p=player_name;
+        var a=agent_name;
+        var name_agency="FUN AGENTS LMT"
 
-        var   n2=     "Player";
+        var   l1=      "Hi, is this " + player_name + " speaking?";
         var   l2=     "Yeah, who is this?";
-
-        var   n3=     "Agent";
-        var   l3=     "*P,* hope all is well.  This is *U* from *NAME OF AGENCY*.  We met last week.";
-
-        var   n4=    "Player";
+        var   l3=     player_name + ", hope all is well.  This is " + agent_name +" from " +name_agency+".  We met last week.";
         var   l4=    "Oh, right. Yeah.";
-
-        var   n5=     "Agent";
-        var   l5=     "As I said last week, I’d love to bring you on as part of the *NAME OF AGENCY family.";
-
-        var   n6=     "Player";
+        var   l5=     "As I said last week, I’d love to bring you on as part of the " +name_agency+" family.";
         var   l6=     "My family and I really liked your proposal.";
-
-        var   n7=     "Agent";
         var   l7=     "Let’s meet this week.  I can get to *CITY OF PERSON* tomorrow.";
-
-        var   n8=     "Player";
         var   l8=     "Tomorrow afternoon works for my family and me.";
-
-        var   n9=     "Agent";
         var   l9=     "Great, I’ll book a conference room at my partner’s office for 3pm. I’ll see you tomorrow!";
 
-        var dial=[[n1,l1],[n2,l2],[n3,l3],[n4,l4],[n5,l5],[n6,l6],[n7,l7],[n8,l8],[n9,l9]];
+        var dial=[[a,l1],[p,l2],[a,l3],[p,l4],[a,l5],[p,l6],[a,l7],[p,l8],[a,l9]];
     //  The two sprites are colliding
 
     var index=0;
+
+
+    // var graphics = game.add.graphics(100, 100);
+    // graphics.lineStyle(0);
+    // graphics.beginFill(0xFFFFF, 0.5);
+    // var circle=graphics.drawCircle(300, 100, 100);
+    // graphics.endFill();
+
+    //create tangle
+    var dbox = game.add.sprite(100, 100, 'rectangle');
+    dbox.scale.setTo(0.5,0.5);
+    dbox.visible = false;
+
+    var name = game.add.text(110,110, "", { font: "18px Arial"}); 
+    var label= game.add.text(220, 150, "", { font: "14px Arial", align: "left", wordWrap: true, wordWrapWidth: 220});
+    label.anchor.set(0.5);
+
+    //var text = game.add.text(100, 100, "Text", { font: "25px Arial", align: "center" }, group);
+    // var txt = game.add.text(game.world.centerX, game.world.centerY, "My Text");
+    // txt.anchor.set(0.5, 0.5);
     
-    var name = game.add.text(100,30, ""); 
-    var label = game.add.text(100,100, "");
     var next = game.add.button(100,300, "arrow"); 
     next.inputEnabled=true;
     next.onInputUp.add(function(){
+        dbox.visible = true;
         name.text=dial[index][0];
         label.text =dial[index][1];
         index=index+1;
 
     });
     dialogBool=true;
+}
 
-
-
+function checkCollision(obj1, obj2){
+    if (!wantsToCall && confirm("Would you like to call " + player_name))  {
+        wantsToCall=true;
+        collisionHandler();
+    }
 }
 function collisionHandler (obj1, obj2) {
     dialog();
@@ -111,7 +126,7 @@ function collisionHandler (obj1, obj2) {
 
 function update() {
 
-    game.physics.arcade.collide(sprite, telephone, collisionHandler, null, this);
+    game.physics.arcade.collide(sprite, telephone, checkCollision, null, this);
 
     game.physics.arcade.collide(sprite, layer2);
     game.physics.arcade.collide(sprite, layer3);
