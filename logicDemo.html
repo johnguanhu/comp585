@@ -4,30 +4,8 @@
         <meta charset="UTF-8" />
         <title>hello phaser!</title>
         <script src="js/phaser.min.js"></script>
+        <script src="fileReader.js"></script>
         <script type="text/javascript">
-        demandbool=false;
-function newDemand(){
-    demandbool=true;
-    demandPopup=game.add.sprite(w/2,h/2,'Speech');
-    demandPopup.events.onInputDown.add(function(){
-        demandPopup.destroy();
-    }
-}
-
-function demandMaker(){
-    demandTable[happiness][money].call();
-}
-
-function clientInteract(){
-    if (demandbool){
-        demandbool=false;
-        demandMaker();
-    }
-    else{
-        clientDialog[Math.floor(Math.random()*10)]
-    }
-}
-
 
 
 
@@ -39,7 +17,7 @@ function clientInteract(){
 
     <script type="text/javascript">
 
-var myVar=setInterval(function(){newDemand()},60);
+var myVar=setInterval(function(){newDemand()},6000);
 
 
 
@@ -50,6 +28,7 @@ var a1= function(){thing = game.add.sprite(w - 100, 200, 'scroll')}
 var b1= function(){thing = game.add.sprite(w - 100, 200, 'money')}
 var a2= function(){thing = game.add.sprite(w - 300, 200, 'scroll')}
 var b2= function(){thing = game.add.sprite(w - 300, 200, 'money')}
+var demandbool=false;
 var table=[[a1,b1],[a2,b2]];
 
 function preload() {
@@ -58,10 +37,9 @@ function preload() {
 }
 
 function create() {
-    /*
-        Code from example diamond burst
-    */
+
     game.stage.backgroundColor = '#337799';
+
 
     thing= game.add.sprite(-100, 0, 'scroll');
     rollTable = game.add.sprite(w - 100, 20, 'scroll');
@@ -71,6 +49,7 @@ function create() {
     rollStats = game.add.sprite(100, 20, 'money');
     rollStats.inputEnabled=true;
     //rollStats.button=true;
+
 
 
 
@@ -90,9 +69,42 @@ function create() {
        alert('rerolled stats');
     });
 
- 
+
 
 }
+
+
+function newDemand(){
+    if (demandbool){
+            demandPopup.destroy();
+        };
+  
+    demandbool=true;
+
+        demandPopup=game.add.sprite(w/2,h/2,'money');
+        
+        demandPopup.inputEnabled= true;
+        demandPopup.events.onInputDown.add(function () {
+            demandPopup.kill();
+        });
+  
+}
+
+
+function demandMaker(){
+    demandTable[happiness][money].call();
+}
+
+function clientInteract(){
+    if (demandbool){
+        demandbool=false;
+        demandMaker();
+    }
+    else{
+        clientDialog[Math.floor(Math.random()*10)];
+    }
+}
+
 
 
     </script>
