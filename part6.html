@@ -15,8 +15,6 @@
 
 <script type="text/javascript">
 
-
-
 var game = new Phaser.Game(550, 400, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
 function preload() {
@@ -67,18 +65,12 @@ function create() {
     sprite.scale.setTo(0.75,0.75);
 
     game.physics.enable(sprite);
-
     game.camera.follow(sprite);
-
     cursors = game.input.keyboard.createCursorKeys();
-
     dude = game.add.sprite(200, 150, 'phaser');
     dude.scale.setTo(0.75,0.75);
 
-
-
     game.physics.enable( [ dude], Phaser.Physics.ARCADE);
-
 
     dude.enableBody = true;
     dude.physicsBodyType = Phaser.Physics.ARCADE;
@@ -91,7 +83,6 @@ function create() {
             dude.body.velocity.y=25;   
         }
     },1000);    
-        
 
     var help = game.add.text(5, 330, 'Arrows to move, click and drag to cast a ray', { font: '16px Arial', fill: '#ffffff' });
     help.fixedToCamera = true;
@@ -193,18 +184,9 @@ var dial=[[n1,l1],[n2,l2],[n3,l3],[n4,l4],[n5,l5],[n6,l6],[n7,l7],[n8,l8],[n9,l9
 
 }
 function collisionHandler (obj1, obj2) {
-
+    dude.body.drag.setTo(3000);
     dialog();
-
-
-    game.stage.backgroundColor = '#992d2d';
-
-        
-   
-  //  }
-
-
-    
+    game.stage.backgroundColor = '#992d2d';    
 }
 
 function update() {
