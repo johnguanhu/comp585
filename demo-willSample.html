@@ -209,8 +209,22 @@ function dialog(dial, ind){
 //if hit end destroy all of the parts and run endDialog() 
 //THIS IS BUGGY DOES NOT ACTUALLY DESTROY NEXT
 // well it probably destroys A next, just not all of the nexts
+//well, I fixed it, but I don't know why that fix worked
+
         if (dial[index][0]=="end") {
             endDialog();
+
+            next.onInputUp.add(function(){
+                label.destroy();
+                name.destroy();
+                next.destroy();
+                endDialog();
+                
+            });
+        }
+        if (dial[index-1][0]=="end") {
+            endDialog();
+
             next.onInputDown.add(function(){
                 label.destroy();
                 name.destroy();
@@ -343,6 +357,7 @@ function clearAndJump(dial, i, index,choice){
         }
 
     }
+
     dialog(dial, storage);
 }
 
