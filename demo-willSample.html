@@ -17,6 +17,12 @@
 
 <script type="text/javascript">
 
+//WILL - simplify functions and provide more sample code, happiness & money meter...
+//JAKE - more sample dialogue, set up dialogue boxes as Diane said, more visuals
+//JAKE - ntegrating this into jake's example, pushing things together
+//JOHN - mini game and create things that you do ... actions ... real stuff to do as character
+//JON - levels
+
 var game = new Phaser.Game(550, 400, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
 function preload() {
@@ -354,6 +360,7 @@ function endDialog(){
 }
 
 //this is a workaround
+//user selections don't swap between dialogues, it swaps within dialogues
     var  n1=      "Agent";
     var  l1=      "Hi, is this *P* speaking?";
 
@@ -365,6 +372,13 @@ function endDialog(){
 
     var   n4=    "Player";
     var   l4=    "Oh, right. Yeah.";
+
+    //example choices - you can saw whatever you want
+    //as it stands, needs to be 4 choice options as it will make 4 options
+    //if you click second box, it will jump to next instance of "2" in dialogue where 2 is in name slot
+    //Then you push to next spot in array (obviously don't print 2/void) and then continues
+    //end tag will cause dialogue to end.
+     //if you want to increase money or happiness in dialogue, if the name of the speaker is money & text is a number, it shoudl increment or decrement happiness by specific amount.
 
     var   n5=     "Choice";
     var   l5=     "1";
