@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <title>Business Education Game</title>
     <script type="text/javascript" src="js/phaser.min.js"></script>
+    <script scr="dialogSelector.js"></script>
     <script scr="fileReader.js"></script>
     <style type="text/css">
         body {
@@ -40,46 +41,10 @@ var dialogBool=false;
 var dial;
 var index=0;
 var storage;
+//need to pick actual happiness and money start values
+var happiness=0;
+var money=0;
 
-//this is a workaround
-    var  n1=      "Agent";
-    var  l1=      "Hi, is this *P* speaking?";
-
-    var   n2=     "Player";
-    var   l2=     "Yeah, who is this?";
-
-    var   n3=     "Agent";
-    var   l3=     "*P,* hope all is well.  This is *U* from *NAME OF AGENCY*.  We met last week.";
-
-    var   n4=    "Player";
-    var   l4=    "Oh, right. Yeah.";
-
-    var   n5=     "Choice";
-    var   l5=     "1";
-
-    var   n6=     "Choice";
-    var   l6=     "2";
-
-    var   n7=     "Choice";
-    var   l7=     "3";
-
-    var   n8=     "Choice";
-    var   l8=     "4";
-    
-    var   n9=       "2";
-    var   l9=       "void";
-
-    var   n10=     "Player";
-    var   l10=     "You picked 2";
-
-
-    var   n11=     "";
-    var   l11=      "";
-
-    var   n12=     "end";
-    var   l12=      "Shouldn't matter";
-    var dial=[[n1,l1],[n2,l2],[n3,l3],[n4,l4],[n5,l5],[n6,l6],[n7,l7],[n8,l8],[n9,l9],[n10,l10],[n11,l11],[n12,l12]];
-    //end workaround
 
 
 
@@ -203,9 +168,23 @@ function dialog(dial, ind){
     }
 //on click move through the dialog
     next.onInputDown.add(function(){
+        //if this doesn't work, increment the index and 
+        //make happiness update first everytime
+
+  /*      if (dial[index][0]==happy){
+            var y=parseInt(dial[index][1]);
+            happiness=happiness+y;
+            dialog(dial,index+1);
+        }
+        if (dial[index][0]==money){
+            var y=parseInt(dial[index][1]);
+            dialog(dial, index+1);
+        }*/
+
         name.text=dial[index][0];
         label.text =dial[index][1];
         index=index+1;
+
 //if hit end destroy all of the parts and run endDialog() 
 //THIS IS BUGGY DOES NOT ACTUALLY DESTROY NEXT
 // well it probably destroys A next, just not all of the nexts
@@ -213,7 +192,6 @@ function dialog(dial, ind){
 
         if (dial[index][0]=="end") {
             endDialog();
-
             next.onInputUp.add(function(){
                 label.destroy();
                 name.destroy();
@@ -224,7 +202,6 @@ function dialog(dial, ind){
         }
         if (dial[index-1][0]=="end") {
             endDialog();
-
             next.onInputDown.add(function(){
                 label.destroy();
                 name.destroy();
@@ -241,7 +218,7 @@ function dialog(dial, ind){
                 name.destroy();
                 next.destroy();
 
-                decisionPoint(dial, index,next)
+                decisionPoint(dial, index,next);
             });
         }
 
@@ -350,15 +327,21 @@ function clearAndJump(dial, i, index,choice){
         choice[i].kill();
     }
 */
+    storage=-1;
     for (var x=index;x<dial.length;x++){
+
         var y=parseInt(dial[x][0]);
         if (y==i){
             storage=x+1;
         }
-
     }
-
-    dialog(dial, storage);
+    if (storage==-1){
+        alert("There was no further dialog for that option");
+        endDialog();
+    }
+    else{
+       dialog(dial, storage);
+    }
 }
 
 //should reset dialogBool to false and fix the bg
@@ -370,16 +353,85 @@ function endDialog(){
 
 }
 
+//this is a workaround
+    var  n1=      "Agent";
+    var  l1=      "Hi, is this *P* speaking?";
 
+    var   n2=     "Player";
+    var   l2=     "Yeah, who is this?";
+
+    var   n3=     "Agent";
+    var   l3=     "*P,* hope all is well.  This is *U* from *NAME OF AGENCY*.  We met last week.";
+
+    var   n4=    "Player";
+    var   l4=    "Oh, right. Yeah.";
+
+    var   n5=     "Choice";
+    var   l5=     "1";
+
+    var   n6=     "Choice";
+    var   l6=     "2";
+
+    var   n7=     "Choice";
+    var   l7=     "3";
+
+    var   n8=     "Choice";
+    var   l8=     "4";
+    
+    var   n9=       "2";
+    var   l9=       "void";
+
+    var   n10=     "Player";
+    var   l10=     "You picked 2";
+
+
+    var   n11=     "";
+    var   l11=      "";
+
+    var   n12=     "end";
+    var   l12=      "Shouldn't matter";
+    var dial=[[n1,l1],[n2,l2],[n3,l3],[n4,l4],[n5,l5],[n6,l6],[n7,l7],[n8,l8],[n9,l9],[n10,l10],[n11,l11],[n12,l12]];
+    //end workaround
+
+//these are clearly placeholders for actual dialog
+var dial00= dial; 
+var dial01= dial;
+var dial10= dial;
+var dial11= dial;
+var here=[["error0","error1"],["error2","error3"]];
+var dialTable=[[dial00,dial01],[dial10,dial11]];
+
+function dialogSelecter(hap, mon){
+    happ=hap;
+    mone=mon;
+    if (happ>9){
+        happ=9;
+    }
+    if (mone>9){
+        mone=9;
+    }
+    var x=Math.floor(happ/5);
+    var y=Math.floor(mone/5);
+    here=dialTable[x][y];
+ 
+    return here;
+
+}
 
 
 
 function collisionHandler (obj1, obj2) {
+    //FIND OUT WHICH OBJECT IS WHICH
+
+
     dude.body.drag.setTo(3000);
     // dude.body.immovable = true;
     // to prevent starting the converstation more than once
+
     if(!dialogBool){
-        dialog(dial, 0);
+    //should actually pass this to a dialog picker
+        var selected=dialogSelecter(happiness, money);
+        dialog(selected, 0);
     }
     game.stage.backgroundColor = '#992d2d';    
 }
