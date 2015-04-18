@@ -47,9 +47,11 @@ var dialogBool=false;
 var dial;
 var index=0;
 var storage;
+var moneyReader=0;
 //need to pick actual happiness and money start values
 var happiness=0;
 var money=0;
+var happyReader=0;
 
 
 
@@ -177,15 +179,16 @@ function dialog(dial, ind){
         //if this doesn't work, increment the index and 
         //make happiness update first everytime
 
-  /*      if (dial[index][0]==happy){
-            var y=parseInt(dial[index][1]);
-            happiness=happiness+y;
+        if (dial[index][0]=="happy"){
+            happyReader=parseInt(dial[index][1]);
+            happiness=happiness+happyReader;
             dialog(dial,index+1);
         }
-        if (dial[index][0]==money){
-            var y=parseInt(dial[index][1]);
+        if (dial[index][0]=="money"){
+            moneyReader=parseInt(dial[index][1]);
+            money=money+moneyReader;
             dialog(dial, index+1);
-        }*/
+        }
 
         name.text=dial[index][0];
         label.text =dial[index][1];
