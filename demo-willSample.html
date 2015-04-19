@@ -94,6 +94,44 @@ function create() {
 
     game.physics.enable( [ dude], Phaser.Physics.ARCADE);
 
+   // checker= game.add.button(10,10, 'status');
+    pause_label = game.add.text(10, 20, 'Pause', { font: '24px Arial', fill: '#fff' });
+
+    pause_label.inputEnabled = true;
+   // checker.inputEnabled=true;
+    pause_label.events.onInputUp.add(function () {
+        // When the paus button is pressed, we pause the game
+        game.paused = true;
+
+        // Then add the menu
+           moneyimg=game.add.sprite(10,50, 'money');
+            moneylab=game.add.text(60,50,money.toString());
+            happyimg=game.add.sprite(10,100,'happy');
+            happylab=game.add.text(60,100,happiness.toString());
+  
+    });
+
+    // Add a input listener that can help us return from being paused
+    game.input.onDown.add(unpause, self);
+
+    // And finally the method that handels the pause menu
+    function unpause(event){
+        // Only act if paused
+        if(game.paused){
+ 
+         
+              
+                // Remove the menu and the label
+                moneyimg.destroy();
+                moneylab.destroy();
+                happyimg.destroy();
+                happylab.destroy();
+            
+                game.paused = false;
+            }
+        
+    }
+
     dude.enableBody = true;
     dude.physicsBodyType = Phaser.Physics.ARCADE;
     dude.body.velocity.y=-25;
