@@ -157,45 +157,6 @@ function create() {
     }*/
 }
 
-function startLine(pointer) {
-
-    if (tileHits.length > 0)
-    {
-        for (var i = 0; i < tileHits.length; i++)
-        {
-            tileHits[i].debug = false;
-        }
-
-        layer1.dirty = true;
-    }
-
-    line.start.set(pointer.worldX, pointer.worldY);
-
-    plotting = true;
-
-}
-
-function raycast(pointer) {
-
-    line.end.set(pointer.worldX, pointer.worldY);
-
-    tileHits = layer1.getRayCastTiles(line, 4, false, false);
-
-    if (tileHits.length > 0)
-    {
-        //  Just so we can visually see the tiles
-        for (var i = 0; i < tileHits.length; i++)
-        {
-            tileHits[i].debug = true;
-        }
-
-        layer1.dirty = true;
-    }
-
-    plotting = false;
-    
-}
-
 function dialog(dial, ind){
 
     dialogBool=true;
@@ -533,11 +494,9 @@ function update() {
     {
         sprite.body.velocity.x = 200;
     }
-
 }
 
 function render() {
-
     game.debug.geom(line);
 
 }
