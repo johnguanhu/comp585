@@ -9,6 +9,7 @@
         game.load.image('phaser', 'assets/sprites/phaser-dude.png');
         game.load.image('telephone', 'assets/telephone.png');
         game.load.image('rectangle', 'assets/rectangle.png');
+        game.load.image('rectangle3', 'assets/tangle3.png');
     }
 
     var map;
@@ -89,24 +90,56 @@
     // graphics.endFill();
 
     //create tangle
-    var dbox = game.add.sprite(100, 100, 'rectangle');
-    dbox.scale.setTo(0.5,0.5);
-    dbox.visible = false;
+    // var dbox = game.add.sprite(100, 100, 'rectangle');
+    // dbox.scale.setTo(0.5,0.5);
+    // dbox.visible = false;
 
-    var name = game.add.text(110,110, "", { font: "18px Arial"}); 
-    var label= game.add.text(220, 150, "", { font: "14px Arial", align: "left", wordWrap: true, wordWrapWidth: 220});
-    label.anchor.set(0.5);
+    // var name = game.add.text(110,110, "", { font: "18px Arial"}); 
+    // var label= game.add.text(220, 150, "", { font: "14px Arial", align: "left", wordWrap: true, wordWrapWidth: 220});
+    // label.anchor.set(0.5);
 
-    //var text = game.add.text(100, 100, "Text", { font: "25px Arial", align: "center" }, group);
-    // var txt = game.add.text(game.world.centerX, game.world.centerY, "My Text");
-    // txt.anchor.set(0.5, 0.5);
+
+
+    agentbox = game.add.sprite(100, 100, 'rectangle3');
+    agentbox.scale.setTo(0.5,0.5);
+    agentbox.visible=false;
+
+    var nstyle = { font: "16px Arial", fill: "#ff0044", wordWrap: true, wordWrapWidth: agentbox.width, align: "center" };
+    var qstyle = { font: "12px Arial", fill: "#ff0044", wordWrap: true, wordWrapWidth: agentbox.width, align: "left" };
+
+    var agentname = game.add.text(agentbox.x + agentbox.width/2, agentbox.y + agentbox.height/6, "", nstyle);
+    var agentquote = game.add.text(agentbox.x + agentbox.width/2, agentbox.y + agentbox.height/2, "", qstyle);
+    agentname.anchor.set(0.5);
+    agentquote.anchor.set(0.5);
+
+   
+
+    playerbox = game.add.sprite(300, 100, 'rectangle3');
+    playerbox.scale.setTo(0.5,0.5);
+    playerbox.visible=false;
+    var playername = game.add.text(playerbox.x + playerbox.width/2, playerbox.y + playerbox.height/6, "", nstyle);
+    var playerquote = game.add.text(playerbox.x + playerbox.width/2, playerbox.y + playerbox.height/2, "", qstyle);
+    playername.anchor.set(0.5);
+    playerquote.anchor.set(0.5);
+
     
     var next = game.add.button(100,300, "arrow"); 
     next.inputEnabled=true;
+
     next.onInputUp.add(function(){
-        dbox.visible = true;
-        name.text=dial[index][0];
-        label.text =dial[index][1];
+        agentbox.visible = true;
+        playerbox.visible=true;
+        agentname.text=dial[0][0];
+        playername.text=dial[1][0];
+
+        if (index%2==0){ 
+            playerquote.text="";
+            agentquote.text =dial[index][1];
+        }
+        else{
+            agentquote.text="";
+            playerquote.text =dial[index][1];
+        }
         index=index+1;
 
     });
