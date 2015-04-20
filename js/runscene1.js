@@ -10,6 +10,7 @@
         game.load.image('telephone', 'assets/telephone.png');
         game.load.image('rectangle', 'assets/rectangle.png');
         game.load.image('rectangle3', 'assets/tangle3.png');
+        game.load.image('wallet', 'assets/wallet.png');
     }
 
     var map;
@@ -24,6 +25,7 @@
     var dial;
     var wantsToCall=false;
     var player_name = "STUD"
+    var boolean_clicked=false;
 
     function create() {
         game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -60,6 +62,29 @@
         telephone.body.immovable=true;
 
         agent_name= prompt("What is the your name");
+
+        var BusinessTips = game.add.button(400,310, "wallet"); 
+        BusinessTips.scale.setTo(.3,.3);
+        BusinessTips.inputEnabled=true;
+        tips = game.add.sprite(200, 200, 'rectangle3');
+        tipword=game.add.text(tips.x, tips.y , "Tips go here");
+        tips.scale.setTo(0.5,0.5);
+        tips.visible=false;
+        tipword.visible=false;
+
+        BusinessTips.onInputDown.add(function(){
+            if (boolean_clicked){
+                tipword.visible=false;
+                tips.visible=false;
+                boolean_clicked=false;
+            }
+            else {
+                tipword.visible=true;
+                tips.visible=true;
+                boolean_clicked=true}
+        })
+      
+        //on click move through the dialog
     }
 
     function dialog(){
@@ -164,6 +189,7 @@ function update() {
     {
         sprite.body.velocity.x = 200;
     }
+
 
 }
 
