@@ -32,7 +32,8 @@ function preload() {
     game.load.image('masstileset', 'assets/tilemaps/tiles/masstileset.png');
     game.load.image('gymset', 'assets/tilemaps/tiles/gymset.png');
     game.load.image('phaser', 'assets/sprites/phaser-dude.png');
-
+    game.load.image('moneyBar', 'moneyBar.png');
+    game.load.image('happyBar', 'happyBar.png');
 }
 
 var map;
@@ -52,6 +53,8 @@ var moneyReader=0;
 var happiness=0;
 var money=0;
 var happyReader=0;
+var moneybar;
+var happybar;
 
 
 
@@ -91,6 +94,27 @@ function create() {
 
     choices = game.add.group();
     choices.inputEnabled=true;
+    moneyUp=game.add.sprite(300,300, 'test');
+    moneyUp.inputEnabled=true;
+    moneyUp.events.onInputDown.add(function(){
+        money=money+1;
+        happiness=happiness+1;
+    });
+
+    moneybar = this.game.add.sprite(0,350,'moneyBar');
+    moneybar.scale.setTo(.1,.1);
+
+    moneybar.width=money*10;
+
+    happybar = this.game.add.sprite(0,370,'happyBar');
+    happybar.scale.setTo(.1,.1);
+
+    happybar.width=happiness*10;
+    //moneybar.cropEnabled = true;
+    //moneybar.crop = new Phaser.Rectangle(0, 0, moneybar.width, moneybar.height);
+    //moneybar.crop=moneybar.crop;
+    //moneybar.crop.width=.01*moneybar.crop.width;
+  // moneybar.crop.width = ((money+1) / 10) * moneybar.width;
 
     game.physics.enable( [ dude], Phaser.Physics.ARCADE);
 
@@ -460,7 +484,8 @@ function collisionHandler (obj1, obj2) {
 
 
 function update() {
-
+    moneybar.width=money*10;
+    happybar.width=happiness*10;
     game.physics.arcade.collide(sprite, dude, collisionHandler, null, this);
 
 
