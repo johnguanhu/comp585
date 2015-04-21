@@ -11,6 +11,7 @@
         game.load.image('rectangle', 'assets/rectangle.png');
         game.load.image('rectangle3', 'assets/tangle3.png');
         game.load.image('wallet', 'assets/wallet.png');
+        game.load.image('tipsheet', 'assets/tipsheet.png');
     }
 
     var map;
@@ -66,20 +67,20 @@
         var BusinessTips = game.add.button(400,310, "wallet"); 
         BusinessTips.scale.setTo(.3,.3);
         BusinessTips.inputEnabled=true;
-        tips = game.add.sprite(200, 200, 'rectangle3');
-        tipword=game.add.text(tips.x, tips.y , "Tips go here");
-        tips.scale.setTo(0.5,0.5);
+        tips = game.add.sprite(200, 200, 'tipsheet');
+    //    tipword=game.add.text(tips.x, tips.y , "Tips go here");
+        tips.scale.setTo(0.75,0.75);
         tips.visible=false;
-        tipword.visible=false;
+    //    tipword.visible=false;
 
         BusinessTips.onInputDown.add(function(){
             if (boolean_clicked){
-                tipword.visible=false;
+            //    tipword.visible=false;
                 tips.visible=false;
                 boolean_clicked=false;
             }
             else {
-                tipword.visible=true;
+             //   tipword.visible=true;
                 tips.visible=true;
                 boolean_clicked=true}
         })
