@@ -198,11 +198,22 @@ function dialog(dial, index){
         }
         
         else if (index%2==0){ 
+            playerbox.visible=false;
+            playername.visible=false;
             playerquote.text="";
+
+            agentbox.visible=true;
+            agentname.visible=true;
             agentquote.text =dial[index][1];
         }  
         else{
+
+            agentbox.visible=false;
+            agentname.visible=false;
             agentquote.text="";
+
+            playerbox.visible=true;
+            playername.visible=true;
             playerquote.text =dial[index][1];
         }
 
