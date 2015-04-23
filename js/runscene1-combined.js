@@ -28,8 +28,11 @@ var dialogBool=false;
 var dial;
 var wantsToCall=false;
 var player_name = "STUD"
+var agent_name;
 var boolean_clicked=false;
 var dialTable;
+var phoneBool=false;
+var reminded=false;
 
 //
 var storage;
@@ -76,6 +79,7 @@ function create() {
     setUpMoney();
     setUpPause();
     fillDialogueTable();
+    setInterval(function(){ phonecall(); }, 10000);
 
     telephone.enableBody = true;
     telephone.body.immovable=true;
@@ -207,37 +211,6 @@ function dialog(dial, index){
     dialogBool=true;
 }
 
-function setUpMoney(){
-    moneyUp=game.add.sprite(300,300, 'test');
-
-    moneyUp.inputEnabled=true;
-    moneyUp.events.onInputDown.add(function(){
-        money=money+1;
-        happiness=happiness+1;
-    });
-
-    moneybar = this.game.add.sprite(0,350,'moneyBar');
-    moneybar.scale.setTo(.1,.1);
-
-    moneybar.width=money*10;
-
-    happybar = this.game.add.sprite(0,370,'happyBar');
-    happybar.scale.setTo(.1,.1);
-
-    happybar.width=happiness*10;
-}
-
-function checkCollision(obj1, obj2){
-    if (!wantsToCall && confirm("Would you like to call " + player_name))  {
-        wantsToCall=true;
-        collisionHandler();
-    }
-}
-function collisionHandler (obj1, obj2) {
-    var selected=dialogSelecter(happiness, money);
-    dialog(selected, 0);
-    game.stage.backgroundColor = '#992d2d';    
-}
 
 function dialogSelecter(hap, mon){
     happ=hap;
@@ -308,76 +281,6 @@ var dial01= dial;
 var dial10= dial;
 var dial11= dial;
 dialTable=[[dial00,dial01],[dial10,dial11]];
-}
-
-function update() {
-    moneybar.width=money*10;
-    happybar.width=happiness*10;
-
-    game.physics.arcade.collide(sprite, telephone, checkCollision, null, this);
-
-    game.physics.arcade.collide(sprite, layer2);
-    game.physics.arcade.collide(sprite, layer3);
-
-    sprite.body.velocity.x = 0;
-    sprite.body.velocity.y = 0;
-
-    if (cursors.up.isDown)
-    {
-        sprite.body.velocity.y = -200;
-    }
-    else if (cursors.down.isDown)
-    {
-        sprite.body.velocity.y = 200;
-    }
-
-    if (cursors.left.isDown)
-    {
-        sprite.body.velocity.x = -200;
-    }
-    else if (cursors.right.isDown)
-    {
-        sprite.body.velocity.x = 200;
-    }
-
-
-}
-function setUpPause(){
-    pause_label = game.add.text(10, 20, 'Pause', { font: '24px Arial', fill: '#fff' });
-
-    pause_label.inputEnabled = true;
-// checker.inputEnabled=true;
-pause_label.events.onInputUp.add(function () {
-    // When the paus button is pressed, we pause the game
-    game.paused = true;
-
-    // Then add the menu
-    moneyimg=game.add.sprite(10,50, 'money');
-    moneylab=game.add.text(60,50,money.toString());
-    happyimg=game.add.sprite(10,100,'happy');
-    happylab=game.add.text(60,100,happiness.toString());
-
-});
-
-// Add a input listener that can help us return from being paused
-game.input.onDown.add(unpause, self);
-
-// And finally the method that handels the pause menu
-function unpause(event){
-    // Only act if paused
-    if(game.paused){
-
-
-
-            // Remove the menu and the label
-            moneyimg.destroy();
-            moneylab.destroy();
-            happyimg.destroy();
-            happylab.destroy();
-
-            game.paused = false;
-        }
-    }
 }
 
 function decisionPoint( diag, index){
@@ -476,4 +379,130 @@ function endDialog(){
 
 function render() {
     game.debug.geom(line);
+}
+
+function setUpPause(){
+    pause_label = game.add.text(10, 20, 'Pause', { font: '24px Arial', fill: '#fff' });
+
+    pause_label.inputEnabled = true;
+// checker.inputEnabled=true;
+pause_label.events.onInputUp.add(function () {
+    // When the paus button is pressed, we pause the game
+    game.paused = true;
+
+    // Then add the menu
+    moneyimg=game.add.sprite(10,50, 'money');
+    moneylab=game.add.text(60,50,money.toString());
+    happyimg=game.add.sprite(10,100,'happy');
+    happylab=game.add.text(60,100,happiness.toString());
+
+});
+
+// Add a input listener that can help us return from being paused
+game.input.onDown.add(unpause, self);
+
+// And finally the method that handels the pause menu
+function unpause(event){
+    // Only act if paused
+    if(game.paused){
+
+
+
+            // Remove the menu and the label
+            moneyimg.destroy();
+            moneylab.destroy();
+            happyimg.destroy();
+            happylab.destroy();
+
+            game.paused = false;
+        }
+    }
+}
+
+
+function phonecall(){
+    if(!wantsToCall&&!reminded){
+        reminded=true;
+        var agentbox = game.add.sprite(100, 100, 'rectangle3');
+        agentbox.scale.setTo(0.5,0.5);
+        var nstyle = { font: "16px Arial", fill: "black", wordWrap: true, wordWrapWidth: agentbox.width, align: "center" };
+        var qstyle = { font: "12px Arial", fill: "black", wordWrap: true, wordWrapWidth: agentbox.width, align: "left" };
+
+        var agentname = game.add.text(agentbox.x + agentbox.width/2, agentbox.y + agentbox.height/6, "", nstyle);
+        var agentquote =game.add.text(agentbox.x + agentbox.width/2, agentbox.y + agentbox.height/2, "", qstyle);
+        agentname.anchor.set(0.5);
+        agentquote.anchor.set(0.5);
+        agentname.text-agent_name;
+        agentquote.text="I need to make a phone call";
+        agentbox.inputEnabled=true;
+        agentbox.events.onInputDown.add(function(){
+            agentbox.destroy();
+            agentname.destroy();
+            agentquote.destroy();
+        });
+    } 
+}
+function setUpMoney(){
+    moneyUp=game.add.sprite(300,300, 'test');
+
+    moneyUp.inputEnabled=true;
+    moneyUp.events.onInputDown.add(function(){
+        money=money+1;
+        happiness=happiness+1;
+    });
+
+    moneybar = this.game.add.sprite(0,350,'moneyBar');
+    moneybar.scale.setTo(.1,.1);
+
+    moneybar.width=money*10;
+
+    happybar = this.game.add.sprite(0,370,'happyBar');
+    happybar.scale.setTo(.1,.1);
+
+    happybar.width=happiness*10;
+}
+
+function checkCollision(obj1, obj2){
+    if (!wantsToCall && confirm("Would you like to call " + player_name)) {
+        wantsToCall=true;
+        collisionHandler();
+    }
+}
+function collisionHandler (obj1, obj2) {
+    var selected=dialogSelecter(happiness, money);
+    dialog(selected, 0);
+    game.stage.backgroundColor = '#992d2d';    
+}
+
+function update() {
+    moneybar.width=money*10;
+    happybar.width=happiness*10;
+
+    game.physics.arcade.collide(sprite, telephone, checkCollision, null, this);
+
+    game.physics.arcade.collide(sprite, layer2);
+    game.physics.arcade.collide(sprite, layer3);
+
+    sprite.body.velocity.x = 0;
+    sprite.body.velocity.y = 0;
+
+    if (cursors.up.isDown)
+    {
+        sprite.body.velocity.y = -200;
+    }
+    else if (cursors.down.isDown)
+    {
+        sprite.body.velocity.y = 200;
+    }
+
+    if (cursors.left.isDown)
+    {
+        sprite.body.velocity.x = -200;
+    }
+    else if (cursors.right.isDown)
+    {
+        sprite.body.velocity.x = 200;
+    }
+
+
 }
