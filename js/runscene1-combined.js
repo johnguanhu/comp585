@@ -160,15 +160,29 @@ function dialog(dial, index){
         agentname.text=dial[0][0];
         playername.text=dial[1][0];
 
-        if (dial[index][0]=="happy"){
+        if (dial[index][0]=="Happy"){
             happyReader=parseInt(dial[index][1]);
             happiness=happiness+happyReader;
+                agentbox.visible=false
+                agentname.visible=false;
+                playerbox.visible=false;
+                playername.visible=false;
+                playerquote.visible = false;
+                agentquote.visible=false;
+                next.destroy();
             dialog(dial,index+1);
         }
 
-        if (dial[index][0]=="money"){
+        if (dial[index][0]=="Money"){
             moneyReader=parseInt(dial[index][1]);
             money=money+moneyReader;
+                agentbox.visible=false
+                agentname.visible=false;
+                playerbox.visible=false;
+                playername.visible=false;
+                playerquote.visible = false;
+                agentquote.visible=false;
+                next.destroy();
             dialog(dial, index+1);
         }
 
@@ -577,6 +591,7 @@ function dialogue1(){
 
 
 function dialogue2(){
+
     var n1 = "Agent";
     var l1 = "It’s time for you to manage your finances. Let’s go ahead and get a bank account set up and possibly get a credit card application on the way too.";
 
@@ -589,18 +604,18 @@ function dialogue2(){
     var n4 = "Player";
     var l4 = "Okay, I see. What bank should we go to?"
 
-    var n5 = "Wells Fargo";
-    var l5 = "   Minimum Opening Deposit:$50\n   Monthly Service Fee: $10\n   Service fee can be avoided by:\n     10 debit card purchases/payments\n     Qualifying total direct deposits of $500\n     Maintain a $1,500 minimum daily balance\n   Zero Liability Protection\n   Interest Rate: 0.01%";
+    var n5 = "Choice";
+    var l5 = "Wells Fargo:\n   Minimum Opening Deposit:$50\n   Monthly Service Fee: $10\n   Service fee can be avoided by:\n     10 debit card purchases/payments\n     Qualifying total direct deposits of $500\n     Maintain a $1,500 minimum daily balance\n   Zero Liability Protection\n   Interest Rate: 0.01%";
 
-    var n6 = "BestBank";
-    var l6 = "   Minimum Opening Deposit:$500\n   Monthly Service Fee: $0\n   Complementary Overdraft Protection\n   Zero Liability Protection\n   Debi Card Chip Technology\n   Interest Rate: 0.03%\n   Mobile Banking";
+    var n6 = "Choice";
+    var l6 = "BestBank\n   Minimum Opening Deposit:$500\n   Monthly Service Fee: $0\n   Complementary Overdraft Protection\n   Zero Liability Protection\n   Debi Card Chip Technology\n   Interest Rate: 0.03%\n   Mobile Banking";
 
 
-    var n7 = "Bank of America";
-    var l7 = "   Minimum Opening Deposit:$100\n   Monthly Service Fee: $12\n   Service fee can be avoided by:\n     Student under 23 years old\n     At least one qualifying direct deposit of $250\n     Maintain a $1,500 minimum daily balance\n   Mobile Banking\n   Secure Transfers\n   Interest Rate: 0.01%";
+    var n7 = "Choice";
+    var l7 = "Bank of America\n   Minimum Opening Deposit:$100\n   Monthly Service Fee: $12\n   Service fee can be avoided by:\n     Student under 23 years old\n     At least one qualifying direct deposit of $250\n     Maintain a $1,500 minimum daily balance\n   Mobile Banking\n   Secure Transfers\n   Interest Rate: 0.01%";
 
-    var n8 = "Chase";
-    var l8 = "   Minimum Opening Deposit:$25\n   Monthly Service Fee: $12\n   Service fee can be avoided by:\n     Direct deposits totaling $500\n     Average daily balance of $5,000 or more\n     Maintain a $1,500 minimum daily balance\n   Debit Card Chip Technology\n   Account Alerts and Overdraft Protection\n   Interest Rate: 0.01%";
+    var n8 = "Choice";
+    var l8 = "Chase\n   Minimum Opening Deposit:$25\n   Monthly Service Fee: $12\n   Service fee can be avoided by:\n     Direct deposits totaling $500\n     Average daily balance of $5,000 or more\n     Maintain a $1,500 minimum daily balance\n   Debit Card Chip Technology\n   Account Alerts and Overdraft Protection\n   Interest Rate: 0.01%";
 
     var n9 = "1"
     var l9 = "void";
@@ -693,7 +708,6 @@ function dialogue2(){
     var l38 = "Shouldn't matter";
 
     var dial=[[n1,l1],[n2,l2],[n3,l3],[n4,l4],[n5,l5],[n6,l6],[n7,l7],[n8,l8],[n9,l9],[n10,l10],[n11,l11],[n12,l12],[n13,l13],[n14,l14],[n15,l15],[n16,l16],[n17,l17],[n18,l18],[n19,l19],[n20,l20],[n21,l21],[n22,l22],[n23,l23],[n24,l24],[n25,l25],[n26,l26],[n27,l27],[n28,l28],[n29,l29],[n30,l30],[n31,l31],[n32,l32],[n33,l33],[n34,l34],[n35,l35],[n36,l36],[n37,l37],[n38,l38]];
-
     return dial;
 }
 
