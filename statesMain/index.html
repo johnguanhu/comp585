@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Business Education Game</title>
+	<style> body { margin: 0; background: #B4D9E7; } </style>
+	<script src="src/phaser.min.js"></script>
+	<script src="src/Boot.js"></script>
+	<script src="src/Preload.js"></script>
+	<script src="src/Game.js"></script>
+	<script src="src/HomeScene.js"></script>
+	<script src="src/Scene1.js"></script>
+	<script src="src/Game2.js"></script>
+
+</head>
+<body>
+<script>
+(function() {
+	// initialize the framework
+	var game = new Phaser.Game(800, 592, Phaser.AUTO, 'game');
+	// add game states
+	game.state.add('Boot', Business.Boot);
+	game.state.add('Preload', Business.Preload);
+	game.state.add('Scene1', Business.Scene1);
+	game.state.add('Game', Business.Game);
+	game.state.add('Game2', Business.Game2);
+	game.state.add('HomeScene', Business.HomeScene);
+
+	// start the Boot state
+	game.state.start('Boot');
+	
+})();
+</script>
+</body>
+</html>
