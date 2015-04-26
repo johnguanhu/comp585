@@ -47,6 +47,7 @@ var playername;
 var currentStep=0;
 var texts = [];
 var buttons = [];
+var next;
 
 var paused;
 Business.HomeScene= function(game){
@@ -79,8 +80,8 @@ Business.HomeScene.prototype = {
 
     setDialogs: function(bool) {
         for(var i=0; i<4; i++) {
+            buttons[i].input.enabled = bool;
             buttons[i].visible = bool;
-            buttons[i].inputEnabled = bool;
         }
     },
     create: function() {  //    tipword=this.add.text(tips.x, tips.y , "Tips go here");
@@ -123,6 +124,10 @@ Business.HomeScene.prototype = {
     happimg.visible=false;
     happylab.visible=false;
 
+    next = this.add.button(10, 250, "arrow");
+    next.visible=false;
+    next.input.enabled=false; 
+
     texts.push(this.add.text(100,40,' '));
     buttons.push(this.add.button(40,40,'box'));
     texts.push(this.add.text(100,80,' '));
@@ -132,52 +137,148 @@ Business.HomeScene.prototype = {
     texts.push(this.add.text(100,160,' '));
     buttons.push(this.add.button(40,160,'box'))
 
-    for(var i=0;i<4;i++) {
-        console.log("button functionality added")
-        
-        buttons[i].onInputDown.add(function() {
-            console.log("button clicked");
-            currentStep= Business.HomeScene.prototype.clearAndJump(i+1);
-            console.log(currentStep);
-            this.dialog();
-        });
-    }
+    // for(var i=0;i<4;i++) {
+    //     console.log(i);
+    //     buttons[i].onInputDown.add(function() {
+    //         console.log("button"+ i +"clicked");
+    //         currentStep= Business.HomeScene.prototype.clearAndJump(i+1);
+    //         console.log(currentStep);
+    //         this.dialog();
+    //     });
+    // }
     
-    this.setDialogs(false);
 
-    this.setUpMoney();
-    this.setUpPause();
-    this.fillDialogueTable();
+    buttons[0].onInputDown.add(function() {
+        currentStep= Business.HomeScene.prototype.clearAndJump(1);
+        Business.HomeScene.prototype.clearChoices()
+        Business.HomeScene.prototype.dialog();
+    });
+
+    buttons[1].onInputDown.add(function() {
+        currentStep= Business.HomeScene.prototype.clearAndJump(2);
+        Business.HomeScene.prototype.clearChoices()
+        Business.HomeScene.prototype.dialog();
+    });
+
+    buttons[2].onInputDown.add(function() {
+        currentStep= Business.HomeScene.prototype.clearAndJump(3);
+        Business.HomeScene.prototype.clearChoices()
+        Business.HomeScene.prototype.dialog();
+    });
+
+    buttons[3].onInputDown.add(function() {
+        currentStep= Business.HomeScene.prototype.clearAndJump(4);
+        Business.HomeScene.prototype.clearChoices()
+        Business.HomeScene.prototype.dialog();
+    });
 
 
-    agentbox = this.add.sprite(100, 100, 'rectangle3');
-    agentbox.scale.setTo(0.5,0.5);
-    agentbox.visible=false;
+    next.onInputUp.add(function(){
+        agentbox.visible = true;
+        playerbox.visible=true;
+        agentname.text=dial[0][0];
+        playername.text=dial[1][0];
 
-    var nstyle = { font: "16px Arial", fill: "black", wordWrap: true, wordWrapWidth: agentbox.width, align: "center" };
-    var qstyle = { font: "12px Arial", fill: "black", wordWrap: true, wordWrapWidth: agentbox.width, align: "left" };
+        if (dial[currentStep][0]=="happy"){
+            happyReader=parseInt(dial[currentStep][1]);
+            happiness=happiness+happyReader;
+            currentStep++;
+            this.dialog();
+        }
 
-    agentname = this.add.text(agentbox.x + agentbox.width/2, agentbox.y + agentbox.height/6, "", nstyle);
-    agentquote = this.add.text(agentbox.x + agentbox.width/2, agentbox.y + agentbox.height/2, "", qstyle);
-    agentname.anchor.set(0.5);
-    agentquote.anchor.set(0.5);
-    playerbox = this.add.sprite(300, 100, 'rectangle3');
-    playerbox.scale.setTo(0.5,0.5);
-    playerbox.visible=false;
-    playername = this.add.text(playerbox.x + playerbox.width/2, playerbox.y + playerbox.height/6, "", nstyle);
-    playerquote = this.add.text(playerbox.x + playerbox.width/2, playerbox.y + playerbox.height/2, "", qstyle);
-    playername.anchor.set(0.5);
-    playerquote.anchor.set(0.5);
+        if (dial[currentStep][0]=="money"){
+            moneyReader=parseInt(dial[currentStep][1]);
+            money=money+moneyReader;
+            currentStep++;
+            this.dialog();
+        }
 
-   // setInterval(this.phonecall(), 10000);
+        if (dial[currentStep][0]=="end") {
+           agentbox.visible=false
+           agentname.visible=false;
+           playerbox.visible=false;
+           playername.visible=false;
+           playerquote.visible = false;
+           agentquote.visible=false;
+           next.destroy();
+           Business.HomeScene.prototype.endDialog();
+       }
+
+       else if (dial[currentStep][0]=="Choice") {
+        next.kill();
+        agentbox.visible=false
+        agentname.visible=false;
+        playerbox.visible=false;
+        playername.visible=false;
+        playerquote.visible = false;
+        agentquote.visible=false;
+        Business.HomeScene.prototype.decisionPoint();
+    }
+
+    else if (currentStep%2==0){ 
+        //agent speaking
+       agentbox.visible=true;
+       agentname.visible=true;
+       agentquote.visible=true;
+
+       playerbox.visible=false;
+       playername.visible=false;
+       playerquote.visible = false;
+
+       playerquote.text="";
+       agentquote.text =dial[currentStep][1];
+       currentStep=currentStep+1;
+   }  
+   else{
+        //player speaking
+        playerbox.visible=true;
+       playername.visible=true;
+       playerquote.visible = true;
+
+       agentbox.visible=false;
+       agentname.visible=false;
+       agentquote.visible=false;
+       agentquote.text="";
+       playerquote.text =dial[currentStep][1];
+       currentStep=currentStep+1;
+   }
+});
+
+this.setDialogs(false);
+
+this.setUpMoney();
+this.setUpPause();
+this.fillDialogueTable();
+
+
+agentbox = this.add.sprite(100, 100, 'rectangle3');
+agentbox.scale.setTo(0.5,0.5);
+agentbox.visible=false;
+
+var nstyle = { font: "16px Arial", fill: "black", wordWrap: true, wordWrapWidth: agentbox.width, align: "center" };
+var qstyle = { font: "12px Arial", fill: "black", wordWrap: true, wordWrapWidth: agentbox.width, align: "left" };
+
+agentname = this.add.text(agentbox.x + agentbox.width/2, agentbox.y + agentbox.height/6, "", nstyle);
+agentquote = this.add.text(agentbox.x + agentbox.width/2, agentbox.y + agentbox.height/2, "", qstyle);
+agentname.anchor.set(0.5);
+agentquote.anchor.set(0.5);
+playerbox = this.add.sprite(300, 100, 'rectangle3');
+playerbox.scale.setTo(0.5,0.5);
+playerbox.visible=false;
+playername = this.add.text(playerbox.x + playerbox.width/2, playerbox.y + playerbox.height/6, "", nstyle);
+playerquote = this.add.text(playerbox.x + playerbox.width/2, playerbox.y + playerbox.height/2, "", qstyle);
+playername.anchor.set(0.5);
+playerquote.anchor.set(0.5);
+
+   setInterval(this.phonecall(), 10000);
 
    this.telephone.enableBody = true;
    this.telephone.body.immovable=true;
 
-   agent_name= prompt("What is the your name");
-
-   var BusinessTips = this.add.button(400,310, "wallet"); 
-   BusinessTips.scale.setTo(.3,.3);
+   //agent_name= prompt("What is the your name");
+   agent_name="JIM";
+   var BusinessTips = this.add.button(5,330, "wallet"); 
+   BusinessTips.scale.setTo(.22,.22);
    BusinessTips.inputEnabled=true;
    tips = this.add.sprite(200, 200, 'tipsheet');
     //    tipword=this.add.text(tips.x, tips.y , "Tips go here");
@@ -199,78 +300,29 @@ Business.HomeScene.prototype = {
              }
          })
     },
-
+    clearChoices: function(){
+        Business.HomeScene.prototype.setDialogs(false);
+        texts[0].text="";
+        texts[1].text= "";
+        texts[2].text= "";
+        texts[3].text= "";
+    },
     dialog: function (){
 
-        var next = this.add.button(100,300, "arrow"); 
-        next.inputEnabled=true;
+        next.visible=true;
+        next.input.enabled=true;
 
-        next.onInputUp.add(function(){
-            agentbox.visible = true;
-            playerbox.visible=true;
-            agentname.text=dial[0][0];
-            playername.text=dial[1][0];
-
-            if (dial[currentStep][0]=="happy"){
-                happyReader=parseInt(dial[currentStep][1]);
-                happiness=happiness+happyReader;
-                currentStep++;
-                this.dialog();
-            }
-
-            if (dial[currentStep][0]=="money"){
-                moneyReader=parseInt(dial[currentStep][1]);
-                money=money+moneyReader;
-                currentStep++;
-                this.dialog();
-            }
-
-            if (dial[currentStep][0]=="end") {
-             console.log("asdsa");
-             agentbox.visible=false
-             agentname.visible=false;
-             playerbox.visible=false;
-             playername.visible=false;
-             playerquote.visible = false;
-             agentquote.visible=false;
-             next.destroy();
-             this.endDialog();
-         }
-
-         else if (dial[currentStep][0]=="Choice") {
-            console.log("log");
-            next.kill();
-            agentbox.visible=false
-            agentname.visible=false;
-            playerbox.visible=false;
-            playername.visible=false;
-            playerquote.visible = false;
-            agentquote.visible=false;
-            Business.HomeScene.prototype.decisionPoint();
+        dialogBool=true;
+    },
+    dialogSelecter: function (hap, mon){
+        happ=hap;
+        mone=mon;
+        if (happ>9){
+            happ=9;
         }
-
-        else if (currentStep%2==0){ 
-            playerquote.text="";
-            agentquote.text =dial[currentStep][1];
-            currentStep=currentStep+1;
-        }  
-        else{
-            agentquote.text="";
-            playerquote.text =dial[currentStep][1];
-            currentStep=currentStep+1;
+        if (mone>9){
+            mone=9;
         }
-    });
-dialogBool=true;
-},
-dialogSelecter: function (hap, mon){
-    happ=hap;
-    mone=mon;
-    if (happ>9){
-        happ=9;
-    }
-    if (mone>9){
-        mone=9;
-    }
         //you can have up to four dialogs
         var x=Math.floor(happ/5);
         var y=Math.floor(mone/5);
@@ -335,95 +387,85 @@ dialogSelecter: function (hap, mon){
 
     decisionPoint: function (){
 
-    texts[0].text=dial[currentStep][1];
-    texts[1].text= dial[currentStep+1][1];
-    texts[2].text= dial[currentStep+2][1];
-    texts[3].text= dial[currentStep+3][1];
-    this.setDialogs(true);
+        texts[0].text=dial[currentStep][1];
+        texts[1].text= dial[currentStep+1][1];
+        texts[2].text= dial[currentStep+2][1];
+        texts[3].text= dial[currentStep+3][1];
+        this.setDialogs(true);
 
-},
+    },
 
-clearAndJump: function (i){
+    clearAndJump: function (i){
+        storage=-1;
+        for (var x=currentStep;x<dial.length;x++){
 
-    storage=-1;
-    for (var x=currentStep;x<dial.length;x++){
-
-        var y=parseInt(dial[x][0]);
-        if (y==i){
-            storage=x+1;
+            var y=parseInt(dial[x][0]);
+            if (y==i){
+                storage=x+1;
+            }
         }
-    }
-    if (storage==-1){
-        alert("There was no further dialog for that option");
-        this.endDialog();
-    }
-    else{
-        console.log(storage);
-        return storage;
+        if (storage==-1){
+            alert("There was no further dialog for that option");
+            Business.HomeScene.prototype.endDialog();
+        }
+        else{
+            return storage;
            //Business.HomeScene.prototype.dialog(dial, storage);
        }
    },
 
    endDialog: function (){
-       // dialogBool=false;
-       Business.HomeScene.prototype.create.stage.backgroundColor = '#000000';  
+       //dialogBool=false;
+       //Business.HomeScene.prototype.setbackGroundColor('#000000');  
        return;
    },
 
-
-
    setUpPause: function (){
-           var Pause_Label = this.add.button(50,50, "PAUSE"); 
-  
-            Pause_Label.inputEnabled=true;
-  
-        Pause_Label.onInputDown.add(function(){
-            if (boolean_paused){
-                console.log("unpausing...")
-                moneyimg.visible=false;
-                moneylab.visible=false;
-                happimg.visible=false;
-                happylab.visible=false;
-                boolean_paused=false;
-            }
-            else {
-                console.log("pausing...")
-                moneyimg.visible=true;
-                moneylab.visible=true;
-                happimg.visible=true;
-                happylab.visible=true;
-                boolean_paused=true;
-             }
-         })
+     var Pause_Label = this.add.button(5,300, "pause"); 
+
+     Pause_Label.inputEnabled=true;
+
+     Pause_Label.onInputDown.add(function(){
+        if (boolean_paused){
+            console.log("unpausing...")
+            moneyimg.visible=false;
+            moneylab.visible=false;
+            happimg.visible=false;
+            happylab.visible=false;
+            boolean_paused=false;
+        }
+        else {
+            console.log("pausing...")
+            moneyimg.visible=true;
+            moneylab.visible=true;
+            happimg.visible=true;
+            happylab.visible=true;
+            boolean_paused=true;
+        }
+    })
 
     // Add a input listener that can help us return from being paused
     // this.input.onDown.add(this.unpause, self);
 },
 
-        // phonecall: function (){
-        //     if(!this.wantsToCall&&!this.reminded){
-        //         this.reminded=true;
-        //         agentbox = this.add.sprite(100, 100, 'rectangle3');
-        //         agentbox.scale.setTo(0.5,0.5);
-        //         var nstyle = { font: "16px Arial", fill: "black", wordWrap: true, wordWrapWidth: agentbox.width, align: "center" };
-        //         var qstyle = { font: "12px Arial", fill: "black", wordWrap: true, wordWrapWidth: agentbox.width, align: "left" };
-
-        //         agentname = this.add.text(agentbox.x + agentbox.width/2, agentbox.y + agentbox.height/6, "", nstyle);
-        //         agentquote =this.add.text(agentbox.x + agentbox.width/2, agentbox.y + agentbox.height/2, "", qstyle);
-        //         agentname.anchor.set(0.5);
-        //         agentquote.anchor.set(0.5);
-        //         agentname.text-agent_name;
-        //         agentquote.text="I need to make a phone call";
-        //         agentbox.inputEnabled=true;
-        //         agentbox.events.onInputDown.add(function(){
-        //             agentbox.visible=false;
-        //             agentname.visible=false;
-        //             agentquote.visible=false;
-        //         });
-        //     } 
-        // },
+        phonecall: function (){
+            if(!this.wantsToCall&&!this.reminded){
+                this.reminded=true;
+                var reminder = this.add.sprite(300, 300, 'rectangle3');
+                reminder.scale.setTo(0.5,0.5);
+                var nstyle = { font: "16px Arial", fill: "black", wordWrap: true, wordWrapWidth: reminder.width, align: "center" };
+                var remindertext = this.add.text(reminder.x + reminder.width/2, reminder.y + reminder.height/6, "", nstyle);
+                remindertext.anchor.set(0.5);
+                remindertext.text="I need to make a phone call";
+                reminder.inputEnabled=true;
+                reminder.events.onInputDown.add(function(){
+                    reminder.visible=false;
+                    remindertext.visible=false;
+                });
+            } 
+        },
         setUpMoney: function (){
-            moneyUp=this.add.sprite(300,300, 'test');
+            moneyUp=this.add.sprite(10,400, 'test');
 
             moneyUp.inputEnabled=true;
             moneyUp.events.onInputDown.add(function(){
@@ -431,12 +473,12 @@ clearAndJump: function (i){
                 happiness=happiness+1;
             });
 
-            moneybar = this.add.sprite(0,350,'moneyBar');
+            moneybar = this.add.sprite(0,500,'moneyBar');
             moneybar.scale.setTo(.1,.1);
 
             moneybar.width=money*10;
 
-            happybar = this.add.sprite(0,370,'happyBar');
+            happybar = this.add.sprite(0,520,'happyBar');
             happybar.scale.setTo(.1,.1);
 
             happybar.width=happiness*10;
@@ -450,9 +492,8 @@ clearAndJump: function (i){
         },
         collisionHandler: function(obj1, obj2) {
             dial=this.dialogSelecter(happiness, money);
-            console.log(dial);
+            this.stage.backgroundColor = '#992d2d';
             this.dialog();
-            this.stage.backgroundColor = '#992d2d';    
         },
 
         update: function () {
