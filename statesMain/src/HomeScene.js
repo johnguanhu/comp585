@@ -20,8 +20,10 @@ var boolean_paused=false;
 var phoneBool=false;
 var reminded=false;
 var moneyReader=null;
-var happiness=0;
-var money=0;
+
+var money=Number(sessionStorage.money);
+var happiness=Number(sessionStorage.happiness);
+
 var happyReader=null;
 var moneyimg=null;
 var moneylab=null;
@@ -78,6 +80,12 @@ Business.HomeScene= function(game){
     this.reminded=false;
     this.choicetoggle=false;
 
+
+    //testing globals using localstorage
+    //need to update before leaving this scene
+    this.money=Number(sessionStorage.money);
+    this.happiness=Number(sessionStorage.happiness);
+
     this.bgColor='#d3d3d3';
 }
 
@@ -91,6 +99,10 @@ Business.HomeScene.prototype = {
         }
     },
     create: function() {  //    tipword=this.add.text(tips.x, tips.y , "Tips go here");
+    
+    this.money=Number(sessionStorage.money);
+    this.happiness=Number(sessionStorage.happiness);
+
     this.physics.startSystem(Phaser.Physics.ARCADE);
     rgChoice = 1;
     this.map = this.add.tilemap('scene2');
@@ -282,31 +294,31 @@ Business.HomeScene.prototype = {
             }
         });
 
-this.setDialogs(false);
+        this.setDialogs(false);
 
-this.setUpMoney();
-this.setUpPause();
-this.fillDialogueTable();
+        this.setUpMoney();
+        this.setUpPause();
+        this.fillDialogueTable();
 
 
-agentbox = this.add.sprite(100, 100, 'rectangle3');
-agentbox.scale.setTo(0.5,0.5);
-agentbox.visible=false;
+        agentbox = this.add.sprite(100, 100, 'rectangle3');
+        agentbox.scale.setTo(0.5,0.5);
+        agentbox.visible=false;
 
-var nstyle = { font: "16px Arial", fill: "black", wordWrap: true, wordWrapWidth: agentbox.width, align: "center" };
-var qstyle = { font: "12px Arial", fill: "black", wordWrap: true, wordWrapWidth: agentbox.width, align: "left" };
+        var nstyle = { font: "16px Arial", fill: "black", wordWrap: true, wordWrapWidth: agentbox.width, align: "center" };
+        var qstyle = { font: "12px Arial", fill: "black", wordWrap: true, wordWrapWidth: agentbox.width, align: "left" };
 
-agentname = this.add.text(agentbox.x + agentbox.width/2, agentbox.y + agentbox.height/6, "", nstyle);
-agentquote = this.add.text(agentbox.x + agentbox.width/2, agentbox.y + agentbox.height/2, "", qstyle);
-agentname.anchor.set(0.5);
-agentquote.anchor.set(0.5);
-playerbox = this.add.sprite(300, 100, 'rectangle3');
-playerbox.scale.setTo(0.5,0.5);
-playerbox.visible=false;
-playername = this.add.text(playerbox.x + playerbox.width/2, playerbox.y + playerbox.height/6, "", nstyle);
-playerquote = this.add.text(playerbox.x + playerbox.width/2, playerbox.y + playerbox.height/2, "", qstyle);
-playername.anchor.set(0.5);
-playerquote.anchor.set(0.5);
+        agentname = this.add.text(agentbox.x + agentbox.width/2, agentbox.y + agentbox.height/6, "", nstyle);
+        agentquote = this.add.text(agentbox.x + agentbox.width/2, agentbox.y + agentbox.height/2, "", qstyle);
+        agentname.anchor.set(0.5);
+        agentquote.anchor.set(0.5);
+        playerbox = this.add.sprite(300, 100, 'rectangle3');
+        playerbox.scale.setTo(0.5,0.5);
+        playerbox.visible=false;
+        playername = this.add.text(playerbox.x + playerbox.width/2, playerbox.y + playerbox.height/6, "", nstyle);
+        playerquote = this.add.text(playerbox.x + playerbox.width/2, playerbox.y + playerbox.height/2, "", qstyle);
+        playername.anchor.set(0.5);
+        playerquote.anchor.set(0.5);
 
         //build the reminder stuff
         reminder = this.add.sprite(300, 200, 'rectangle3');
@@ -738,10 +750,10 @@ update: function () {
 
 
     if(moneybar!=null){
-        moneybar.width=money*10;
-        happybar.width=happiness*10;
-        moneylab.text=money.toString();
-        happylab.text=happiness.toString();
+        moneybar.width= Number(money);
+        happybar.width= Number(happiness);
+        moneylab.text=  Number(money).toString();
+        happylab.text=  Number(happiness).toString();
 
             // if(moneylab!=null){
             //     moneyimg=this.add.sprite(10,50, 'money');

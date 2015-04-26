@@ -235,6 +235,9 @@ Business.Game2.prototype = {
 	},
 
 	gameOver: function(player, deadly){
+	   sessionStorage.money=Number(sessionStorage.money)+Number(Business.score);
+    	
+
 		this.hudText.text = "Madoff Ponzi'd your money away! Porting you back home..."
 		this.state.start('Scene1');
 	},
