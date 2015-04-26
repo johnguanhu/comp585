@@ -51,6 +51,7 @@ var next;
 var reminder;
 var remindertext;
 var paused;
+var bgColor='#d3d3d3';
 
 Business.HomeScene= function(game){
     this.map= null;
@@ -75,6 +76,8 @@ Business.HomeScene= function(game){
     this.phoneBool=false;
     this.reminded=false;
     this.choicetoggle=false;
+
+    this.bgColor='#d3d3d3';
 }
 
 
@@ -207,6 +210,9 @@ Business.HomeScene.prototype = {
                 playername.visible=false;
                 playerquote.visible = false;
                 agentquote.visible=false;
+                
+                this.dialogBool=false;
+                
                 next.destroy();
                 Business.HomeScene.prototype.endDialog();
            }
@@ -433,10 +439,13 @@ Business.HomeScene.prototype = {
     },
 
     endDialog: function (){
-       //dialogBool=false;
-       //Business.HomeScene.prototype.setbackGroundColor('#000000');  
+       bgColor='#d3d3d3';
+       //Business.HomeScene.prototype.setbackGroundColor('#000000'); 
+
        return;
     },
+
+
 
     //doesn't actually pause anymore, so the timed events will continue
     //probably means we should rename it
@@ -470,8 +479,8 @@ Business.HomeScene.prototype = {
 },
 
     phonecall: function (){
-        if(!this.wantsToCall&&!this.reminded){
-            this.reminded=true;
+        if(!Business.HomeScene.prototype.wantsToCall&&!Business.HomeScene.prototype.reminded){
+            Business.HomeScene.prototype.reminded=true;
             reminder.visible=true;
            
             remindertext.text="I need to make a phone call";
@@ -502,16 +511,21 @@ Business.HomeScene.prototype = {
     checkCollision: function (obj1, obj2){
         if (!this.wantsToCall && confirm("Would you like to call " + player_name)) {
             this.wantsToCall=true;
+            this.dialogBool=true;
             this.collisionHandler();
         }
     },
     collisionHandler: function(obj1, obj2) {
         dial=this.dialogSelecter(happiness, money);
-        this.stage.backgroundColor = '#992d2d';
+        bgColor='#992d2d';
         this.dialog();
     },
 
     update: function () {
+
+        
+            this.stage.backgroundColor = bgColor;
+
 
 
         setInterval(function(){
