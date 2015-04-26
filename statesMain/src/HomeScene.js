@@ -51,6 +51,7 @@ var next;
 var reminder;
 var remindertext;
 var paused;
+var wantsToCall=false;
 var bgColor='#d3d3d3';
 
 Business.HomeScene= function(game){
@@ -451,35 +452,36 @@ Business.HomeScene.prototype = {
     //probably means we should rename it
 
     setUpPause: function (){
-     var Pause_Label = this.add.button(5,300, "pause"); 
+        var Pause_Label = this.add.button(5,300, "pause"); 
 
-     Pause_Label.inputEnabled=true;
+        Pause_Label.inputEnabled=true;
 
-     Pause_Label.onInputDown.add(function(){
-        if (boolean_paused){
-            console.log("unpausing...")
-            moneyimg.visible=false;
-            moneylab.visible=false;
-            happimg.visible=false;
-            happylab.visible=false;
-            boolean_paused=false;
-        }
-        else {
-            console.log("pausing...")
-            moneyimg.visible=true;
-            moneylab.visible=true;
-            happimg.visible=true;
-            happylab.visible=true;
-            boolean_paused=true;
-        }
-    })
+        Pause_Label.onInputDown.add(function(){
+           if (boolean_paused){
+               console.log("unpausing...")
+               moneyimg.visible=false;
+               moneylab.visible=false;
+               happimg.visible=false;
+               happylab.visible=false;
+               boolean_paused=false;
+           }
+           else {
+               console.log("pausing...")
+               moneyimg.visible=true;
+               moneylab.visible=true;
+               happimg.visible=true;
+               happylab.visible=true;
+               boolean_paused=true;
+           }
+        })
 
     // Add a input listener that can help us return from being paused
     // this.input.onDown.add(this.unpause, self);
-},
+    },
 
     phonecall: function (){
-        if(!Business.HomeScene.prototype.wantsToCall&&!Business.HomeScene.prototype.reminded){
+        if(!Business.HomeScene.prototype.wantsToCall&&
+            !Business.HomeScene.prototype.reminded){
             Business.HomeScene.prototype.reminded=true;
             reminder.visible=true;
            
@@ -511,6 +513,7 @@ Business.HomeScene.prototype = {
     checkCollision: function (obj1, obj2){
         if (!this.wantsToCall && confirm("Would you like to call " + player_name)) {
             this.wantsToCall=true;
+            Business.HomeScene.prototype.reminded=true;
             this.dialogBool=true;
             this.collisionHandler();
         }
@@ -524,15 +527,15 @@ Business.HomeScene.prototype = {
     update: function () {
 
         
-            this.stage.backgroundColor = bgColor;
-
+        this.stage.backgroundColor = bgColor;
 
 
         setInterval(function(){
-            Business.HomeScene.prototype.phonecall();
-        }, 3000);
+                Business.HomeScene.prototype.phonecall();
+            }
+            , 3000);
 
-
+        
         if(moneybar!=null){
             moneybar.width=money*10;
             happybar.width=happiness*10;
