@@ -131,10 +131,6 @@ Business.HomeScene.prototype = {
     happylab.visible=false;
 
 
-    
-
-
-
     next = this.add.button(10, 250, "arrow");
     next.visible=false;
     next.input.enabled=false; 
@@ -158,6 +154,34 @@ Business.HomeScene.prototype = {
         //     });
         // }
         
+        texts[0].inputEnabled=true;
+        texts[0].events.onInputDown.add(function() {
+            if (texts[0].text.length>3){
+                Business.HomeScene.prototype.showPopUp(texts[0].text);
+            }
+        });
+
+        texts[1].inputEnabled=true;
+        texts[1].events.onInputDown.add(function() {
+            if (texts[1].text.length>3){
+                Business.HomeScene.prototype.showPopUp(texts[1].text);
+            }
+        });
+
+        texts[2].inputEnabled=true;
+        texts[2].events.onInputDown.add(function() {
+            if (texts[2].text.length>3){
+                Business.HomeScene.prototype.showPopUp(texts[2].text);
+            }
+        });
+
+        texts[3].inputEnabled=true;
+        texts[3].events.onInputDown.add(function() {
+            if (texts[3].text.length>3){
+                Business.HomeScene.prototype.showPopUp(texts[3].text);
+            }
+        });
+
 
         buttons[0].onInputDown.add(function() {
             currentStep= Business.HomeScene.prototype.clearAndJump(1);
@@ -285,7 +309,7 @@ playername.anchor.set(0.5);
 playerquote.anchor.set(0.5);
 
         //build the reminder stuff
-        reminder = this.add.sprite(300, 300, 'rectangle3');
+        reminder = this.add.sprite(300, 200, 'rectangle3');
         reminder.scale.setTo(0.5,0.5);
         reminder.visible=false;
         remindertext =this.add.text(reminder.x + reminder.width/2, reminder.y + reminder.height/2, "", qstyle);
@@ -297,6 +321,22 @@ playerquote.anchor.set(0.5);
             remindertext.visible=false;
         });
 
+
+
+        popup = this.add.sprite(300, 200, 'rectangle3');
+        var popstyle = { font: "14px Arial", fill: "black", wordWrap: true, wordWrapWidth: popup.width, align: "left" };
+        popup.visible=false;
+        popuptext =this.add.text( popup.x +  popup.width/2,  popup.y +  popup.height/2, "", popstyle);
+        popuptext.anchor.set(0.5);
+        popuptext.text="";
+        popuptext.visible=false;
+
+
+        popup.inputEnabled=true;
+        popup.events.onInputDown.add(function(){
+            popup.visible=false;
+            popuptext.visible=false;
+        });
 
         this.telephone.enableBody = true;
         this.telephone.body.immovable=true;
@@ -354,142 +394,168 @@ playerquote.anchor.set(0.5);
 
         return dialTable[x][y];
     },
+    showPopUp: function(text){
 
-    fillDialogueTable: function (){
+        var choice1 = "Minimum Opening Deposit:$50\nMonthly Service Fee: $10\nService fee can be avoided by:\n  10 debit card purchases/payments\n  Qualifying total direct deposits of $500\n  Maintain a $1,500 minimum daily balance\nZero Liability Protection\nInterest Rate: 0.01%";
+        var choice2 = "Minimum Opening Deposit:$500\nMonthly Service Fee: $0\nComplementary Overdraft Protection\nZero Liability Protection\nDebit Card Chip Technology\nInterest Rate: 0.03%\nMobile Banking";
+        var choice3 = "Minimum Opening Deposit:$100\nMonthly Service Fee: $12\nService fee can be avoided by:\n  Student under 23 years old\n  At least one qualifying direct deposit of $250\n  Maintain a $1,500 minimum daily balance\nMobile Banking\nSecure Transfers\nInterest Rate: 0.01%";
+        var choice4 = "Minimum Opening Deposit:$25\nMonthly Service Fee: $12\nService fee can be avoided by:\n  Direct deposits totaling $500\n  Average daily balance of $5,000 or more\n  Maintain a $1,500 minimum daily balance\nDebit Card Chip Technology\nAccount Alerts and Overdraft Protection\nInterest Rate: 0.01%";
+        popup.visible=true;
+        popuptext.visible=true;
 
-        var n1 = "Agent";
-        var l1 = "It’s time to manage your finances.";
+        if (text=="Wells Fargo"){
+            popuptext.text=choice1;
+        }
 
-        var n2 = "Player";
-        var l2 = "Okay, what do I need to do?";
+        else if (text=="BestBank"){
+           popuptext.text=choice2;
+       }
 
-        var n3 = "Agent";
-        var l3 = "You need a bank account and credit card.";
+       else if (text=="Bank of America"){
+        popuptext.text=choice3;
+    }
 
-        var n4 = "Player";
-        var l4 = "Okay, why is that?";
+    else if (text=="Chase Bank"){
+       popuptext.text=choice4;
+   }
 
-        var n5 = "Agent";
-        var l5 = "A bank account helps save and protect your money.";
 
-        var n6 = "Player";
-        var l6 = "I see. Why do I need a credit card?";
+},
+fillDialogueTable: function (){
 
-        var n7 = "Agent";
-        var l7 = "It helps you build up good credit.";
+    var n1 = "Agent";
+    var l1 = "It’s time to manage your finances.";
 
-        var n8 = "Player";
-        var l8 = "What is that?";
+    var n2 = "Player";
+    var l2 = "Okay, what do I need to do?";
 
-        var n9 = "Agent";
-        var l9 = "Good credit qualifies you for loans, rent, ...";
+    var n3 = "Agent";
+    var l3 = "You need a bank account and credit card.";
 
-        var n10 = "Player";
-        var l10 = "And... ?";
+    var n4 = "Player";
+    var l4 = "Okay, why is that?";
 
-        var n11 = "Agent";
-        var l11 = "You can make big purchases through payment plans.";
+    var n5 = "Agent";
+    var l5 = "A bank account helps save and protect your money.";
 
-        var n12 = "Player";
-        var l12 = "I see. What bank should we go to then?";
+    var n6 = "Player";
+    var l6 = "I see. Why do I need a credit card?";
 
-        var n13 = "Choice";
-        var l13 = "Wells Fargo";
+    var n7 = "Agent";
+    var l7 = "It helps you build up good credit.";
 
-        var n14 = "Choice";
-        var l14 = "BestBank";
+    var n8 = "Player";
+    var l8 = "What is that?";
 
-        var n15 = "Choice";
-        var l15 = "Bank of America";
+    var n9 = "Agent";
+    var l9 = "Good credit qualifies you for loans, rent, ...";
 
-        var n16 = "Choice";
-        var l16 = "Chase Bank";
+    var n10 = "Player";
+    var l10 = "And... ?";
 
-        var n17 = "1"
-        var l17 = "void";
+    var n11 = "Agent";
+    var l11 = "You can make big purchases through payment plans.";
 
-        var n18 = "Agent";
-        var l18 = "Let's go to Wells Fargo.";
+    var n12 = "Player";
+    var l12 = "I see. What bank should we go to then?";
 
-        var n19 = "Player";
-        var l19 = "Okay.";
+    var n13 = "Choice";
+    var l13 = "Wells Fargo";
 
-        var n20 = "Agent";
-        var l20 = "Great, don’t be late!";
+    var n14 = "Choice";
+    var l14 = "BestBank";
 
-        var n21 = "money";
-        var l21 = "-50";
+    var n15 = "Choice";
+    var l15 = "Bank of America";
 
-        var n22 = "happy";
-        var l22 = "-50";
+    var n16 = "Choice";
+    var l16 = "Chase Bank";
 
-        var n23 = "end";
-        var l23 = "Shouldn't matter";
+    var n17 = "1"
+    var l17 = "void";
 
-        var n24 = "2"
-        var l24 = "void";
+    var n18 = "Agent";
+    var l18 = "Let's go to Wells Fargo.";
 
-        var n25 = "Agent";
-        var l25 = "We should go to BestBank.";
+    var n19 = "Player";
+    var l19 = "Okay.";
 
-        var n26 = "Player";
-        var l26 = "Sounds good.";
+    var n20 = "Agent";
+    var l20 = "Great, don’t be late!";
 
-        var n27 = "Agent";
-        var l27 = "Great, don’t be late!";
+    var n21 = "money";
+    var l21 = "-50";
 
-        var n28 = "money";
-        var l28 = "-500";
+    var n22 = "happy";
+    var l22 = "-50";
 
-        var n29 = "happy";
-        var l29 = "+500";
+    var n23 = "end";
+    var l23 = "Shouldn't matter";
 
-        var n30 = "end";
-        var l30 = "Shouldn't matter";
+    var n24 = "2"
+    var l24 = "void";
 
-        var n31 = "3"
-        var l31 = "void";
+    var n25 = "Agent";
+    var l25 = "We should go to BestBank.";
 
-        var n32 = "Agent";
-        var l32 = "We should go to Bank of America.";
+    var n26 = "Player";
+    var l26 = "Sounds good.";
 
-        var n33 = "Player";
-        var l33 = "Okay, sounds good.";
+    var n27 = "Agent";
+    var l27 = "Great, don’t be late!";
 
-        var n34 = "Agent";
-        var l34 = "Great, don’t be late!";
+    var n28 = "money";
+    var l28 = "-500";
 
-        var n35 = "money";
-        var l35 = "-100";
+    var n29 = "happy";
+    var l29 = "+500";
 
-        var n36 = "happy";
-        var l36 = "-50";
+    var n30 = "end";
+    var l30 = "Shouldn't matter";
 
-        var n37 = "end";
-        var l37 = "Shouldn't matter";
+    var n31 = "3"
+    var l31 = "void";
 
-        var n38 = "4"
-        var l38 = "void";
+    var n32 = "Agent";
+    var l32 = "We should go to Bank of America.";
 
-        var n39 = "Agent";
-        var l39 = "We should go to Chase Bank.";
+    var n33 = "Player";
+    var l33 = "Okay, sounds good.";
 
-        var n40 = "Player";
-        var l40 = "Okay, sounds good.";
+    var n34 = "Agent";
+    var l34 = "Great, don’t be late!";
 
-        var n41 = "Agent";
-        var l41 = "Great, don’t be late!";
+    var n35 = "money";
+    var l35 = "-100";
 
-        var n42 = "money";
-        var l42 = "-25";
+    var n36 = "happy";
+    var l36 = "-50";
 
-        var n43 = "happy";
-        var l43 = "+50";
+    var n37 = "end";
+    var l37 = "Shouldn't matter";
 
-        var n44 = "end";
-        var l44 = "Shouldn't matter";
+    var n38 = "4"
+    var l38 = "void";
 
-        var bank_dial=[[n1,l1],[n2,l2],[n3,l3],[n4,l4],[n5,l5],[n6,l6],[n7,l7],[n8,l8],[n9,l9],[n10,l10],[n11,l11],[n12,l12],[n13,l13],[n14,l14],[n15,l15],[n16,l16],[n17,l17],[n18,l18],[n19,l19],[n20,l20],[n21,l21],[n22,l22],[n23,l23],[n24,l24],[n25,l25],[n26,l26],[n27,l27],[n28,l28],[n29,l29],[n30,l30],[n31,l31],[n32,l32],[n33,l33],[n34,l34],[n35,l35],[n36,l36],[n37,l37],[n38,l38],[n39,l39],[n40,l40],[n41,l41],[n42,l42],[n43,l43],[n44,l44]];
+    var n39 = "Agent";
+    var l39 = "We should go to Chase Bank.";
+
+    var n40 = "Player";
+    var l40 = "Okay, sounds good.";
+
+    var n41 = "Agent";
+    var l41 = "Great, don’t be late!";
+
+    var n42 = "money";
+    var l42 = "-25";
+
+    var n43 = "happy";
+    var l43 = "+50";
+
+    var n44 = "end";
+    var l44 = "Shouldn't matter";
+
+    var bank_dial=[[n1,l1],[n2,l2],[n3,l3],[n4,l4],[n5,l5],[n6,l6],[n7,l7],[n8,l8],[n9,l9],[n10,l10],[n11,l11],[n12,l12],[n13,l13],[n14,l14],[n15,l15],[n16,l16],[n17,l17],[n18,l18],[n19,l19],[n20,l20],[n21,l21],[n22,l22],[n23,l23],[n24,l24],[n25,l25],[n26,l26],[n27,l27],[n28,l28],[n29,l29],[n30,l30],[n31,l31],[n32,l32],[n33,l33],[n34,l34],[n35,l35],[n36,l36],[n37,l37],[n38,l38],[n39,l39],[n40,l40],[n41,l41],[n42,l42],[n43,l43],[n44,l44]];
             //example choices - you can saw whatever you want
         //as it stands, needs to be 4 choice options as it will make 4 options
         //if you click second box, it will jump to next instance of "2" in dialogue where 2 is in name slot
@@ -573,7 +639,7 @@ playerquote.anchor.set(0.5);
        }
    },
 
-    endDialog: function (){
+   endDialog: function (){
        bgColor='#d3d3d3';
        //Business.HomeScene.prototype.setbackGroundColor('#000000'); 
        return;
@@ -606,22 +672,22 @@ playerquote.anchor.set(0.5);
                happylab.visible=true;
                boolean_paused=true;
            }
-        })
+       })
 
     // Add a input listener that can help us return from being paused
     // this.input.onDown.add(this.unpause, self);
-    },
+},
 
-    phonecall: function (){
-        if(!Business.HomeScene.prototype.wantsToCall&&
-            !Business.HomeScene.prototype.reminded){
-            Business.HomeScene.prototype.reminded=true;
-            reminder.visible=true;
-           
-            remindertext.text="I need to make a phone call";
-          
-        
-    } 
+phonecall: function (){
+    if(!Business.HomeScene.prototype.wantsToCall&&
+        !Business.HomeScene.prototype.reminded){
+        Business.HomeScene.prototype.reminded=true;
+    reminder.visible=true;
+
+    remindertext.text="I need to make a phone call";
+
+
+} 
 },
 setUpMoney: function (){
     moneyUp=this.add.sprite(10,400, 'test');
@@ -643,37 +709,39 @@ setUpMoney: function (){
     happybar.width=happiness*10;
 },
 
-    checkCollision: function (obj1, obj2){
-        if (!this.wantsToCall && confirm("Would you like to call " + player_name)) {
-            this.wantsToCall=true;
-            Business.HomeScene.prototype.reminded=true;
-            this.dialogBool=true;
-            this.collisionHandler();
-        }
-    },
-    collisionHandler: function(obj1, obj2) {
-        dial=this.dialogSelecter(happiness, money);
-        bgColor='#992d2d';
-        this.dialog();
-    },
+checkCollision: function (obj1, obj2){
+    if (!this.wantsToCall && confirm("Would you like to call " + player_name)) {
+        this.wantsToCall=true;
+        Business.HomeScene.prototype.reminded=true;
+        this.dialogBool=true;
+        reminder.visible=false;
+        remindertext.text="";
+        this.collisionHandler();
+    }
+},
+collisionHandler: function(obj1, obj2) {
+    dial=this.dialogSelecter(happiness, money);
+    bgColor='#992d2d';
+    this.dialog();
+},
 
 update: function () {
 
-        
-        this.stage.backgroundColor = bgColor;
+
+    this.stage.backgroundColor = bgColor;
 
 
-        setInterval(function(){
-                Business.HomeScene.prototype.phonecall();
-            }
-            , 3000);
+    setInterval(function(){
+        Business.HomeScene.prototype.phonecall();
+    }
+    , 3000);
 
-        
-        if(moneybar!=null){
-            moneybar.width=money*10;
-            happybar.width=happiness*10;
-            moneylab.text=money.toString();
-            happylab.text=happiness.toString();
+
+    if(moneybar!=null){
+        moneybar.width=money*10;
+        happybar.width=happiness*10;
+        moneylab.text=money.toString();
+        happylab.text=happiness.toString();
 
             // if(moneylab!=null){
             //     moneyimg=this.add.sprite(10,50, 'money');
