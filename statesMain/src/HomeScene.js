@@ -48,8 +48,10 @@ var currentStep=0;
 var texts = [];
 var buttons = [];
 var next;
-
+var reminder;
+var remindertext;
 var paused;
+
 Business.HomeScene= function(game){
     this.map= null;
     this.layer1= null;
@@ -85,220 +87,236 @@ Business.HomeScene.prototype = {
         }
     },
     create: function() {  //    tipword=this.add.text(tips.x, tips.y , "Tips go here");
-    this.physics.startSystem(Phaser.Physics.ARCADE);
-    rgChoice = 1;
-    this.map = this.add.tilemap('scene2');
+        this.physics.startSystem(Phaser.Physics.ARCADE);
+        rgChoice = 1;
+        this.map = this.add.tilemap('scene2');
 
-    this.map.addTilesetImage('masstileset');
-    this.map.addTilesetImage('pokemontileset');
-    this.map.addTilesetImage('gymset');
+        this.map.addTilesetImage('masstileset');
+        this.map.addTilesetImage('pokemontileset');
+        this.map.addTilesetImage('gymset');
 
-    this.layer1 = this.map.createLayer('backgroundLayer');
-    this.layer2 = this.map.createLayer('blockedLayer');
+        this.layer1 = this.map.createLayer('backgroundLayer');
+        this.layer2 = this.map.createLayer('blockedLayer');
 
-    this.layer1.resizeWorld();
+        this.layer1.resizeWorld();
 
-    this.map.setCollisionBetween(1, 100000, true, this.layer2);
+        this.map.setCollisionBetween(1, 100000, true, this.layer2);
 
-    this.layer1.debug = true;
-    this.telephone= this.add.sprite(210,100, 'telephone')
-    this.telephone.scale.setTo(0.04,0.04);
+        this.layer1.debug = true;
+        this.telephone= this.add.sprite(210,100, 'telephone')
+        this.telephone.scale.setTo(0.04,0.04);
 
-    this.sprite = this.add.sprite(130, 150, 'dude');
-    this.sprite.scale.setTo(0.8,0.8);
+        this.sprite = this.add.sprite(130, 150, 'dude');
+        this.sprite.scale.setTo(0.8,0.8);
 
-    this.physics.enable(this.sprite);
-    this.sprite.animations.add('left', [0, 1, 2, 3], 10, true);
-    this.sprite.animations.add('right', [5, 6, 7, 8], 10, true);
+        this.physics.enable(this.sprite);
+        this.sprite.animations.add('left', [0, 1, 2, 3], 10, true);
+        this.sprite.animations.add('right', [5, 6, 7, 8], 10, true);
 
-    this.physics.enable(this.telephone)
-    this.camera.follow(this.sprite);
-    this.cursors = this.input.keyboard.createCursorKeys();
+        this.physics.enable(this.telephone)
+        this.camera.follow(this.sprite);
+        this.cursors = this.input.keyboard.createCursorKeys();
 
-    moneyimg=this.add.sprite(10,50, 'money');
-    moneylab=this.add.text(60,50,'err');
-    happimg=this.add.sprite(10,100,'happy');
-    happylab=this.add.text(60,100,'err');
-    moneyimg.visible=false;
-    moneylab.visible=false;
-    happimg.visible=false;
-    happylab.visible=false;
+        moneyimg=this.add.sprite(10,50, 'money');
+        moneylab=this.add.text(60,50,'err');
+        happimg=this.add.sprite(10,100,'happy');
+        happylab=this.add.text(60,100,'err');
+        moneyimg.visible=false;
+        moneylab.visible=false;
+        happimg.visible=false;
+        happylab.visible=false;
 
-    next = this.add.button(10, 250, "arrow");
-    next.visible=false;
-    next.input.enabled=false; 
 
-    texts.push(this.add.text(100,40,' '));
-    buttons.push(this.add.button(40,40,'box'));
-    texts.push(this.add.text(100,80,' '));
-    buttons.push(this.add.button(40,80,'box'));
-    texts.push(this.add.text(100,120,' '));
-    buttons.push(this.add.button(40,120,'box'));
-    texts.push(this.add.text(100,160,' '));
-    buttons.push(this.add.button(40,160,'box'))
-
-    // for(var i=0;i<4;i++) {
-    //     console.log(i);
-    //     buttons[i].onInputDown.add(function() {
-    //         console.log("button"+ i +"clicked");
-    //         currentStep= Business.HomeScene.prototype.clearAndJump(i+1);
-    //         console.log(currentStep);
-    //         this.dialog();
-    //     });
-    // }
     
 
-    buttons[0].onInputDown.add(function() {
-        currentStep= Business.HomeScene.prototype.clearAndJump(1);
-        Business.HomeScene.prototype.clearChoices()
-        Business.HomeScene.prototype.dialog();
-    });
-
-    buttons[1].onInputDown.add(function() {
-        currentStep= Business.HomeScene.prototype.clearAndJump(2);
-        Business.HomeScene.prototype.clearChoices()
-        Business.HomeScene.prototype.dialog();
-    });
-
-    buttons[2].onInputDown.add(function() {
-        currentStep= Business.HomeScene.prototype.clearAndJump(3);
-        Business.HomeScene.prototype.clearChoices()
-        Business.HomeScene.prototype.dialog();
-    });
-
-    buttons[3].onInputDown.add(function() {
-        currentStep= Business.HomeScene.prototype.clearAndJump(4);
-        Business.HomeScene.prototype.clearChoices()
-        Business.HomeScene.prototype.dialog();
-    });
 
 
-    next.onInputUp.add(function(){
-        agentbox.visible = true;
-        playerbox.visible=true;
-        agentname.text=dial[0][0];
-        playername.text=dial[1][0];
+        next = this.add.button(10, 250, "arrow");
+        next.visible=false;
+        next.input.enabled=false; 
 
-        if (dial[currentStep][0]=="happy"){
-            happyReader=parseInt(dial[currentStep][1]);
-            happiness=happiness+happyReader;
-            currentStep++;
-            this.dialog();
-        }
+        texts.push(this.add.text(100,40,' '));
+        buttons.push(this.add.button(40,40,'box'));
+        texts.push(this.add.text(100,80,' '));
+        buttons.push(this.add.button(40,80,'box'));
+        texts.push(this.add.text(100,120,' '));
+        buttons.push(this.add.button(40,120,'box'));
+        texts.push(this.add.text(100,160,' '));
+        buttons.push(this.add.button(40,160,'box'))
 
-        if (dial[currentStep][0]=="money"){
-            moneyReader=parseInt(dial[currentStep][1]);
-            money=money+moneyReader;
-            currentStep++;
-            this.dialog();
-        }
+        // for(var i=0;i<4;i++) {
+        //     console.log(i);
+        //     buttons[i].onInputDown.add(function() {
+        //         console.log("button"+ i +"clicked");
+        //         currentStep= Business.HomeScene.prototype.clearAndJump(i+1);
+        //         console.log(currentStep);
+        //         this.dialog();
+        //     });
+        // }
+        
 
-        if (dial[currentStep][0]=="end") {
-           agentbox.visible=false
-           agentname.visible=false;
-           playerbox.visible=false;
-           playername.visible=false;
-           playerquote.visible = false;
-           agentquote.visible=false;
-           next.destroy();
-           Business.HomeScene.prototype.endDialog();
-       }
+        buttons[0].onInputDown.add(function() {
+            currentStep= Business.HomeScene.prototype.clearAndJump(1);
+            Business.HomeScene.prototype.clearChoices()
+            Business.HomeScene.prototype.dialog();
+        });
 
-       else if (dial[currentStep][0]=="Choice") {
-        next.kill();
-        agentbox.visible=false
-        agentname.visible=false;
+        buttons[1].onInputDown.add(function() {
+            currentStep= Business.HomeScene.prototype.clearAndJump(2);
+            Business.HomeScene.prototype.clearChoices()
+            Business.HomeScene.prototype.dialog();
+        });
+
+        buttons[2].onInputDown.add(function() {
+            currentStep= Business.HomeScene.prototype.clearAndJump(3);
+            Business.HomeScene.prototype.clearChoices()
+            Business.HomeScene.prototype.dialog();
+        });
+
+        buttons[3].onInputDown.add(function() {
+            currentStep= Business.HomeScene.prototype.clearAndJump(4);
+            Business.HomeScene.prototype.clearChoices()
+            Business.HomeScene.prototype.dialog();
+        });
+
+
+        next.onInputUp.add(function(){
+            agentbox.visible = true;
+            playerbox.visible=true;
+            agentname.text=dial[0][0];
+            playername.text=dial[1][0];
+
+            if (dial[currentStep][0]=="happy"){
+                happyReader=parseInt(dial[currentStep][1]);
+                happiness=happiness+happyReader;
+                currentStep++;
+                this.dialog();
+            }
+
+            if (dial[currentStep][0]=="money"){
+                moneyReader=parseInt(dial[currentStep][1]);
+                money=money+moneyReader;
+                currentStep++;
+                this.dialog();
+            }
+
+            if (dial[currentStep][0]=="end") {
+                agentbox.visible=false
+                agentname.visible=false;
+                playerbox.visible=false;
+                playername.visible=false;
+                playerquote.visible = false;
+                agentquote.visible=false;
+                next.destroy();
+                Business.HomeScene.prototype.endDialog();
+           }
+
+            else if (dial[currentStep][0]=="Choice") {
+                next.kill();
+                agentbox.visible=false
+                agentname.visible=false;
+                playerbox.visible=false;
+                playername.visible=false;
+                playerquote.visible = false;
+                agentquote.visible=false;
+                Business.HomeScene.prototype.decisionPoint();
+            }
+
+            else if (currentStep%2==0){ 
+                //agent speaking
+                agentbox.visible=true;
+                agentname.visible=true;
+                agentquote.visible=true;
+ 
+                playerbox.visible=false;
+                playername.visible=false;
+                playerquote.visible = false;
+ 
+                playerquote.text="";
+                agentquote.text =dial[currentStep][1];
+                currentStep=currentStep+1;
+           }  
+           else{
+                //player speaking
+                playerbox.visible=true;
+                playername.visible=true;
+                playerquote.visible = true;
+ 
+                agentbox.visible=false;
+                agentname.visible=false;
+                agentquote.visible=false;
+                agentquote.text="";
+                playerquote.text =dial[currentStep][1];
+                currentStep=currentStep+1;
+           }
+        });
+
+        this.setDialogs(false);
+
+        this.setUpMoney();
+        this.setUpPause();
+        this.fillDialogueTable();
+
+
+        agentbox = this.add.sprite(100, 100, 'rectangle3');
+        agentbox.scale.setTo(0.5,0.5);
+        agentbox.visible=false;
+
+        var nstyle = { font: "16px Arial", fill: "black", wordWrap: true, wordWrapWidth: agentbox.width, align: "center" };
+        var qstyle = { font: "12px Arial", fill: "black", wordWrap: true, wordWrapWidth: agentbox.width, align: "left" };
+
+        agentname = this.add.text(agentbox.x + agentbox.width/2, agentbox.y + agentbox.height/6, "", nstyle);
+        agentquote = this.add.text(agentbox.x + agentbox.width/2, agentbox.y + agentbox.height/2, "", qstyle);
+        agentname.anchor.set(0.5);
+        agentquote.anchor.set(0.5);
+        playerbox = this.add.sprite(300, 100, 'rectangle3');
+        playerbox.scale.setTo(0.5,0.5);
         playerbox.visible=false;
-        playername.visible=false;
-        playerquote.visible = false;
-        agentquote.visible=false;
-        Business.HomeScene.prototype.decisionPoint();
-    }
+        playername = this.add.text(playerbox.x + playerbox.width/2, playerbox.y + playerbox.height/6, "", nstyle);
+        playerquote = this.add.text(playerbox.x + playerbox.width/2, playerbox.y + playerbox.height/2, "", qstyle);
+        playername.anchor.set(0.5);
+        playerquote.anchor.set(0.5);
 
-    else if (currentStep%2==0){ 
-        //agent speaking
-       agentbox.visible=true;
-       agentname.visible=true;
-       agentquote.visible=true;
-
-       playerbox.visible=false;
-       playername.visible=false;
-       playerquote.visible = false;
-
-       playerquote.text="";
-       agentquote.text =dial[currentStep][1];
-       currentStep=currentStep+1;
-   }  
-   else{
-        //player speaking
-        playerbox.visible=true;
-       playername.visible=true;
-       playerquote.visible = true;
-
-       agentbox.visible=false;
-       agentname.visible=false;
-       agentquote.visible=false;
-       agentquote.text="";
-       playerquote.text =dial[currentStep][1];
-       currentStep=currentStep+1;
-   }
-});
-
-this.setDialogs(false);
-
-this.setUpMoney();
-this.setUpPause();
-this.fillDialogueTable();
+        //build the reminder stuff
+        reminder = this.add.sprite(300, 300, 'rectangle3');
+        reminder.scale.setTo(0.5,0.5);
+        reminder.visible=false;
+        remindertext =this.add.text(reminder.x + reminder.width/2, reminder.y + reminder.height/2, "", qstyle);
+        remindertext.anchor.set(0.5);
+        remindertext.text="";
+        reminder.inputEnabled=true;
+        reminder.events.onInputDown.add(function(){
+            reminder.visible=false;
+            remindertext.visible=false;
+        });
 
 
-agentbox = this.add.sprite(100, 100, 'rectangle3');
-agentbox.scale.setTo(0.5,0.5);
-agentbox.visible=false;
+        this.telephone.enableBody = true;
+        this.telephone.body.immovable=true;
 
-var nstyle = { font: "16px Arial", fill: "black", wordWrap: true, wordWrapWidth: agentbox.width, align: "center" };
-var qstyle = { font: "12px Arial", fill: "black", wordWrap: true, wordWrapWidth: agentbox.width, align: "left" };
-
-agentname = this.add.text(agentbox.x + agentbox.width/2, agentbox.y + agentbox.height/6, "", nstyle);
-agentquote = this.add.text(agentbox.x + agentbox.width/2, agentbox.y + agentbox.height/2, "", qstyle);
-agentname.anchor.set(0.5);
-agentquote.anchor.set(0.5);
-playerbox = this.add.sprite(300, 100, 'rectangle3');
-playerbox.scale.setTo(0.5,0.5);
-playerbox.visible=false;
-playername = this.add.text(playerbox.x + playerbox.width/2, playerbox.y + playerbox.height/6, "", nstyle);
-playerquote = this.add.text(playerbox.x + playerbox.width/2, playerbox.y + playerbox.height/2, "", qstyle);
-playername.anchor.set(0.5);
-playerquote.anchor.set(0.5);
-
-   setInterval(this.phonecall(), 10000);
-
-   this.telephone.enableBody = true;
-   this.telephone.body.immovable=true;
-
-   //agent_name= prompt("What is the your name");
-   agent_name="JIM";
-   var BusinessTips = this.add.button(5,330, "wallet"); 
-   BusinessTips.scale.setTo(.22,.22);
-   BusinessTips.inputEnabled=true;
-   tips = this.add.sprite(200, 200, 'tipsheet');
-    //    tipword=this.add.text(tips.x, tips.y , "Tips go here");
-    tips.scale.setTo(0.75,0.75);
-    tips.visible=false;
-        //    tipword.visible=false;
-
+        //agent_name= prompt("What is the your name");
+        agent_name="JIM";
+        var BusinessTips = this.add.button(5,330, "wallet"); 
+        BusinessTips.scale.setTo(.22,.22);
+        BusinessTips.inputEnabled=true;
+        tips = this.add.sprite(200, 200, 'tipsheet');
+        //    tipword=this.add.text(tips.x, tips.y , "Tips go here");
+        tips.scale.setTo(0.75,0.75);
+        tips.visible=false;
+            //    tipword.visible=false;
 
         BusinessTips.onInputDown.add(function(){
             if (this.boolean_clicked){
-                //    tipword.visible=false;
+          //    tipword.visible=false;
                 this.tips.visible=false;
                 this.boolean_clicked=false;
             }
             else {
-                 //   tipword.visible=true;
-                 this.tips.visible=true;
-                 this.boolean_clicked=true
-             }
-         })
+           //   tipword.visible=true;
+                this.tips.visible=true;
+                this.boolean_clicked=true
+                 }
+             })
     },
     clearChoices: function(){
         Business.HomeScene.prototype.setDialogs(false);
@@ -412,15 +430,18 @@ playerquote.anchor.set(0.5);
             return storage;
            //Business.HomeScene.prototype.dialog(dial, storage);
        }
-   },
+    },
 
-   endDialog: function (){
+    endDialog: function (){
        //dialogBool=false;
        //Business.HomeScene.prototype.setbackGroundColor('#000000');  
        return;
-   },
+    },
 
-   setUpPause: function (){
+    //doesn't actually pause anymore, so the timed events will continue
+    //probably means we should rename it
+
+    setUpPause: function (){
      var Pause_Label = this.add.button(5,300, "pause"); 
 
      Pause_Label.inputEnabled=true;
@@ -448,100 +469,101 @@ playerquote.anchor.set(0.5);
     // this.input.onDown.add(this.unpause, self);
 },
 
-        phonecall: function (){
-            if(!this.wantsToCall&&!this.reminded){
-                this.reminded=true;
-                var reminder = this.add.sprite(300, 300, 'rectangle3');
-                reminder.scale.setTo(0.5,0.5);
-                var nstyle = { font: "16px Arial", fill: "black", wordWrap: true, wordWrapWidth: reminder.width, align: "center" };
-                var remindertext = this.add.text(reminder.x + reminder.width/2, reminder.y + reminder.height/6, "", nstyle);
-                remindertext.anchor.set(0.5);
-                remindertext.text="I need to make a phone call";
-                reminder.inputEnabled=true;
-                reminder.events.onInputDown.add(function(){
-                    reminder.visible=false;
-                    remindertext.visible=false;
-                });
-            } 
-        },
-        setUpMoney: function (){
-            moneyUp=this.add.sprite(10,400, 'test');
+    phonecall: function (){
+        if(!this.wantsToCall&&!this.reminded){
+            this.reminded=true;
+            reminder.visible=true;
+           
+            remindertext.text="I need to make a phone call";
+          
+        
+        } 
+    },
+    setUpMoney: function (){
+        moneyUp=this.add.sprite(10,400, 'test');
 
-            moneyUp.inputEnabled=true;
-            moneyUp.events.onInputDown.add(function(){
-                money=money+1;
-                happiness=happiness+1;
-            });
+        moneyUp.inputEnabled=true;
+        moneyUp.events.onInputDown.add(function(){
+            money=money+1;
+            happiness=happiness+1;
+        });
 
-            moneybar = this.add.sprite(0,500,'moneyBar');
-            moneybar.scale.setTo(.1,.1);
+        moneybar = this.add.sprite(0,500,'moneyBar');
+        moneybar.scale.setTo(.1,.1);
 
+        moneybar.width=money*10;
+
+        happybar = this.add.sprite(0,520,'happyBar');
+        happybar.scale.setTo(.1,.1);
+
+        happybar.width=happiness*10;
+    },
+
+    checkCollision: function (obj1, obj2){
+        if (!this.wantsToCall && confirm("Would you like to call " + player_name)) {
+            this.wantsToCall=true;
+            this.collisionHandler();
+        }
+    },
+    collisionHandler: function(obj1, obj2) {
+        dial=this.dialogSelecter(happiness, money);
+        this.stage.backgroundColor = '#992d2d';
+        this.dialog();
+    },
+
+    update: function () {
+
+
+        setInterval(function(){
+            Business.HomeScene.prototype.phonecall();
+        }, 3000);
+
+
+        if(moneybar!=null){
             moneybar.width=money*10;
-
-            happybar = this.add.sprite(0,520,'happyBar');
-            happybar.scale.setTo(.1,.1);
-
             happybar.width=happiness*10;
-        },
+            moneylab.text=money.toString();
+            happylab.text=happiness.toString();
 
-        checkCollision: function (obj1, obj2){
-            if (!this.wantsToCall && confirm("Would you like to call " + player_name)) {
-                this.wantsToCall=true;
-                this.collisionHandler();
-            }
-        },
-        collisionHandler: function(obj1, obj2) {
-            dial=this.dialogSelecter(happiness, money);
-            this.stage.backgroundColor = '#992d2d';
-            this.dialog();
-        },
+            // if(moneylab!=null){
+            //     moneyimg=this.add.sprite(10,50, 'money');
+            //     moneylab=this.add.text(60,50,money.toString());
+            //     happimg=this.add.sprite(10,100,'happy');
+            //     happylab=this.add.text(60,100,happiness.toString());
+            // }
 
-        update: function () {
+        }
 
+        this.physics.arcade.collide(this.sprite, this.telephone, this.checkCollision, null, this);
 
-            if(moneybar!=null){
-                moneybar.width=money*10;
-                happybar.width=happiness*10;
+        this.physics.arcade.collide(this.sprite, this.layer2);
+        this.physics.arcade.collide(this.sprite, this.layer3);
 
-                // if(moneylab!=null){
-                //     moneyimg=this.add.sprite(10,50, 'money');
-                //     moneylab=this.add.text(60,50,money.toString());
-                //     happimg=this.add.sprite(10,100,'happy');
-                //     happylab=this.add.text(60,100,happiness.toString());
-                // }
+        this.sprite.body.velocity.x = 0;
+        this.sprite.body.velocity.y = 0;
 
-            }
+        if (this.cursors.up.isDown)
+        {
+            this.sprite.body.velocity.y = -200;
+        }
+        else if (this.cursors.down.isDown)
+        {
+            this.sprite.body.velocity.y = 200;
+        }
 
-            this.physics.arcade.collide(this.sprite, this.telephone, this.checkCollision, null, this);
+        if (this.cursors.left.isDown)
+        {
+            this.sprite.body.velocity.x = -200;
+            this.sprite.animations.play('left');
+        }
+        else if (this.cursors.right.isDown)
+        {
+            this.sprite.body.velocity.x = 200;
+            this.sprite.animations.play('right');
+        }
+        else {
+            this.sprite.animations.stop();
 
-            this.physics.arcade.collide(this.sprite, this.layer2);
-            this.physics.arcade.collide(this.sprite, this.layer3);
-
-            this.sprite.body.velocity.x = 0;
-            this.sprite.body.velocity.y = 0;
-
-            if (this.cursors.up.isDown)
-            {
-                this.sprite.body.velocity.y = -200;
-            }
-            else if (this.cursors.down.isDown)
-            {
-                this.sprite.body.velocity.y = 200;
-            }
-
-            if (this.cursors.left.isDown)
-            {
-                this.sprite.body.velocity.x = -200;
-                this.sprite.animations.play('left');
-            }
-            else if (this.cursors.right.isDown)
-            {
-                this.sprite.body.velocity.x = 200;
-                this.sprite.animations.play('right');
-            }
-            else {
-                this.sprite.animations.stop();
-
-            }
         }
     }
+}
