@@ -1,18 +1,18 @@
 Business.Game2 = function(game){
-	this.ball; // the this.ball! Our hero
-    this.arrow; // rotating this.arrow 
+	this.ball=null; // the this.ball! Our hero
+    this.arrow=null; // rotating this.arrow 
     this.rotateDirection = 1; // rotate direction: 1-clockwise, 2-counterclockwise
     this.power = 0; // power to fire the this.ball
     this.hudText; // text to display this info
     this.charging=false; // are we charging the power?
     this.degToRad=0.0174532925; // degrees-radians conversion
     this.score = 0; // the score
-    this.coin; // the this.coin you have to collect
+    this.coin=null; // the this.coin you have to collect
     this.deadlyArray = []; // an array which will be filled with enemies
     this.thisOver = false; // flag to know if the this is over
-    this.map;
-    this.deadly;
-    this.layer1;
+    this.map=null;
+    this.deadly=null;
+    this.layer1=null;
 
 	// these settings can be modified to change thisplay
 	this.friction = 0.99; // friction affects this.ball speed
@@ -20,23 +20,18 @@ Business.Game2 = function(game){
     this.rotateSpeed = 3; // this.arrow rotation speed
     this.minPower = 50; // minimum power applied to this.ball
     this.maxPower = 200; // maximum power applied to this.ball
+    this.gamewidth = 790;
   
 
 };
 
 Business.Game2.prototype = {
 	create: function(){
-
+	this.physics.startSystem(Phaser.Physics.ARCADE);
 	this.map = this.add.tilemap('game2map');
 	this.map.addTilesetImage('gymset');
 
 	this.layer1 = this.map.createLayer('backgroundLayer');
-	this.layer1.resizeWorld();
-
-	this.scale.pageAlignHorizontally = true;
-	this.scale.pageAlignVertically = true;
-	this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-    this.scale.setScreenSize();
 
 	this.ball = this.add.sprite(this.world.centerX,this.world.centerY,'phaser');
 	this.ball.anchor.x = 0.5;
@@ -45,6 +40,8 @@ Business.Game2.prototype = {
 	// this.ball starting speed
 	this.ball.xSpeed = 0;
 	this.ball.ySpeed = 0;
+	this.ball.enableBody = true;
+    this.physics.enable(this.ball);
 	
 	// the rotating this.arrow
 	this.arrow = this.add.sprite(this.world.centerX,this.world.centerY,'arrow');
@@ -53,16 +50,23 @@ Business.Game2.prototype = {
 
 	
 	//this.placeDeadly();
-
-	this.deadly = this.add.sprite(Math.random()*700+40,Math.random()*500+70,'deadly');
-	this.deadly.scale.setTo(0.3,0.3);
-	this.deadly.anchor.x = 0.5;
-	this.deadly.anchor.y = 0.5;
+	this.deadly = this.add.group();
+	this.deadly.enableBody = true;
+    for (var i = 0; i < 4; i++){
+		this.deadly = this.add.sprite(Math.random()*800+40,Math.random()*500+70,'deadly');
+		this.deadly.scale.setTo(0.25,0.25);
+		this.deadly.anchor.x = 0.5;
+		this.deadly.anchor.y = 0.5;
+    	this.physics.enable(this.deadly);
+    	this.add.tween(this.deadly).to({y:Math.random()*300 }, 3000, Phaser.Easing.Quadratic.InOut, true, 0, 1000, true);
+	}
 
 	this.coin = this.add.sprite(Math.random()*700+40,Math.random()*500+70,'star');
 	this.coin.scale.setTo(0.6,0.6);
 	this.coin.anchor.x = 0.5;
 	this.coin.anchor.y = 0.5;
+	this.coin.enableBody = true;
+    this.physics.enable(this.coin);
 	//this.placeCoin();
 
 	this.hudText = this.add.text(5,0,"",{ 
@@ -80,24 +84,23 @@ Business.Game2.prototype = {
 
 	},
 
-	placeDeadly: function(){
+	/*placeDeadly: function(){
 		// first, create the enemy and set its anchor point in the center
-		var deadly = this.add.sprite(0,0,'deadly');
-		deadly.scale.setTo(0.2,0.2);
-		deadly.anchor.x = 0.5;
-		deadly.anchor.y = 0.5;
+		this.deadly = this.add.sprite(Math.random()*700+40,Math.random()*500+70,'deadly');
+		this.deadly.scale.setTo(0.2,0.2);
+		this.deadly.anchor.x = 0.5;
+		this.deadly.anchor.y = 0.5;
 		
 		// add the newly created enemy in the enemy array
-		this.deadlyArray.push(deadly);
+		this.deadlyArray.push(this.deadly);
 		
 		// assign it a random position until such position is legal
-		do{
+		
 			var randomX=Math.random()*(this.width-2*this.ballRadius)+this.ballRadius;
 			var randomY=Math.random()*(this.height-2*this.ballRadius)+this.ballRadius;
 			this.deadlyArray[this.deadlyArray.length-1].x=randomX;
 			this.deadlyArray[this.deadlyArray.length-1].y=randomY;
-		} 
-		while (this.illegalDeadly());
+		
 	},
 
 	illegalDeadly: function(){
@@ -143,53 +146,37 @@ Business.Game2.prototype = {
 	},*/
 	
 	update: function(){
-		// the this is update only if it's not this over
-		if(!this.thisOver){
+		// update only if game isn't over
+		this.physics.arcade.overlap(this.ball, this.deadly, this.gameOver, null, this);
+		this.physics.arcade.overlap(this.ball, this.coin, this.collectCoin, null, this);
 			
-			// when the player is charging the power, this is increased until it reaches the maximum allowed
-			if(this.charging){
-				this.power++;
-				this.power = Math.min(this.power,this.maxPower)    
-				// then this text is updated
-				this.updateHud();		
-			}
-			
-			// if the player is not charging, keep rotating the this.arrow
-			else{
-				this.arrow.angle+=this.rotateSpeed*this.rotateDirection;
-			}
-			
-			// update this.ball position according to its speed
-			this.ball.x+=this.ball.xSpeed;
-			this.ball.y+=this.ball.ySpeed;
-			
-			// handle wall bounce
-			this.wallBounce();
-			
-			// reduce this.ball speed using friction
-			this.ball.xSpeed*=this.friction;
-			this.ball.ySpeed*=this.friction;
-			
-			// update this.arrow position
-			this.arrow.x=this.ball.x;
-			this.arrow.y=this.ball.y;
-			
-			// if the player picked a this.coin, then update score and text, change this.coin position and add an enemy
-			if(this.getDistance(this.ball,this.coin)<(this.ballRadius*2)*(this.ballRadius*2)){
-				this.score += 10;
-				this.placeDeadly();
-				this.placeCoin();
-				this.updateHud();	
-			}
-			
-			// if the player hits an enemy, it's this over
-			for(i=0;i<this.deadlyArray.length;i++){
-				if(this.getDistance(this.ball,this.deadlyArray[i])<(this.ballRadius*2)*(this.ballRadius*2)){
-					this.hudText.text = "You lose! \nYou got your money Ponzi'd away!";
-					this.thisOver = true;
-				}	
-			}
+		// when the player is charging the power, this is increased until it reaches the maximum allowed
+		if(this.charging){
+			this.power++;
+			this.power = Math.min(this.power,this.maxPower)    
+			// then this text is updated
+			this.updateHud();		
 		}
+		
+		// if the player is not charging, keep rotating the this.arrow
+		else{
+			this.arrow.angle+=this.rotateSpeed*this.rotateDirection;
+		}
+		
+		// update this.ball position according to its speed
+		this.ball.x+=this.ball.xSpeed;
+		this.ball.y+=this.ball.ySpeed;
+		
+		// handle wall bounce
+		this.wallBounce();
+		
+		// reduce this.ball speed using friction
+		this.ball.xSpeed*=this.friction;
+		this.ball.ySpeed*=this.friction;
+		
+		// update this.arrow position
+		this.arrow.x=this.ball.x;
+		this.arrow.y=this.ball.y;
 	},
 		
 	// function to handle bounces. Just check for this boundary collision
@@ -202,12 +189,12 @@ Business.Game2.prototype = {
 			this.ball.y=this.ballRadius;
 			this.ball.ySpeed*=-1
 		}
-		if(this.ball.x>this.width-this.ballRadius){
-			this.ball.x=this.width-this.ballRadius;
+		if(this.ball.x>800-this.ballRadius){
+			this.ball.x=800-this.ballRadius;
 			this.ball.xSpeed*=-1
 		}
-		if(this.ball.y>this.height-this.ballRadius){
-			this.ball.y=this.height-this.ballRadius;
+		if(this.ball.y>590-this.ballRadius){
+			this.ball.y=590-this.ballRadius;
 			this.ball.ySpeed*=-1
 		}    
 	},
@@ -236,8 +223,24 @@ Business.Game2.prototype = {
 		this.rotateDirection*=-1;
 	},
 
+	collectCoin: function(player, coin){
+		this.coin.kill();
+		Business.score+=10;
+		this.coin = this.add.sprite(Math.random()*700+40,Math.random()*500+70,'star');
+		this.coin.scale.setTo(0.6,0.6);
+		this.coin.anchor.x = 0.5;
+		this.coin.anchor.y = 0.5;
+		this.coin.enableBody = true;
+	    this.physics.enable(this.coin);
+	},
+
+	gameOver: function(player, deadly){
+		this.hudText.text = "Madoff Ponzi'd your money away! Porting you back home..."
+		this.state.start('Scene1');
+	},
+
 	updateHud: function(){
-		this.hudText.text = "Don't let Madoff steal your money! \nPower: "+this.power+" * Money Collected: $"+this.score+this.deadlyArray[0];
+		this.hudText.text = "Don't let Madoff steal your money! \nPower: "+this.power+" * Money Collected: $"+Business.score;
 	}
 
 };
