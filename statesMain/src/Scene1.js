@@ -8,6 +8,7 @@ Business.Scene1 = function(game){
 	this.player = null;	
 	this.portal = null;
 	this.homePortal = null;
+	this.bankPortal = null;
 };
 
 Business.Scene1.prototype = {
@@ -26,7 +27,7 @@ Business.Scene1.prototype = {
 
     this.layer1.debug = true;
 
-    this.player = this.add.sprite(200, 120, 'dude');
+    this.player = this.add.sprite(200, 150, 'dude');
     this.player.scale.setTo(0.8,0.8);
 
     //  We need to enable physics on the player
@@ -38,26 +39,32 @@ Business.Scene1.prototype = {
     this.physics.enable(this.player);
     this.camera.follow(this.player);
 
-    this.portal = this.add.sprite(450,120, 'star');
-    this.portal.scale.setTo(0.5,0.5);
+    this.portal = this.add.sprite(253,45, 'transparent');
+    this.portal.scale.setTo(0.2,0.2);
     this.portal.enableBody = true;
     this.physics.enable(this.portal);
 
-    this.homePortal = this.add.sprite(200,200, 'star');
-    this.homePortal.scale.setTo(0.5,0.5);
+    this.homePortal = this.add.sprite(643,85, 'transparent');
+    this.homePortal.scale.setTo(0.2,0.2);
     this.homePortal.enableBody = true;
     this.physics.enable(this.homePortal);
+
+    this.bankPortal = this.add.sprite(407,325, 'transparent');
+    this.bankPortal.scale.setTo(0.2,0.2);
+    this.bankPortal.enableBody = true;
+    this.physics.enable(this.bankPortal);
 
     this.cursors = this.input.keyboard.createCursorKeys();
 	},
 
 	checkCollision1: function(player, portal){
-		if(confirm("Do you want to save more money?"));
+		if(confirm("Porting you to collection minigame.")){
 		this.state.start('Game');
+		}
 	},
 
 	checkCollision2: function(player, portal){
-		if(confirm("Do you want to go home?"));
+		if(confirm("Porting you home."));
 		this.layer1.destroy();
 		this.layer2.destroy();
 		this.layer3.destroy();
@@ -66,11 +73,23 @@ Business.Scene1.prototype = {
 		this.state.start('HomeScene');
 	},
 
+	checkCollision3: function(player, portal){
+		if(confirm("Porting you to the bank.")){
+		this.layer1.destroy();
+		this.layer2.destroy();
+		this.layer3.destroy();
+		this.portal.destroy();
+		this.homePortal.destroy();
+		this.state.start('Bank');
+		}
+	},
+
 	update: function(){
 	this.physics.arcade.collide(this.player, this.layer2);
 	
 	this.physics.arcade.overlap(this.player, this.portal, this.checkCollision1, null, this);
 	this.physics.arcade.overlap(this.player, this.homePortal, this.checkCollision2, null, this);
+	this.physics.arcade.overlap(this.player, this.bankPortal, this.checkCollision3, null, this);
 
     this.player.body.velocity.x = 0;
     this.player.body.velocity.y = 0;
