@@ -33,14 +33,14 @@ Business.Preload.prototype = {
 		this.load.image('deadly', "assets/madoff.png");
 		this.load.image('arrow', "assets/arrow.png");
 
-		//Minigame 3
+		/*/Minigame 3
 		this.load.image('bullet', 'assets/invaders/bullet.png');
 	    this.load.image('enemyBullet', 'assets/invaders/enemy-bullet.png');
 	    this.load.spritesheet('invader', 'assets/invaders/invader32x32x4.png', 32, 32);
 	    this.load.image('ship', 'assets/invaders/player.png');
 	    this.load.spritesheet('kaboom', 'assets/invaders/explode.png', 128, 128);
 	    this.load.image('starfield', 'assets/invaders/starfield.png');
-	    this.load.image('background', 'assets/invaders/background2.png');
+	    this.load.image('background', 'assets/invaders/background2.png');*/
 
    		//Home Scene
 	    this.load.image('phaser', 'assets/sprites/phaser-dude.png');
