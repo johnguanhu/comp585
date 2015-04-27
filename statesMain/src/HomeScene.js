@@ -299,10 +299,10 @@ Business.HomeScene.prototype = {
             });
 
             this.setDialogs(false);
-
+            this.fillDialogueTable();
             this.setUpMoney();
             this.setUpPause();
-            this.fillDialogueTable();
+
 
 
             agentbox = this.add.sprite(100, 100, 'rectangle3');
@@ -582,43 +582,43 @@ Business.HomeScene.prototype = {
         //end tag will cause dialogue to end.
          //if you want to increase money or happiness in dialogue, if the name of the speaker is money & text is a number, it shoudl increment or decrement happiness by specific amount.
 
-         var  n1=      "Agent";
-         var  l1=      "Hi, is this *P* speaking?";
+         var  pn1=      "Agent";
+         var  pl1=      "Hi, is this *P* speaking?";
 
-         var   n2=     "Player";
-         var   l2=     "Yeah, who is this?";
+         var   pn2=     "Player";
+         var   pl2=     "Yeah, who is this?";
 
-         var   n3=     "Agent";
-         var   l3=     "*P,* hope all is well.  This is *U* from *NAME OF AGENCY*.  We met last week.";
+         var   pn3=     "Agent";
+         var   pl3=     "*P,* hope all is well.  This is *U* from *NAME OF AGENCY*.  We met last week.";
 
-         var   n4=    "Player";
-         var   l4=    "Oh, right. Yeah.";
+         var   pn4=    "Player";
+         var   pl4=    "Oh, right. Yeah.";
 
-         var   n5=     "Choice";
-         var   l5=     "1";
+         var   pn5=     "Choice";
+         var   pl5=     "1";
 
-         var   n6=     "Choice";
-         var   l6=     "2";
+         var   pn6=     "Choice";
+         var   pl6=     "2";
 
-         var   n7=     "Choice";
-         var   l7=     "3";
+         var   pn7=     "Choice";
+         var   pl7=     "3";
 
-         var   n8=     "Choice";
-         var   l8=     "4";
+         var   pn8=     "Choice";
+         var   pl8=     "4";
 
-         var   n9=       "2";
-         var   l9=       "void";
+         var   pn9=       "2";
+         var   pl9=       "void";
 
-         var   n10=     "Player";
-         var   l10=     "You picked 2";
+         var   pn10=     "Player";
+         var   pl10=     "You picked 2";
 
 
-         var   n11=     "";
-         var   l11=      "";
+         var   pn11=     "";
+         var   pl11=      "";
 
-         var   n12=     "end";
-         var   l12=      "Shouldn't matter";
-         var phone_dial=[[n1,l1],[n2,l2],[n3,l3],[n4,l4],[n5,l5],[n6,l6],[n7,l7],[n8,l8],[n9,l9],[n10,l10],[n11,l11],[n12,l12]];
+         var   pn12=     "end";
+         var   pl12=      "Shouldn't matter";
+         var phone_dial=[[pn1,pl1],[pn2,pl2],[pn3,pl3],[pn4,pl4],[pn5,pl5],[pn6,pl6],[pn7,pl7],[pn8,pl8],[pn9,pl9],[pn10,pl10],[pn11,pl11],[pn12,pl12]];
         //end workaround
 
         //these are clearly placeholders for actual dialog
