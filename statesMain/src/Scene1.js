@@ -9,6 +9,7 @@ Business.Scene1 = function(game){
 	this.portal = null;
 	this.homePortal = null;
 	this.bankPortal = null;
+	this.game2Portal = null;
 };
 
 Business.Scene1.prototype = {
@@ -54,6 +55,11 @@ Business.Scene1.prototype = {
     this.bankPortal.enableBody = true;
     this.physics.enable(this.bankPortal);
 
+    this.game2Portal = this.add.sprite(730,245, 'transparent');
+    this.game2Portal.scale.setTo(0.2,0.2);
+    this.game2Portal.enableBody = true;
+    this.physics.enable(this.game2Portal);
+
     this.cursors = this.input.keyboard.createCursorKeys();
 	},
 
@@ -79,8 +85,19 @@ Business.Scene1.prototype = {
 		this.layer2.destroy();
 		this.layer3.destroy();
 		this.portal.destroy();
-		this.homePortal.destroy();
+		this.bankPortal.destroy();
 		this.state.start('Bank');
+		}
+	},
+
+	checkCollision4: function(player, portal){
+		if(confirm("Porting you to the Ponzi minigame.")){
+		this.layer1.destroy();
+		this.layer2.destroy();
+		this.layer3.destroy();
+		this.portal.destroy();
+		this.game2Portal.destroy();
+		this.state.start('Game2');
 		}
 	},
 
@@ -90,6 +107,7 @@ Business.Scene1.prototype = {
 	this.physics.arcade.overlap(this.player, this.portal, this.checkCollision1, null, this);
 	this.physics.arcade.overlap(this.player, this.homePortal, this.checkCollision2, null, this);
 	this.physics.arcade.overlap(this.player, this.bankPortal, this.checkCollision3, null, this);
+	this.physics.arcade.overlap(this.player, this.game2Portal, this.checkCollision4, null, this);
 
     this.player.body.velocity.x = 0;
     this.player.body.velocity.y = 0;
