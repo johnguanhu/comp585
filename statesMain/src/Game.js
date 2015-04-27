@@ -65,6 +65,7 @@ Business.Game.prototype = {
     if (Business.starsCollected == 12){
         alert('All $120 collected, porting you back home!');
         Business.starsCollected = 0;
+        Business.score=0;
         sessionStorage.money=Number(sessionStorage.money)+120;
         this.state.start('Scene1');
     }
@@ -109,7 +110,7 @@ Business.Game.prototype = {
 
 	collectStar: function(player, star){
 		 // Removes the star from the screen
-    star.kill();sessionStorage
+    star.kill();//sessionStorage
     //  Add and update the score
     Business.starsCollected++;
     Business.score += 10;

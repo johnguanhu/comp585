@@ -62,42 +62,70 @@ Business.Scene1.prototype = {
 
     this.cursors = this.input.keyboard.createCursorKeys();
 	},
+	stopMotion: function(player){
+		this.cursors.up.isDown=false;
+		this.cursors.down.isDown=false;
+		this.cursors.left.isDown=false;
+		this.cursors.right.isDown=false;
+	},
 
 	checkCollision1: function(player, portal){
+		//need to move down away from the building
+		this.player.body.y=this.player.body.y+10;
+		//stop the motion
+		this.stopMotion(player);
 		if(confirm("Porting you to collection minigame.")){
-		this.state.start('Game');
+			this.state.start('Game');
 		}
 	},
 
 	checkCollision2: function(player, portal){
-		if(confirm("Porting you home."));
-		this.layer1.destroy();
-		this.layer2.destroy();
-		this.layer3.destroy();
-		this.portal.destroy();
-		this.homePortal.destroy();
-		this.state.start('HomeScene');
+		//need to move down away from the build
+		this.player.body.y=this.player.body.y+10;
+		//stop the motion
+		this.stopMotion(player);
+		if(confirm("Porting you home.")){
+			this.layer1.destroy();
+			this.layer2.destroy();
+			this.layer3.destroy();
+			this.portal.destroy();
+			this.homePortal.destroy();
+			this.state.start('HomeScene');
+		}
 	},
 
 	checkCollision3: function(player, portal){
+		
+		//need to move down away from the building
+		this.player.body.y=this.player.body.y+10;
+		//stop the motion
+		this.stopMotion(player);
 		if(confirm("Porting you to the bank.")){
-		this.layer1.destroy();
-		this.layer2.destroy();
-		this.layer3.destroy();
-		this.portal.destroy();
-		this.bankPortal.destroy();
-		this.state.start('Bank');
+			this.layer1.destroy();
+			this.layer2.destroy();
+			this.layer3.destroy();
+			this.portal.destroy();
+			this.bankPortal.destroy();
+			this.state.start('Bank');
+		}else{
+
+
 		}
 	},
 
 	checkCollision4: function(player, portal){
+		//need to move left and down away from the building
+		this.player.body.x=this.player.body.x-10;
+		this.player.body.y=this.player.body.y+10;
+		//stop the motion
+		this.stopMotion(player);
 		if(confirm("Porting you to the Ponzi minigame.")){
-		this.layer1.destroy();
-		this.layer2.destroy();
-		this.layer3.destroy();
-		this.portal.destroy();
-		this.game2Portal.destroy();
-		this.state.start('Game2');
+			this.layer1.destroy();
+			this.layer2.destroy();
+			this.layer3.destroy();
+			this.portal.destroy();
+			this.game2Portal.destroy();
+			this.state.start('Game2');
 		}
 	},
 
