@@ -33,7 +33,7 @@ Business.Game2.prototype = {
 
 	this.layer1 = this.map.createLayer('backgroundLayer');
 
-	this.ball = this.add.sprite(this.world.centerX,this.world.centerY,'phaser');
+	this.ball = this.add.sprite(400,560,'phaser');
 	this.ball.anchor.x = 0.5;
 	this.ball.anchor.y = 0.5;
 	
@@ -53,7 +53,7 @@ Business.Game2.prototype = {
 	this.deadly = this.add.group();
 	this.deadly.enableBody = true;
     for (var i = 0; i < 4; i++){
-		this.deadly = this.add.sprite(Math.random()*800+40,Math.random()*500+70,'deadly');
+		this.deadly = this.add.sprite(Math.random()*800+40,Math.random()*400+70,'deadly');
 		this.deadly.scale.setTo(0.25,0.25);
 		this.deadly.anchor.x = 0.5;
 		this.deadly.anchor.y = 0.5;
@@ -238,12 +238,12 @@ Business.Game2.prototype = {
 	   sessionStorage.money=Number(sessionStorage.money)+Number(Business.score);
     	
 
-		this.hudText.text = "Madoff Ponzi'd your money away! Porting you back home..."
+		this.hudText.text = "Madoff Ponzi'd your money away!\nPorting you back home..."
 		this.state.start('Scene1');
 	},
 
 	updateHud: function(){
-		this.hudText.text = "Don't let Madoff steal your money! \nPower: "+this.power+" * Money Collected: $"+Business.score;
+		this.hudText.text = "Don't let Madoff steal your money! \nPower: "+this.power+" \nTotal Money Collected: $"+Business.score;
 	}
 
 };
