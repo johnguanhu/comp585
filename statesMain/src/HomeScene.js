@@ -117,7 +117,7 @@ Business.HomeScene.prototype = {
         this.layer1.resizeWorld();
 
         this.map.setCollisionBetween(1, 100000, true, this.layer2);
-
+          this.layer1.debug = true;
         this.telephone= this.add.sprite(210,100, 'telephone');
         this.telephone.scale.setTo(0.04,0.04);
 
