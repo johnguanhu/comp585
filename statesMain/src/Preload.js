@@ -18,6 +18,8 @@ Business.Preload.prototype = {
     	this.load.image('masstileset', 'assets/tilemaps/masstileset.png');
     	this.load.image('gymset', 'assets/tilemaps/gymset.png');
     	this.load.image('transparent', 'assets/transparent.png');
+    	this.load.image('box', 'assets/blue-button.png');
+    	this.load.image('optiontangle', 'assets/optiontangle.png');
 		
 		//Characters
     	this.load.image('phaser', 'assets/phaser-dude.png');

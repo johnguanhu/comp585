@@ -56,6 +56,7 @@ var remindertext;
 var paused;
 var wantsToCall=false;
 var bgColor='#d3d3d3';
+var optionbox;
 
 Business.HomeScene= function(game){
     this.map= null;
@@ -95,6 +96,7 @@ Business.HomeScene.prototype = {
 
     setDialogs: function(bool) {
         for(var i=0; i<4; i++) {
+            optionbox.visible=bool;
             buttons[i].input.enabled = bool;
             buttons[i].visible = bool;
         }
@@ -151,6 +153,10 @@ Business.HomeScene.prototype = {
         next.visible=false;
         next.input.enabled=false; 
 
+
+        optionbox = this.add.sprite(20, 30, 'optiontangle');
+        optionbox.scale.setTo(1.2,1.2)
+
         texts.push(this.add.text(100,40,' '));
         buttons.push(this.add.button(40,40,'box'));
         texts.push(this.add.text(100,80,' '));
@@ -159,16 +165,9 @@ Business.HomeScene.prototype = {
         buttons.push(this.add.button(40,120,'box'));
         texts.push(this.add.text(100,160,' '));
         buttons.push(this.add.button(40,160,'box'))
-
-        // for(var i=0;i<4;i++) {
-        //     console.log(i);
-        //     buttons[i].onInputDown.add(function() {
-        //         console.log("button"+ i +"clicked");
-        //         currentStep= Business.HomeScene.prototype.clearAndJump(i+1);
-        //         console.log(currentStep);
-        //         this.dialog();
-        //     });
-        // }
+        for(var i=0;i<4;i++) {
+                buttons[i].scale.setTo(.1,.1);
+        }
         
         texts[0].inputEnabled=true;
         texts[0].events.onInputDown.add(function() {
@@ -411,7 +410,7 @@ Business.HomeScene.prototype = {
         var x=Math.floor(happ/5);
         var y=Math.floor(mone/5);
 
-        return dialTable[x][y];
+        return dialTable[0][0];
     },
     showPopUp: function(text){
 
@@ -630,13 +629,11 @@ Business.HomeScene.prototype = {
     },
 
     decisionPoint: function (){
-
+        this.setDialogs(true);
         texts[0].text=dial[currentStep][1];
         texts[1].text= dial[currentStep+1][1];
         texts[2].text= dial[currentStep+2][1];
         texts[3].text= dial[currentStep+3][1];
-        this.setDialogs(true);
-
     },
 
     clearAndJump: function (i){
