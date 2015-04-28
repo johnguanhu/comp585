@@ -20,6 +20,7 @@ var boolean_paused=false;
 var phoneBool=false;
 var reminded=false;
 var moneyReader=null;
+var BankDialog=null;
 
 var money=Number(sessionStorage.money);
 var happiness=Number(sessionStorage.happiness);
