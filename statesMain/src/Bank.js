@@ -46,8 +46,9 @@ Business.Bank.prototype = {
 	},
 
 	checkCollision1: function(player, portal){
-		if(confirm("Porting back to main map."));
+		if(confirm("Porting back to main map.")){
 		this.state.start('Scene1');
+		}
 	},
 
 	update: function(){

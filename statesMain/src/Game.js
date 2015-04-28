@@ -54,7 +54,7 @@ Business.Game.prototype = {
         //  This just gives each star a slightly random bounce value
         star.body.bounce.y = 0.7 + Math.random() * 0.2;
     }
-    Business.scoreText = this.add.text(16, 16, 'Saving money is like free money falling from the sky! \nMoney Collected: 0', { fontSize: '32px', fill: '#000' });
+    Business.scoreText = this.add.text(16, 16, 'Saving money is like free money falling from the sky! \nTotal Money Collected: $'+Business.score, { fontSize: '32px', fill: '#000' });
 
     //  Our controls.
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -83,21 +83,18 @@ Business.Game.prototype = {
     {
         //  Move to the left
         this.player.body.velocity.x = -150;
-
         this.player.animations.play('left');
     }
     else if (this.cursors.right.isDown)
     {
         //  Move to the right
         this.player.body.velocity.x = 150;
-
         this.player.animations.play('right');
     }
     else
     {
         //  Stand still
         this.player.animations.stop();
-
         this.player.frame = 4;
     }
     
@@ -114,6 +111,6 @@ Business.Game.prototype = {
     //  Add and update the score
     Business.starsCollected++;
     Business.score += 10;
-    Business.scoreText.text = 'Money Collected: $' + Business.score;
+    Business.scoreText.text = 'Total Money Collected: $' + Business.score;
 	}
 };

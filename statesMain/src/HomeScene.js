@@ -118,12 +118,11 @@ Business.HomeScene.prototype = {
 
         this.map.setCollisionBetween(1, 100000, true, this.layer2);
 
-        this.layer1.debug = true;
         this.telephone= this.add.sprite(210,100, 'telephone');
         this.telephone.scale.setTo(0.04,0.04);
 
-        this.portal= this.add.sprite(410,400, 'telephone');
-        this.portal.scale.setTo(0.04,0.04);
+        this.portal= this.add.sprite(5,200, 'door');
+        this.portal.scale.setTo(0.5,0.5);
 
         this.sprite = this.add.sprite(130, 150, 'dude');
         this.sprite.scale.setTo(0.8,0.8);
