@@ -143,11 +143,56 @@ Business.Bank.prototype = {
       this.setUpButtons();
       this.setDialogs(false);
       this.fillDialogueTable();
+
+      this.money=Number(sessionStorage.money);
+      this.happiness=Number(sessionStorage.happiness);
+
+
+      moneyimg=this.add.sprite(10,50, 'money');
+      moneylab=this.add.text(60,50,'err');
+      happimg=this.add.sprite(10,100,'happy');
+      happylab=this.add.text(60,100,'err');
+      moneyimg.visible=false;
+      moneylab.visible=false;
+      happimg.visible=false;
+      happylab.visible=false;
+
+      this.setUpMoney();
+      this.setUpPause();
+
+
+      var BusinessTips = this.add.button(750,580, "wallet"); 
+      BusinessTips.scale.setTo(.22,.22);
+      BusinessTips.inputEnabled=true;
+      tips = this.add.sprite(200, 200, 'tipsheet');
+      //    tipword=this.add.text(tips.x, tips.y , "Tips go here");
+      tips.scale.setTo(0.75,0.75);
+      tips.visible=false;
+          //    tipword.visible=false;
+
+      BusinessTips.onInputDown.add(function(){
+          if (this.boolean_clicked){
+          //    tipword.visible=false;
+              this.tips.visible=false;
+              this.boolean_clicked=false;
+          }
+          else {
+             //   tipword.visible=true;
+             this.tips.visible=true;
+             this.boolean_clicked=true;
+         }
+      })
+
+
+
+
    },
 
    checkCollision1: function(player, portal){
       if(confirm("Porting back to main map.")){
-          this.state.start('Scene1');
+        sessionStorage.money=Number(money);
+        sessionStorage.happiness=Number(happiness);
+        this.state.start('Scene1');
       }
   },
 
@@ -157,8 +202,66 @@ Business.Bank.prototype = {
       bgColor='#992d2d';
       this.dialog();
   },
+  setUpPause: function (){
+      var Pause_Label = this.add.button(700,600, "pause"); 
 
+      Pause_Label.inputEnabled=true;
+
+      Pause_Label.onInputDown.add(function(){
+         if (boolean_paused){
+             console.log("unpausing...")
+             moneyimg.visible=false;
+             moneylab.visible=false;
+             happimg.visible=false;
+             happylab.visible=false;
+             boolean_paused=false;
+         }
+         else {
+             console.log("pausing...")
+             moneyimg.visible=true;
+             moneylab.visible=true;
+             happimg.visible=true;
+             happylab.visible=true;
+             boolean_paused=true;
+         }
+     })
+
+  },
+
+  setUpMoney: function (){
+      moneyUp=this.add.sprite(400,600, 'test');
+
+      moneyUp.inputEnabled=true;
+      moneyUp.events.onInputDown.add(function(){
+          money=money+1;
+          happiness=happiness+1;
+      });
+
+      moneybar = this.add.sprite(0,600,'moneyBar');
+      moneybar.scale.setTo(.1,.1);
+
+      moneybar.width=money*10;
+
+      happybar = this.add.sprite(0,620,'happyBar');
+      happybar.scale.setTo(.1,.1);
+
+      happybar.width=happiness*10;
+  },
   update: function(){
+    if(moneybar!=null){
+        moneybar.width= Number(money);
+        happybar.width= Number(happiness);
+        moneylab.text=  Number(money).toString();
+        happylab.text=  Number(happiness).toString();
+
+        // if(moneylab!=null){
+        //     moneyimg=this.add.sprite(10,50, 'money');
+        //     moneylab=this.add.text(60,50,money.toString());
+        //     happimg=this.add.sprite(10,100,'happy');
+        //     happylab=this.add.text(60,100,happiness.toString());
+        // }
+
+    }
     this.stage.backgroundColor = bgColor;
 
     this.physics.arcade.collide(this.player, this.layer2);
@@ -380,7 +483,7 @@ Business.Bank.prototype = {
       texts.push(this.add.text(100,120,' '));
       buttons.push(this.add.button(40,120,'box'));
       texts.push(this.add.text(100,160,' '));
-      buttons.push(this.add.button(40,160,'box'))
+      buttons.push(this.add.button(40,160,'box'));
     
       texts[0].inputEnabled=true;
       texts[0].events.onInputDown.add(function() {
@@ -466,7 +569,8 @@ Business.Bank.prototype = {
     
             this.dialogBool=false;
     
-            next.destroy();
+            next.visible=false;
+            next.input.enabled=false;
             Business.HomeScene.prototype.endDialog();
         }
     

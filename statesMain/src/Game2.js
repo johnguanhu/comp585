@@ -1,3 +1,11 @@
+var money=Number(sessionStorage.money);
+var happiness=Number(sessionStorage.happiness);
+var moneyimg=null;
+var moneylab=null;
+var happyimg=null;
+var happylab=null;
+
+
 Business.Game2 = function(game){
 	this.ball=null; // the this.ball! Our hero
     this.arrow=null; // rotating this.arrow 
@@ -21,68 +29,154 @@ Business.Game2 = function(game){
     this.minPower = 50; // minimum power applied to this.ball
     this.maxPower = 200; // maximum power applied to this.ball
     this.gamewidth = 790;
+
+    this.money=Number(sessionStorage.money);
+    this.happiness=Number(sessionStorage.happiness);
   
 
 };
 
 Business.Game2.prototype = {
 	create: function(){
-	this.physics.startSystem(Phaser.Physics.ARCADE);
-	this.map = this.add.tilemap('game2map');
-	this.map.addTilesetImage('gymset');
+		this.physics.startSystem(Phaser.Physics.ARCADE);
+		this.map = this.add.tilemap('game2map');
+		this.map.addTilesetImage('gymset');
 
-	this.layer1 = this.map.createLayer('backgroundLayer');
+		this.layer1 = this.map.createLayer('backgroundLayer');
 
-	this.ball = this.add.sprite(400,560,'phaser');
-	this.ball.anchor.x = 0.5;
-	this.ball.anchor.y = 0.5;
-	
-	// this.ball starting speed
-	this.ball.xSpeed = 0;
-	this.ball.ySpeed = 0;
-	this.ball.enableBody = true;
-    this.physics.enable(this.ball);
-	
-	// the rotating this.arrow
-	this.arrow = this.add.sprite(this.world.centerX,this.world.centerY,'arrow');
-	this.arrow.anchor.x = -1;
-	this.arrow.anchor.y = 0.5;
+		this.ball = this.add.sprite(400,560,'phaser');
+		this.ball.anchor.x = 0.5;
+		this.ball.anchor.y = 0.5;
+		
+		// this.ball starting speed
+		this.ball.xSpeed = 0;
+		this.ball.ySpeed = 0;
+		this.ball.enableBody = true;
+	    this.physics.enable(this.ball);
+		
+		// the rotating this.arrow
+		this.arrow = this.add.sprite(this.world.centerX,this.world.centerY,'arrow');
+		this.arrow.anchor.x = -1;
+		this.arrow.anchor.y = 0.5;
 
-	
-	//this.placeDeadly();
-	this.deadly = this.add.group();
-	this.deadly.enableBody = true;
-    for (var i = 0; i < 4; i++){
-		this.deadly = this.add.sprite(Math.random()*800+40,Math.random()*400+70,'deadly');
-		this.deadly.scale.setTo(0.25,0.25);
-		this.deadly.anchor.x = 0.5;
-		this.deadly.anchor.y = 0.5;
-    	this.physics.enable(this.deadly);
-    	this.add.tween(this.deadly).to({y:Math.random()*300 }, 3000, Phaser.Easing.Quadratic.InOut, true, 0, 1000, true);
-	}
+		
+		//this.placeDeadly();
+		this.deadly = this.add.group();
+		this.deadly.enableBody = true;
+	    for (var i = 0; i < 4; i++){
+			this.deadly = this.add.sprite(Math.random()*800+40,Math.random()*400+70,'deadly');
+			this.deadly.scale.setTo(0.25,0.25);
+			this.deadly.anchor.x = 0.5;
+			this.deadly.anchor.y = 0.5;
+	    	this.physics.enable(this.deadly);
+	    	this.add.tween(this.deadly).to({y:Math.random()*300 }, 3000, Phaser.Easing.Quadratic.InOut, true, 0, 1000, true);
+		}
 
-	this.coin = this.add.sprite(Math.random()*700+40,Math.random()*500+70,'star');
-	this.coin.scale.setTo(0.6,0.6);
-	this.coin.anchor.x = 0.5;
-	this.coin.anchor.y = 0.5;
-	this.coin.enableBody = true;
-    this.physics.enable(this.coin);
-	//this.placeCoin();
+		this.coin = this.add.sprite(Math.random()*700+40,Math.random()*500+70,'star');
+		this.coin.scale.setTo(0.6,0.6);
+		this.coin.anchor.x = 0.5;
+		this.coin.anchor.y = 0.5;
+		this.coin.enableBody = true;
+	    this.physics.enable(this.coin);
+		//this.placeCoin();
 
-	this.hudText = this.add.text(5,0,"",{ 
-		font: "33px Arial",
-		fill: "#ffffff", 
-		align: "left" 
-	});
-	
-	// update text content
-	this.updateHud();
-	
-	// listener for input down
-	this.input.onDown.add(this.charge, this);
-	
+		this.hudText = this.add.text(5,0,"",{ 
+			font: "33px Arial",
+			fill: "#ffffff", 
+			align: "left" 
+		});
+		
+		// update text content
+		this.updateHud();
+		
+		// listener for input down
+		this.input.onDown.add(this.charge, this);
+		
+		// bottom bar stuff
+		 this.money=Number(sessionStorage.money);
+        this.happiness=Number(sessionStorage.happiness);
 
+
+        moneyimg=this.add.sprite(10,50, 'money');
+        moneylab=this.add.text(60,50,'err');
+        happimg=this.add.sprite(10,100,'happy');
+        happylab=this.add.text(60,100,'err');
+        moneyimg.visible=false;
+        moneylab.visible=false;
+        happimg.visible=false;
+        happylab.visible=false;
+
+        this.setUpMoney();
+        this.setUpPause();
+
+
+        var BusinessTips = this.add.button(750,580, "wallet"); 
+        BusinessTips.scale.setTo(.22,.22);
+        BusinessTips.inputEnabled=true;
+        tips = this.add.sprite(200, 200, 'tipsheet');
+        //    tipword=this.add.text(tips.x, tips.y , "Tips go here");
+        tips.scale.setTo(0.75,0.75);
+        tips.visible=false;
+            //    tipword.visible=false;
+
+        BusinessTips.onInputDown.add(function(){
+            if (this.boolean_clicked){
+            //    tipword.visible=false;
+                this.tips.visible=false;
+                this.boolean_clicked=false;
+            }
+            else {
+               //   tipword.visible=true;
+               this.tips.visible=true;
+               this.boolean_clicked=true;
+           }
+        })
 	},
+	setUpPause: function (){
+        var Pause_Label = this.add.button(700,600, "pause"); 
+
+        Pause_Label.inputEnabled=true;
+
+        Pause_Label.onInputDown.add(function(){
+           if (boolean_paused){
+               console.log("unpausing...")
+               moneyimg.visible=false;
+               moneylab.visible=false;
+               happimg.visible=false;
+               happylab.visible=false;
+               boolean_paused=false;
+           }
+           else {
+               console.log("pausing...")
+               moneyimg.visible=true;
+               moneylab.visible=true;
+               happimg.visible=true;
+               happylab.visible=true;
+               boolean_paused=true;
+           }
+       })
+
+    },
+
+   setUpMoney: function (){
+        moneyUp=this.add.sprite(400,600, 'test');
+
+        moneyUp.inputEnabled=true;
+        moneyUp.events.onInputDown.add(function(){
+            money=money+1;
+            happiness=happiness+1;
+        });
+
+        moneybar = this.add.sprite(0,600,'moneyBar');
+        moneybar.scale.setTo(.1,.1);
+
+        moneybar.width=money*10;
+
+        happybar = this.add.sprite(0,620,'happyBar');
+        happybar.scale.setTo(.1,.1);
+
+        happybar.width=happiness*10;
+    },
 
 	/*placeDeadly: function(){
 		// first, create the enemy and set its anchor point in the center
@@ -146,6 +240,24 @@ Business.Game2.prototype = {
 	},*/
 	
 	update: function(){
+		//bottom bar stuff
+		if(moneybar!=null){
+            moneybar.width= Number(money);
+            happybar.width= Number(happiness);
+            moneylab.text=  Number(money).toString();
+            happylab.text=  Number(happiness).toString();
+
+            // if(moneylab!=null){
+            //     moneyimg=this.add.sprite(10,50, 'money');
+            //     moneylab=this.add.text(60,50,money.toString());
+            //     happimg=this.add.sprite(10,100,'happy');
+            //     happylab=this.add.text(60,100,happiness.toString());
+            // }
+
+        }
+
+
+
 		// update only if game isn't over
 		this.physics.arcade.overlap(this.ball, this.deadly, this.gameOver, null, this);
 		this.physics.arcade.overlap(this.ball, this.coin, this.collectCoin, null, this);
@@ -226,6 +338,7 @@ Business.Game2.prototype = {
 	collectCoin: function(player, coin){
 		this.coin.kill();
 		Business.score+=10;
+		money+=10;
 		this.coin = this.add.sprite(Math.random()*700+40,Math.random()*500+70,'star');
 		this.coin.scale.setTo(0.6,0.6);
 		this.coin.anchor.x = 0.5;
@@ -235,7 +348,8 @@ Business.Game2.prototype = {
 	},
 
 	gameOver: function(player, deadly){
-	   sessionStorage.money=Number(sessionStorage.money)+Number(Business.score);
+	   sessionStorage.money=Number(money);
+        sessionStorage.happiness=Number(happiness);
     	
 
 		this.hudText.text = "Madoff Ponzi'd your money away!\nPorting you back home..."
