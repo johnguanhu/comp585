@@ -494,8 +494,15 @@ Business.Bank.prototype = {
         bankbuttons[i].visible = bool;
     }
   },
+<<<<<<< HEAD
   setUpbankbuttons: function(){
       next = this.add.button(10, 250, "arrow");
+=======
+  setUpButtons: function(){
+    //next = this.add.button(10, 250, "arrow");
+      next = this.add.button(0, 0, "transparent");
+      next.scale.setTo(100,100);
+>>>>>>> changed next button in bank
       next.visible=false;
       next.input.enabled=false; 
       bankbuttons=[];
