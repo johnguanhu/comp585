@@ -229,25 +229,45 @@ Business.HomeScene.prototype = {
         buttons[0].onInputDown.add(function() {
             currentStep= Business.HomeScene.prototype.clearAndJump(1);
             Business.HomeScene.prototype.clearChoices()
-            Business.HomeScene.prototype.dialog();
+            if (currentStep==-1){
+                Business.HomeScene.prototypea.endDialog();
+            }
+            else{
+                Business.HomeScene.prototype.dialog();
+            }
         });
 
         buttons[1].onInputDown.add(function() {
             currentStep= Business.HomeScene.prototype.clearAndJump(2);
             Business.HomeScene.prototype.clearChoices()
-            Business.HomeScene.prototype.dialog();
+            if (currentStep==-1){
+                Business.HomeScene.prototype.endDialog();
+            }
+            else{
+                Business.HomeScene.prototype.dialog();
+            }
         });
 
         buttons[2].onInputDown.add(function() {
             currentStep= Business.HomeScene.prototype.clearAndJump(3);
             Business.HomeScene.prototype.clearChoices()
-            Business.HomeScene.prototype.dialog();
+            if (currentStep==-1){
+                Business.HomeScene.prototype.endDialog();
+            }
+            else{
+                Business.HomeScene.prototype.dialog();
+            }
         });
 
         buttons[3].onInputDown.add(function() {
             currentStep= Business.HomeScene.prototype.clearAndJump(4);
             Business.HomeScene.prototype.clearChoices()
-            Business.HomeScene.prototype.dialog();
+            if (currentStep==-1){
+                Business.HomeScene.prototype.endDialog();
+            }
+            else{
+                Business.HomeScene.prototype.dialog();
+            }
         });
 
 
@@ -289,8 +309,7 @@ Business.HomeScene.prototype = {
             }
 
             else if (dial[currentStep][0]=="Choice") {
-                next.visible=false;
-                next.input.enabled=false;
+                next.kill();
                 agentbox.visible=false;
                 agentname.visible=false;
                 playerbox.visible=false;
@@ -705,15 +724,18 @@ Business.HomeScene.prototype = {
                 storage=x+1;
             }
         }
-        if (storage==-1){
-             this.clearChoices();
+     /*   if (storage==-1){
+            this.clearChoices();
+            next.input.enabled=false;
+            next.kill();
+
             alert("There was no further dialog for that option");
             Business.HomeScene.prototype.endDialog();
         }
-        else{
+        else{ */
             return storage;
            //Business.HomeScene.prototype.dialog(dial, storage);
-       }
+    //   }
    },
 
     endDialog: function (){
@@ -723,9 +745,15 @@ Business.HomeScene.prototype = {
         this.dialogBool=false;
         currentStep=0;
         next.visible=false;
+        next.input.enabled=false;
         this.wantsToCall=false;
+<<<<<<< HEAD
         next.input.enabled=false;
 
+=======
+       
+       
+>>>>>>> Fixed wrong choice bug
 
         //Business.HomeScene.prototype.setbackGroundColor('#000000'); 
         return;
