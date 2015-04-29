@@ -457,6 +457,7 @@ Business.Bank.prototype = {
 
   endDialog: function (){
     bgColor='#B4D9E7';
+    this.currentStep=0;
         //Business.HomeScene.prototype.setbackGroundColor('#000000'); 
         return;
   },
@@ -598,7 +599,7 @@ Business.Bank.prototype = {
             playername.visible=false;
             playerquote.visible = false;
             agentquote.visible=false;
-    
+            currentStep=0;
             this.dialogBool=false;
     
             next.visible=false;

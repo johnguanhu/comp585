@@ -172,7 +172,8 @@ Business.HomeScene.prototype = {
         happylab.visible=false;
 
 
-        next = this.add.button(10, 250, "arrow");
+        next = this.add.button(0, 0, "transparent");
+        next.scale.setTo(100,100);
         next.visible=false;
         next.input.enabled=false; 
 
@@ -277,15 +278,19 @@ Business.HomeScene.prototype = {
                 playername.visible=false;
                 playerquote.visible = false;
                 agentquote.visible=false;
-                
+                currentStep=0;
                 this.dialogBool=false;
+                next.visible=false;
+                this.wantsToCall=false;
+                next.input.enabled=false;
                 
-                next.destroy();
+
                 Business.HomeScene.prototype.endDialog();
             }
 
             else if (dial[currentStep][0]=="Choice") {
-                next.kill();
+                next.visible=false;
+                next.input.enabled=false;
                 agentbox.visible=false;
                 agentname.visible=false;
                 playerbox.visible=false;
@@ -304,6 +309,7 @@ Business.HomeScene.prototype = {
                 playerbox.visible=false;
                 playername.visible=false;
                 playerquote.visible = false;
+
 
                 playerquote.text="";
                 agentquote.text =dial[currentStep][1];
@@ -700,6 +706,7 @@ Business.HomeScene.prototype = {
             }
         }
         if (storage==-1){
+             this.clearChoices();
             alert("There was no further dialog for that option");
             Business.HomeScene.prototype.endDialog();
         }
@@ -713,6 +720,13 @@ Business.HomeScene.prototype = {
         bgColor='#B4D9E7';
         Business.HomeScene.prototype.wantsToCall=false;
         this.wantsToCall=false;
+        this.dialogBool=false;
+        currentStep=0;
+        next.visible=false;
+        this.wantsToCall=false;
+        this.next.input.enabled=false;
+
+
         //Business.HomeScene.prototype.setbackGroundColor('#000000'); 
         return;
    },
@@ -781,6 +795,7 @@ Business.HomeScene.prototype = {
 
     checkCollision: function (obj1, obj2){
         this.stopMotion(obj1);
+<<<<<<< HEAD
         if (!this.wantsToCall) {
             this.setConfirmButton(true);
             this.placeConfirmText("Would you like to call " + player_name);
@@ -788,6 +803,10 @@ Business.HomeScene.prototype = {
     },
 
     AgentSaidYes: function(){
+=======
+        if (//!this.wantsToCall && 
+            confirm("Would you like to call " + player_name)) {
+>>>>>>> can repeat calls/new next button
             this.wantsToCall=true;
             Business.HomeScene.prototype.reminded=true;
             this.dialogBool=true;
