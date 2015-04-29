@@ -19,17 +19,19 @@ var boolean_clicked=false;
 var boolean_paused=false;
 var phoneBool=false;
 var reminded=false;
-var moneyReader=null;
 var BankDialog=null;
+
+var moneyReader=null;
+var happyReader=null;
 
 var money=Number(sessionStorage.money);
 var happiness=Number(sessionStorage.happiness);
-
-var happyReader=null;
 var moneyimg=null;
 var moneylab=null;
 var happyimg=null;
 var happylab=null;
+
+
 var a=   null;
 var a1=  null;
 var b=  null;
@@ -155,7 +157,7 @@ Business.HomeScene.prototype = {
 
 
         optionbox = this.add.sprite(20, 30, 'optiontangle');
-        optionbox.scale.setTo(1.2,1.2)
+        optionbox.scale.setTo(1.2,1.2);
 
         texts.push(this.add.text(100,40,' '));
         buttons.push(this.add.button(40,40,'box'));
@@ -164,7 +166,7 @@ Business.HomeScene.prototype = {
         texts.push(this.add.text(100,120,' '));
         buttons.push(this.add.button(40,120,'box'));
         texts.push(this.add.text(100,160,' '));
-        buttons.push(this.add.button(40,160,'box'))
+        buttons.push(this.add.button(40,160,'box'));
         for(var i=0;i<4;i++) {
                 buttons[i].scale.setTo(.1,.1);
         }
@@ -361,7 +363,7 @@ Business.HomeScene.prototype = {
 
         //agent_name= prompt("What is the your name");
         agent_name="JIM";
-        var BusinessTips = this.add.button(5,330, "wallet"); 
+        var BusinessTips = this.add.button(750,580, "wallet"); 
         BusinessTips.scale.setTo(.22,.22);
         BusinessTips.inputEnabled=true;
         tips = this.add.sprite(200, 200, 'tipsheet');
@@ -669,7 +671,7 @@ Business.HomeScene.prototype = {
     //probably means we should rename it
 
     setUpPause: function (){
-        var Pause_Label = this.add.button(5,300, "pause"); 
+        var Pause_Label = this.add.button(700,600, "pause"); 
 
         Pause_Label.inputEnabled=true;
 
@@ -694,6 +696,7 @@ Business.HomeScene.prototype = {
 
     },
 
+
     phonecall: function (){
         if(!Business.HomeScene.prototype.wantsToCall&&
             !Business.HomeScene.prototype.reminded){
@@ -704,7 +707,7 @@ Business.HomeScene.prototype = {
         } 
     },
     setUpMoney: function (){
-        moneyUp=this.add.sprite(10,400, 'test');
+        moneyUp=this.add.sprite(400,600, 'test');
 
         moneyUp.inputEnabled=true;
         moneyUp.events.onInputDown.add(function(){
@@ -712,16 +715,17 @@ Business.HomeScene.prototype = {
             happiness=happiness+1;
         });
 
-        moneybar = this.add.sprite(0,500,'moneyBar');
+        moneybar = this.add.sprite(0,600,'moneyBar');
         moneybar.scale.setTo(.1,.1);
 
         moneybar.width=money*10;
 
-        happybar = this.add.sprite(0,520,'happyBar');
+        happybar = this.add.sprite(0,620,'happyBar');
         happybar.scale.setTo(.1,.1);
 
         happybar.width=happiness*10;
     },
+
 
     checkCollision: function (obj1, obj2){
         if (!this.wantsToCall && confirm("Would you like to call " + player_name)) {
