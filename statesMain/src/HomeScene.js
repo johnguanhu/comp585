@@ -795,14 +795,14 @@ Business.HomeScene.prototype = {
 
     checkCollision: function (obj1, obj2){
         this.stopMotion(obj1);
-<<<<<<< HEAD
-        if (!this.wantsToCall) {
+        //if (!this.wantsToCall) {
             this.setConfirmButton(true);
             this.placeConfirmText("Would you like to call " + player_name);
-        }
+        //}
     },
 
     AgentSaidYes: function(){
+
 
             this.wantsToCall=true;
             Business.HomeScene.prototype.reminded=true;
@@ -810,6 +810,7 @@ Business.HomeScene.prototype = {
             reminder.visible=false;
             remindertext.text="";
             this.collisionHandler();
+        
     },
 
     placeConfirmText: function (text){
