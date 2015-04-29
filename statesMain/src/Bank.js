@@ -213,10 +213,10 @@ Business.Bank.prototype = {
   },
 
   playerCollision: function (player, banker){
-      this.stopMotion(player]);
+      this.stopMotion(player);
       banker.body.drag.setTo(3000);
       dial=this.dialogSelecter(happiness, money);
-      //bgColor='#992d2d';
+      bgColor='#992d2d';
       this.dialog();
   },
   setUpPause: function (){
