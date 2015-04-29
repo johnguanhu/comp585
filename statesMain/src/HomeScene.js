@@ -803,10 +803,7 @@ Business.HomeScene.prototype = {
     },
 
     AgentSaidYes: function(){
-=======
-        if (//!this.wantsToCall && 
-            confirm("Would you like to call " + player_name)) {
->>>>>>> can repeat calls/new next button
+
             this.wantsToCall=true;
             Business.HomeScene.prototype.reminded=true;
             this.dialogBool=true;
