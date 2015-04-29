@@ -243,7 +243,7 @@ Business.Game2.prototype = {
 	},
 
 	updateHud: function(){
-		this.hudText.text = "Don't let Madoff steal your money! \nPower: "+this.power+" \nTotal Money Collected: $"+Business.score;
+		this.hudText.text = "Don't let Madoff steal your money! \nPower: "+this.power+" \nTotal Money: $"+Business.score;
 	}
 
 };

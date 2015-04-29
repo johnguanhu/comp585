@@ -55,7 +55,7 @@ var reminder;
 var remindertext;
 var paused;
 var wantsToCall=false;
-var bgColor='#d3d3d3';
+var bgColor='#B4D9E7';
 var optionbox;
 
 Business.HomeScene= function(game){
@@ -88,7 +88,7 @@ Business.HomeScene= function(game){
     this.money=Number(sessionStorage.money);
     this.happiness=Number(sessionStorage.happiness);
 
-    this.bgColor='#d3d3d3';
+    this.bgColor='#B4D9E7';
 }
 
 
@@ -244,7 +244,7 @@ Business.HomeScene.prototype = {
             }
 
             if (dial[currentStep][0]=="end") {
-                agentbox.visible=false
+                agentbox.visible=false;
                 agentname.visible=false;
                 playerbox.visible=false;
                 playername.visible=false;
@@ -259,7 +259,7 @@ Business.HomeScene.prototype = {
 
             else if (dial[currentStep][0]=="Choice") {
                 next.kill();
-                agentbox.visible=false
+                agentbox.visible=false;
                 agentname.visible=false;
                 playerbox.visible=false;
                 playername.visible=false;
@@ -295,91 +295,91 @@ Business.HomeScene.prototype = {
                 playerquote.text =dial[currentStep][1];
                 currentStep=currentStep+1;
             }
-            });
+        });
 
-            this.setDialogs(false);
-            this.fillDialogueTable();
-            this.setUpMoney();
-            this.setUpPause();
+        this.setDialogs(false);
+        this.fillDialogueTable();
+        this.setUpMoney();
+        this.setUpPause();
 
 
 
-            agentbox = this.add.sprite(100, 100, 'rectangle3');
-            agentbox.scale.setTo(0.5,0.5);
-            agentbox.visible=false;
+        agentbox = this.add.sprite(100, 100, 'rectangle3');
+        agentbox.scale.setTo(0.5,0.5);
+        agentbox.visible=false;
 
-            var nstyle = { font: "16px Arial", fill: "black", wordWrap: true, wordWrapWidth: agentbox.width, align: "center" };
-            var qstyle = { font: "12px Arial", fill: "black", wordWrap: true, wordWrapWidth: agentbox.width, align: "left" };
+        var nstyle = { font: "16px Arial", fill: "black", wordWrap: true, wordWrapWidth: agentbox.width, align: "center" };
+        var qstyle = { font: "12px Arial", fill: "black", wordWrap: true, wordWrapWidth: agentbox.width, align: "left" };
 
-            agentname = this.add.text(agentbox.x + agentbox.width/2, agentbox.y + agentbox.height/6, "", nstyle);
-            agentquote = this.add.text(agentbox.x + agentbox.width/2, agentbox.y + agentbox.height/2, "", qstyle);
-            agentname.anchor.set(0.5);
-            agentquote.anchor.set(0.5);
-            playerbox = this.add.sprite(300, 100, 'rectangle3');
-            playerbox.scale.setTo(0.5,0.5);
-            playerbox.visible=false;
-            playername = this.add.text(playerbox.x + playerbox.width/2, playerbox.y + playerbox.height/6, "", nstyle);
-            playerquote = this.add.text(playerbox.x + playerbox.width/2, playerbox.y + playerbox.height/2, "", qstyle);
-            playername.anchor.set(0.5);
-            playerquote.anchor.set(0.5);
+        agentname = this.add.text(agentbox.x + agentbox.width/2, agentbox.y + agentbox.height/6, "", nstyle);
+        agentquote = this.add.text(agentbox.x + agentbox.width/2, agentbox.y + agentbox.height/2, "", qstyle);
+        agentname.anchor.set(0.5);
+        agentquote.anchor.set(0.5);
+        playerbox = this.add.sprite(300, 100, 'rectangle3');
+        playerbox.scale.setTo(0.5,0.5);
+        playerbox.visible=false;
+        playername = this.add.text(playerbox.x + playerbox.width/2, playerbox.y + playerbox.height/6, "", nstyle);
+        playerquote = this.add.text(playerbox.x + playerbox.width/2, playerbox.y + playerbox.height/2, "", qstyle);
+        playername.anchor.set(0.5);
+        playerquote.anchor.set(0.5);
 
-            //build the reminder stuff
-            reminder = this.add.sprite(300, 200, 'rectangle3');
-            reminder.scale.setTo(0.5,0.5);
+        //build the reminder stuff
+        reminder = this.add.sprite(300, 200, 'rectangle3');
+        reminder.scale.setTo(0.5,0.5);
+        reminder.visible=false;
+        remindertext =this.add.text(reminder.x + reminder.width/2, reminder.y + reminder.height/2, "", qstyle);
+        remindertext.anchor.set(0.5);
+        remindertext.text="";
+        reminder.inputEnabled=true;
+        reminder.events.onInputDown.add(function(){
             reminder.visible=false;
-            remindertext =this.add.text(reminder.x + reminder.width/2, reminder.y + reminder.height/2, "", qstyle);
-            remindertext.anchor.set(0.5);
-            remindertext.text="";
-            reminder.inputEnabled=true;
-            reminder.events.onInputDown.add(function(){
-                reminder.visible=false;
-                remindertext.visible=false;
-            });
+            remindertext.visible=false;
+        });
 
 
 
-            popup = this.add.sprite(300, 200, 'rectangle3');
-            var popstyle = { font: "14px Arial", fill: "black", wordWrap: true, wordWrapWidth: popup.width, align: "left" };
+        popup = this.add.sprite(300, 200, 'rectangle3');
+        var popstyle = { font: "14px Arial", fill: "black", wordWrap: true, wordWrapWidth: popup.width, align: "left" };
+        popup.visible=false;
+        popuptext =this.add.text( popup.x +  popup.width/2,  popup.y +  popup.height/2, "", popstyle);
+        popuptext.anchor.set(0.5);
+        popuptext.text="";
+        popuptext.visible=false;
+
+
+        popup.inputEnabled=true;
+        popup.events.onInputDown.add(function(){
             popup.visible=false;
-            popuptext =this.add.text( popup.x +  popup.width/2,  popup.y +  popup.height/2, "", popstyle);
-            popuptext.anchor.set(0.5);
-            popuptext.text="";
             popuptext.visible=false;
+        });
 
+        this.telephone.enableBody = true;
+        this.telephone.body.immovable=true;
 
-            popup.inputEnabled=true;
-            popup.events.onInputDown.add(function(){
-                popup.visible=false;
-                popuptext.visible=false;
-            });
+        this.portal.enableBody = true;
+        this.portal.body.immovable=true;
 
-            this.telephone.enableBody = true;
-            this.telephone.body.immovable=true;
+        //agent_name= prompt("What is the your name");
+        agent_name="JIM";
+        var BusinessTips = this.add.button(5,330, "wallet"); 
+        BusinessTips.scale.setTo(.22,.22);
+        BusinessTips.inputEnabled=true;
+        tips = this.add.sprite(200, 200, 'tipsheet');
+        //    tipword=this.add.text(tips.x, tips.y , "Tips go here");
+        tips.scale.setTo(0.75,0.75);
+        tips.visible=false;
+            //    tipword.visible=false;
 
-            this.portal.enableBody = true;
-            this.portal.body.immovable=true;
-
-            //agent_name= prompt("What is the your name");
-            agent_name="JIM";
-            var BusinessTips = this.add.button(5,330, "wallet"); 
-            BusinessTips.scale.setTo(.22,.22);
-            BusinessTips.inputEnabled=true;
-            tips = this.add.sprite(200, 200, 'tipsheet');
-            //    tipword=this.add.text(tips.x, tips.y , "Tips go here");
-            tips.scale.setTo(0.75,0.75);
-            tips.visible=false;
-                //    tipword.visible=false;
-
-                BusinessTips.onInputDown.add(function(){
-                    if (this.boolean_clicked){
-              //    tipword.visible=false;
-              this.tips.visible=false;
-              this.boolean_clicked=false;
-          }
-          else {
+        BusinessTips.onInputDown.add(function(){
+            if (this.boolean_clicked){
+            //    tipword.visible=false;
+                this.tips.visible=false;
+                this.boolean_clicked=false;
+            }
+            else {
                //   tipword.visible=true;
                this.tips.visible=true;
-               this.boolean_clicked=true
+               this.boolean_clicked=true;
            }
         })
     },
@@ -656,7 +656,9 @@ Business.HomeScene.prototype = {
    },
 
     endDialog: function (){
-        bgColor='#d3d3d3';
+        bgColor='#B4D9E7';
+        Business.HomeScene.prototype.wantsToCall=false;
+        this.wantsToCall=false;
         //Business.HomeScene.prototype.setbackGroundColor('#000000'); 
         return;
    },
@@ -690,20 +692,16 @@ Business.HomeScene.prototype = {
            }
        })
 
-    // Add a input listener that can help us return from being paused
-    // this.input.onDown.add(this.unpause, self);
     },
 
     phonecall: function (){
         if(!Business.HomeScene.prototype.wantsToCall&&
             !Business.HomeScene.prototype.reminded){
             Business.HomeScene.prototype.reminded=true;
-        reminder.visible=true;
+            reminder.visible=true;
 
-        remindertext.text="I need to make a phone call";
-
-
-    } 
+            remindertext.text="I need to make a phone call";
+        } 
     },
     setUpMoney: function (){
         moneyUp=this.add.sprite(10,400, 'test');
