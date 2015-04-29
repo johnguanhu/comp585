@@ -538,7 +538,7 @@ Business.HomeScene.prototype = {
         var l14 = "BestBank";
 
         var n15 = "Choice";
-        var l15 = "Bank of America";
+        var l15 = "Bank of Am";
 
         var n16 = "Choice";
         var l16 = "Chase Bank";
