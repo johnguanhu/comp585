@@ -204,6 +204,7 @@ Business.Bank.prototype = {
    },
 
    checkCollision1: function(player, portal){
+    this.stopMotion(player);
       if(confirm("Porting back to main map.")){
         sessionStorage.money=Number(money);
         sessionStorage.happiness=Number(happiness);
@@ -212,6 +213,7 @@ Business.Bank.prototype = {
   },
 
   playerCollision: function (player, banker){
+      this.stopMotion(player]);
       banker.body.drag.setTo(3000);
       dial=this.dialogSelecter(happiness, money);
       //bgColor='#992d2d';
@@ -261,6 +263,12 @@ Business.Bank.prototype = {
       happybar.scale.setTo(.1,.1);
 
       happybar.width=happiness*10;
+  },
+  stopMotion: function(player){
+        this.cursors.up.isDown=false;
+        this.cursors.down.isDown=false;
+        this.cursors.left.isDown=false;
+        this.cursors.right.isDown=false;
   },
   update: function(){
     if(moneybar!=null){

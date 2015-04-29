@@ -728,6 +728,7 @@ Business.HomeScene.prototype = {
 
 
     checkCollision: function (obj1, obj2){
+        this.stopMotion(obj1);
         if (!this.wantsToCall && confirm("Would you like to call " + player_name)) {
             this.wantsToCall=true;
             Business.HomeScene.prototype.reminded=true;
@@ -738,14 +739,22 @@ Business.HomeScene.prototype = {
         }
     },
     collisionHandler: function(obj1, obj2) {
+
         dial=this.dialogSelecter(happiness, money);
         bgColor='#992d2d';
         this.dialog();
     },
     goToOverworld: function(obj1,obj2){
+        this.stopMotion(obj1);
         sessionStorage.money=Number(money);
         sessionStorage.happiness=Number(happiness);
         this.state.start('Scene1');
+    },
+    stopMotion: function(player){
+        this.cursors.up.isDown=false;
+        this.cursors.down.isDown=false;
+        this.cursors.left.isDown=false;
+        this.cursors.right.isDown=false;
     },
     update: function () {
 

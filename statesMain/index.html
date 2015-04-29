@@ -19,7 +19,11 @@
 (function() {
 	// initialize the framework
 	var game = new Phaser.Game(800, 650, Phaser.AUTO, 'game');
+
+	
 	//global money/happiness
+  	sessionStorage.setItem('money', 0);
+  	sessionStorage.setItem('happiness', 0);
     sessionStorage.money=0;
     sessionStorage.happiness=0;
 
