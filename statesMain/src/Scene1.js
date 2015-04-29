@@ -10,6 +10,7 @@ Business.Scene1 = function(game){
 	this.homePortal = null;
 	this.bankPortal = null;
 	this.game2Portal = null;
+	this.bgColor='#d3d3d3';
 };
 
 Business.Scene1.prototype = {

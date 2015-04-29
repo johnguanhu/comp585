@@ -25,6 +25,7 @@ Business.Preload.prototype = {
     	this.load.image('phaser', 'assets/phaser-dude.png');
     	this.load.spritesheet('dude', 'assets/dude.png', 32, 48);
     	this.load.image('mrkrabs', 'assets/mrkrabs.png');
+    	this.load.image('diane', 'assets/diane.png');
 
     	//Minigame 1
 		this.load.image('sky', 'assets/sky.png');

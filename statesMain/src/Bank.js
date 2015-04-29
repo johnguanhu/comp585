@@ -62,19 +62,21 @@ Business.Bank = function(game){
 	this.portal = null;
 	this.banker1 = null;
 	this.banker2 = null;
-    this.dial= null;
-    agent_name= null;
-    this.storage= null;
-    this.happybar= null;
-    this.tileHits = null;
-    this.plotting = false;
-    this.dialogBool=false;
-    this.wantsToCall=false;
-    player_name = null;
-    this.boolean_clicked=false;
-    this.phoneBool=false;
-    this.reminded=false;
-    this.choicetoggle=false;
+  this.dial= null;
+  agent_name= null;
+  this.storage= null;
+  this.happybar= null;
+  this.tileHits = null;
+  this.plotting = false;
+  this.dialogBool=false;
+  this.wantsToCall=false;
+  player_name = null;
+  this.boolean_clicked=false;
+  this.phoneBool=false;
+  this.reminded=false;
+  this.choicetoggle=false;
+  this.dialogCollision1 = null;
+  this.dialogCollision2 = null;
 
 
     //testing globals using localstorage
@@ -111,12 +113,25 @@ Business.Bank.prototype = {
       this.portal.enableBody = true;
       this.physics.enable(this.portal);
 
+      //Mr. Krabs' Image
       this.banker1 = this.add.sprite(280,240, 'mrkrabs');
       this.banker1.scale.setTo(0.4,0.4);
-      this.banker1.enableBody = true;
-      this.physics.enable(this.banker1);
-      this.banker1.body.immovable = true;
-      this.add.tween(this.banker1).to({ y:300 }, 4000, Phaser.Easing.Quadratic.InOut, true, 0, 1000, true);
+      this.dialogCollision1 = this.add.sprite(280,228, 'transparent');
+      this.dialogCollision1.scale.setTo(0.2,0.26);
+      this.dialogCollision1.enableBody = true;
+      this.physics.enable(this.dialogCollision1);
+      this.dialogCollision1.body.immovable = true;
+
+      //Diane's Image
+      this.banker2 = this.add.sprite(500,350, 'diane');
+      this.banker2.scale.setTo(0.2,0.2);
+      this.dialogCollision2 = this.add.sprite(500,350, 'transparent');
+      this.dialogCollision2.scale.setTo(0.2,0.26);
+      this.dialogCollision2.enableBody = true;
+      this.physics.enable(this.dialogCollision2);
+      this.dialogCollision2.body.immovable = true;
+      this.add.tween(this.dialogCollision2).to({ y:300 }, 4000, Phaser.Easing.Quadratic.InOut, true, 0, 1000, true);
+      this.add.tween(this.banker2).to({ y:300 }, 4000, Phaser.Easing.Quadratic.InOut, true, 0, 1000, true);
 
       this.cursors = this.input.keyboard.createCursorKeys();
 
@@ -154,7 +169,7 @@ Business.Bank.prototype = {
   playerCollision: function (player, banker){
       banker.body.drag.setTo(3000);
       dial=this.dialogSelecter(happiness, money);
-      bgColor='#992d2d';
+      //bgColor='#992d2d';
       this.dialog();
   },
 
@@ -162,10 +177,10 @@ Business.Bank.prototype = {
     this.stage.backgroundColor = bgColor;
 
     this.physics.arcade.collide(this.player, this.layer2);
-    this.physics.arcade.collide(this.player, this.banker1);
 
     this.physics.arcade.overlap(this.player, this.portal, this.checkCollision1, null, this);
-    this.physics.arcade.overlap(this.player, this.banker1, this.playerCollision, null, this);
+    this.physics.arcade.collide(this.player, this.dialogCollision1, this.playerCollision, null, this);
+    this.physics.arcade.collide(this.player, this.dialogCollision2, this.playerCollision, null, this);
 
     this.player.body.velocity.x = 0;
     this.player.body.velocity.y = 0;
