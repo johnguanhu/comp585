@@ -206,6 +206,8 @@ Business.Bank.prototype = {
    checkCollision1: function(player, portal){
     this.stopMotion(player);
       if(confirm("Porting back to main map.")){
+        this.endDialog();
+        this.stage.backgroundColor='#B4D9E7';
         sessionStorage.money=Number(money);
         sessionStorage.happiness=Number(happiness);
         this.state.start('Scene1');
@@ -456,6 +458,7 @@ Business.Bank.prototype = {
    },
 
   endDialog: function (){
+    console.log("ran")
     bgColor='#B4D9E7';
     this.currentStep=0;
         //Business.HomeScene.prototype.setbackGroundColor('#000000'); 

@@ -724,7 +724,7 @@ Business.HomeScene.prototype = {
         currentStep=0;
         next.visible=false;
         this.wantsToCall=false;
-        this.next.input.enabled=false;
+        next.input.enabled=false;
 
 
         //Business.HomeScene.prototype.setbackGroundColor('#000000'); 
@@ -828,6 +828,8 @@ Business.HomeScene.prototype = {
         this.stopMotion(obj1);
         sessionStorage.money=Number(money);
         sessionStorage.happiness=Number(happiness);
+             this.endDialog();
+        this.stage.backgroundColor='#B4D9E7';
          this.state.start('Scene1');
     },
     stopMotion: function(player){
