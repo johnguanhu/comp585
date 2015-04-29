@@ -747,13 +747,6 @@ Business.HomeScene.prototype = {
         next.visible=false;
         next.input.enabled=false;
         this.wantsToCall=false;
-<<<<<<< HEAD
-        next.input.enabled=false;
-
-=======
-       
-       
->>>>>>> Fixed wrong choice bug
 
         //Business.HomeScene.prototype.setbackGroundColor('#000000'); 
         return;
