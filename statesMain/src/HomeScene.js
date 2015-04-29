@@ -416,7 +416,7 @@ Business.HomeScene.prototype = {
         var x=Math.floor(happ/5);
         var y=Math.floor(mone/5);
 
-        return dialTable[0][0];
+        return dialTable[x][y];
     },
     showPopUp: function(text){
 
@@ -435,7 +435,7 @@ Business.HomeScene.prototype = {
            popuptext.text=choice2;
         }
 
-        else if (text=="Bank of America"){
+        else if (text=="Bank of Am"){
         popuptext.text=choice3;
         }
 

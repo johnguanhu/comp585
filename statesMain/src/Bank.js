@@ -478,7 +478,7 @@ Business.Bank.prototype = {
       popuptext.text=choice2;
     }
 
-    else if (text=="Bank of America"){
+    else if (text=="Bank of Am."){
       popuptext.text=choice3;
     }
 
