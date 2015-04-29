@@ -60,6 +60,15 @@ var wantsToCall=false;
 var bgColor='#B4D9E7';
 var optionbox;
 
+var confirmbox;
+var confirmq;
+var confirmyes;
+var confirmno;
+var yesbutton; 
+var nobutton;
+var nstyle;
+var qstyle;
+
 Business.HomeScene= function(game){
     this.map= null;
     this.layer1= null;
@@ -103,6 +112,18 @@ Business.HomeScene.prototype = {
             buttons[i].visible = bool;
         }
     },
+
+    setConfirmButton: function(bool) {
+        confirmbox.visible=bool;
+        confirmq.text="";
+        confirmyes.text="";
+        confirmno.text="";
+        yesbutton.visible=bool;
+        nobutton.visible=bool;
+        nobutton.input.enabled=bool;
+        yesbutton.input.enabled=bool;
+    },
+
     create: function() {  //    tipword=this.add.text(tips.x, tips.y , "Tips go here");
     
         this.money=Number(sessionStorage.money);
@@ -314,8 +335,8 @@ Business.HomeScene.prototype = {
         agentbox.scale.setTo(0.5,0.5);
         agentbox.visible=false;
 
-        var nstyle = { font: "16px Arial", fill: "black", wordWrap: true, wordWrapWidth: agentbox.width, align: "center" };
-        var qstyle = { font: "12px Arial", fill: "black", wordWrap: true, wordWrapWidth: agentbox.width, align: "left" };
+        nstyle = { font: "16px Arial", fill: "black", wordWrap: true, wordWrapWidth: agentbox.width, align: "center" };
+        qstyle = { font: "12px Arial", fill: "black", wordWrap: true, wordWrapWidth: agentbox.width, align: "left" };
 
         agentname = this.add.text(agentbox.x + agentbox.width/2, agentbox.y + agentbox.height/6, "", nstyle);
         agentquote = this.add.text(agentbox.x + agentbox.width/2, agentbox.y + agentbox.height/2, "", qstyle);
@@ -343,6 +364,8 @@ Business.HomeScene.prototype = {
         });
 
 
+        this.setUpConfirmBox();
+        this.setConfirmButton(false);
 
         popup = this.add.sprite(300, 200, 'rectangle3');
         var popstyle = { font: "14px Arial", fill: "black", wordWrap: true, wordWrapWidth: popup.width, align: "left" };
@@ -389,6 +412,31 @@ Business.HomeScene.prototype = {
            }
         })
     },
+    setUpConfirmBox: function(){
+        confirmbox = this.add.sprite(200, 200, 'optiontangle');
+        confirmbox.scale.setTo(1.2,1.2);
+        confirmq = this.add.text(confirmbox.x + confirmbox.width/2, confirmbox.y + confirmbox.height/4, "", nstyle);
+        confirmq.anchor.set(0.5);
+        confirmyes= this.add.text(confirmbox.x + confirmbox.width/8, confirmbox.y + confirmbox.height/1.5 + 10, "", qstyle);
+        confirmno= this.add.text(confirmbox.x + 5*confirmbox.width/8, confirmbox.y + confirmbox.height/1.5 + 10, "", qstyle);
+        yesbutton = this.add.button(confirmbox.x + confirmbox.width/4,confirmbox.y + confirmbox.height/1.5,'box');
+        nobutton  = this.add.button(confirmbox.x + 3*confirmbox.width/4,confirmbox.y + confirmbox.height/1.5,'box');
+        yesbutton.scale.setTo(.1,.1);
+        nobutton.scale.setTo(.1,.1);
+        this.confirmHandlers();
+    },
+
+    confirmHandlers: function(){
+        yesbutton.onInputDown.add(function() {
+            Business.HomeScene.prototype.setConfirmButton(false);
+             Business.HomeScene.prototype.AgentSaidYes();
+        });
+
+        nobutton.onInputDown.add(function() {
+            Business.HomeScene.prototype.setConfirmButton(false);
+        });
+    },
+
     clearChoices: function(){
             Business.HomeScene.prototype.setDialogs(false);
             texts[0].text="";
@@ -733,14 +781,25 @@ Business.HomeScene.prototype = {
 
     checkCollision: function (obj1, obj2){
         this.stopMotion(obj1);
-        if (!this.wantsToCall && confirm("Would you like to call " + player_name)) {
+        if (!this.wantsToCall) {
+            this.setConfirmButton(true);
+            this.placeConfirmText("Would you like to call " + player_name);
+        }
+    },
+
+    AgentSaidYes: function(){
             this.wantsToCall=true;
             Business.HomeScene.prototype.reminded=true;
             this.dialogBool=true;
             reminder.visible=false;
             remindertext.text="";
             this.collisionHandler();
-        }
+    },
+
+    placeConfirmText: function (text){
+        confirmq.text=text;
+        confirmno.text="NO"
+        confirmyes.text="YES"
     },
     collisionHandler: function(obj1, obj2) {
 
