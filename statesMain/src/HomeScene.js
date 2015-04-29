@@ -159,6 +159,8 @@ Business.HomeScene.prototype = {
         optionbox = this.add.sprite(20, 30, 'optiontangle');
         optionbox.scale.setTo(1.2,1.2);
 
+        buttons=[];
+        texts=[];
         texts.push(this.add.text(100,40,' '));
         buttons.push(this.add.button(40,40,'box'));
         texts.push(this.add.text(100,80,' '));
@@ -167,9 +169,11 @@ Business.HomeScene.prototype = {
         buttons.push(this.add.button(40,120,'box'));
         texts.push(this.add.text(100,160,' '));
         buttons.push(this.add.button(40,160,'box'));
-        for(var i=0;i<4;i++) {
-                buttons[i].scale.setTo(.1,.1);
-        }
+        
+        buttons[0].scale.setTo(.1,.1);
+        buttons[1].scale.setTo(.1,.1);
+        buttons[2].scale.setTo(.1,.1);
+        buttons[3].scale.setTo(.1,.1);
         
         texts[0].inputEnabled=true;
         texts[0].events.onInputDown.add(function() {
@@ -748,7 +752,7 @@ Business.HomeScene.prototype = {
         this.stopMotion(obj1);
         sessionStorage.money=Number(money);
         sessionStorage.happiness=Number(happiness);
-        this.state.start('Scene1');
+         this.state.start('Scene1');
     },
     stopMotion: function(player){
         this.cursors.up.isDown=false;

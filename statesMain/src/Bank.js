@@ -44,7 +44,7 @@ var playerquote;
 var playername;
 var currentStep=0;
 var texts = [];
-var buttons = [];
+var bankbuttons = [];
 var next;
 var reminder;
 var remindertext;
@@ -155,7 +155,7 @@ Business.Bank.prototype = {
       playername.anchor.set(0.5);
       playerquote.anchor.set(0.5);
 
-      this.setUpButtons();
+      this.setUpbankbuttons();
       this.setDialogs(false);
       this.fillDialogueTable();
 
@@ -490,23 +490,24 @@ Business.Bank.prototype = {
 
   setDialogs: function(bool) {
     for(var i=0; i<4; i++) {
-        buttons[i].input.enabled = bool;
-        buttons[i].visible = bool;
+        bankbuttons[i].input.enabled = bool;
+        bankbuttons[i].visible = bool;
     }
   },
-  setUpButtons: function(){
+  setUpbankbuttons: function(){
       next = this.add.button(10, 250, "arrow");
       next.visible=false;
       next.input.enabled=false; 
-    
+      bankbuttons=[];
+      texts=[];
       texts.push(this.add.text(100,40,' '));
-      buttons.push(this.add.button(40,40,'box'));
+      bankbuttons.push(this.add.button(40,40,'box'));
       texts.push(this.add.text(100,80,' '));
-      buttons.push(this.add.button(40,80,'box'));
+      bankbuttons.push(this.add.button(40,80,'box'));
       texts.push(this.add.text(100,120,' '));
-      buttons.push(this.add.button(40,120,'box'));
+      bankbuttons.push(this.add.button(40,120,'box'));
       texts.push(this.add.text(100,160,' '));
-      buttons.push(this.add.button(40,160,'box'));
+      bankbuttons.push(this.add.button(40,160,'box'));
     
       texts[0].inputEnabled=true;
       texts[0].events.onInputDown.add(function() {
@@ -537,25 +538,25 @@ Business.Bank.prototype = {
       });
   
   
-      buttons[0].onInputDown.add(function() {
+      bankbuttons[0].onInputDown.add(function() {
         currentStep= Business.HomeScene.prototype.clearAndJump(1);
         Business.HomeScene.prototype.clearChoices()
         Business.HomeScene.prototype.dialog();
       });
   
-      buttons[1].onInputDown.add(function() {
+      bankbuttons[1].onInputDown.add(function() {
         currentStep= Business.HomeScene.prototype.clearAndJump(2);
         Business.HomeScene.prototype.clearChoices()
         Business.HomeScene.prototype.dialog();
       });
     
-      buttons[2].onInputDown.add(function() {
+      bankbuttons[2].onInputDown.add(function() {
         currentStep= Business.HomeScene.prototype.clearAndJump(3);
         Business.HomeScene.prototype.clearChoices()
         Business.HomeScene.prototype.dialog();
       });
     
-      buttons[3].onInputDown.add(function() {
+      bankbuttons[3].onInputDown.add(function() {
         currentStep= Business.HomeScene.prototype.clearAndJump(4);
         Business.HomeScene.prototype.clearChoices()
         Business.HomeScene.prototype.dialog();
