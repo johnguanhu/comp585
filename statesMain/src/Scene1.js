@@ -240,20 +240,24 @@ business_tips=["Every employee rises to the level of his own incompetence. The P
 			this.state.start('Game');
 
 	},
-	 playerCollision2: function (player, banker){
-      this.createTip();
-      this.stopMotion(player);
-      this.stopMotion(banker);
+	playerCollision2: function (player, banker){
+	 	if (!dianebox.visible){
+      		this.createTip();
+      	}
+      	this.stopMotion(player);
+      	this.stopMotion(banker);
   	},
 
   	createTip: function (){
   		dianebox.visible=true;
   		dianename.text="MASTER";
-  		if (money<5)
-  			dianequote.text="I GIVE NO TIPS TO PEOPLE WITH LESS THAN $5."
+  		if (money<5){
+  			dianequote.text="I GIVE NO TIPS TO PEOPLE WITH LESS THAN $5.";
+  		}
   		else {
-  		if (tip_counter>=business_tips.length)
-  			tip_counter=0
+  		if (tip_counter>=business_tips.length){
+  			tip_counter=0;
+  		}
   		dianequote.text=business_tips[tip_counter];
   		tip_counter++;
   		}
@@ -269,6 +273,7 @@ business_tips=["Every employee rises to the level of his own incompetence. The P
 			this.layer3.destroy();
 			this.portal.destroy();
 			this.homePortal.destroy();
+			this.dianemaster.destroy();
 			
 			sessionStorage.money=Number(money);
         	sessionStorage.happiness=Number(happiness);
@@ -287,6 +292,7 @@ business_tips=["Every employee rises to the level of his own incompetence. The P
 			this.layer3.destroy();
 			this.portal.destroy();
 			this.bankPortal.destroy();
+			this.dianemaster.destroy();
 			
 			sessionStorage.money=Number(money);
        		sessionStorage.happiness=Number(happiness);
@@ -304,6 +310,7 @@ business_tips=["Every employee rises to the level of his own incompetence. The P
 			this.layer3.destroy();
 			this.portal.destroy();
 			this.game2Portal.destroy();
+			this.dianemaster.destroy();
 			
 			sessionStorage.money=Number(money);
         	sessionStorage.happiness=Number(happiness);

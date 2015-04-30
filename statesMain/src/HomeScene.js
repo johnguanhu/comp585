@@ -966,6 +966,15 @@ checkCollision: function (obj1, obj2){
 
         this.sprite.body.velocity.x = 0;
         this.sprite.body.velocity.y = 0;
+        if(this.sprite.x<0){
+            this.sprite.x=0;
+        }
+        if (this.sprite.y<0){
+            this.sprite.y=0;
+        }
+        if (this.sprite.y>550){
+            this.sprite.y=550;
+        }
 
         if (this.cursors.up.isDown)
         {
