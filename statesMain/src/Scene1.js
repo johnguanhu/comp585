@@ -5,6 +5,12 @@ var moneylab=null;
 var happyimg=null;
 var happylab=null;
 
+var dianebox;
+var dianename;
+var dianequote;
+var business_tips=null;
+var tip_counter=0;
+
 
 Business.Scene1 = function(game){
 	this.map = null;
@@ -72,6 +78,51 @@ Business.Scene1.prototype = {
 
 	    this.cursors = this.input.keyboard.createCursorKeys();
 
+	    //create diane
+	  this.banker2 = this.add.sprite(90,50, 'diane');
+      this.banker2.scale.setTo(0.2,0.2);
+      this.dialogCollision2 = this.add.sprite(90,50, 'transparent');
+      this.dialogCollision2.scale.setTo(0.2,0.26);
+      this.dialogCollision2.enableBody = true;
+      this.physics.enable(this.dialogCollision2);
+      this.dialogCollision2.body.immovable = true;
+     // this.add.tween(this.dialogCollision2).to({ y:300 }, 4000, Phaser.Easing.Quadratic.InOut, true, 0, 1000, true);
+//     this.add.tween(this.banker2).to({ y:300 }, 4000, Phaser.Easing.Quadratic.InOut, true, 0, 1000, true);
+
+
+
+      dianebox = this.add.sprite(100, 100, 'rectangle3');
+      dianebox.scale.setTo(0.5,0.5);
+      dianebox.visible=false;
+
+      var nstyle = { font: "16px Arial", fill: "black", wordWrap: true, wordWrapWidth: dianebox.width, align: "center" };
+      var qstyle = { font: "12px Arial", fill: "black", wordWrap: true, wordWrapWidth: dianebox.width, align: "left" };
+
+      dianename = this.add.text(dianebox.x + dianebox.width/2, dianebox.y + dianebox.height/6, "", nstyle);
+      dianequote = this.add.text(dianebox.x + dianebox.width/2, dianebox.y + dianebox.height/2, "", qstyle);
+      dianename.anchor.set(0.5);
+      dianequote.anchor.set(0.5);
+
+        dianebox.inputEnabled=true;
+        dianebox.events.onInputDown.add(function(){
+            dianebox.visible=false;
+            dianename.text="";
+            dianequote.text="";
+        });
+
+business_tips=["Every employee rises to the level of his own incompetence. The Peter Principle",
+"If you see a bandwagon, it’s too late. James Goldsmith",
+"Early to bed and early to rise probably indicates unskilled labor. John Ciardi",
+"Why join the navy if you can be a pirate? Steve Jobs",
+"The problem with the rat race is that even if you win, you’re still a rat. Lilly Tomlin",
+"He’s taking this company to hell, and we’re riding shotgun.",
+"Don’t piss on my back and tell me it’s raining. Old West quote",
+"Run your idea up the flagpole and see if anyone salutes it.",
+"We have paralysis by analysis.",
+"Failure is not an option—it comes bundled with the software.",
+"Get the right people on the bus and in the right seat. Jim Collins",
+"A meeting is an event at which the minutes are kept and the hours are lost.",
+"A picture is worth 1,000 words, but it uses up 3,000 times the memory.",]
 
 	    //bottom bar stuff
 	    this.money=Number(sessionStorage.money);
@@ -191,6 +242,20 @@ Business.Scene1.prototype = {
 			this.state.start('Game');
 
 	},
+	 playerCollision2: function (player, banker){
+      this.createTip();
+      this.stopMotion(player);
+      this.stopMotion(banker);
+  	},
+
+  	createTip: function (){
+  		dianebox.visible=true;
+  		dianename.text="MASTER";
+  		if (tip_counter>=12)
+  			tip_counter=0
+  		dianequote.text=business_tips[tip_counter];
+  		tip_counter++;
+  	},
 
 	checkCollision2: function(player, portal){
 		//need to move down away from the build
@@ -244,7 +309,7 @@ Business.Scene1.prototype = {
 	},
 
 	update: function(){
-
+		this.physics.arcade.collide(this.player, this.dialogCollision2, this.playerCollision2, null, this);
 		//bottom bar
 		if(moneybar!=null){
             moneybar.width= Number(money);
