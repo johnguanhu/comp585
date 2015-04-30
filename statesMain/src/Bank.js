@@ -5,14 +5,12 @@ var layer3= null;
 var cursors= null;
 var sprite= null;
 var line= null;
-var agent_name= null;
 var storage= null;
 var moneybar= null;
 var happybar= null;
 var tileHits = null;
 var plotting = false;
 var dialogBool=false;
-var player_name = null;
 var boolean_clicked=false;
 var boolean_paused=false;
 var phoneBool=false;
@@ -64,14 +62,12 @@ Business.Bank = function(game){
 	this.banker1 = null;
 	this.banker2 = null;
   this.dial= null;
-  agent_name= null;
   this.storage= null;
   this.happybar= null;
   this.tileHits = null;
   this.plotting = false;
   this.dialogBool=false;
   this.wantsToCall=false;
-  player_name = null;
   this.boolean_clicked=false;
   this.phoneBool=false;
   this.reminded=false;
@@ -402,7 +398,7 @@ Business.Bank.prototype = {
   fillOneLinerTable: function (){
 
       var m="THE MASTER"
-      var p = "AGENT"
+      var p = agent_name
       var n1 = m;
       var l1 = "Sometimes random people will send emails to you asking for money.";
 
@@ -449,73 +445,73 @@ Business.Bank.prototype = {
       var n1 = "Bank Rep";
       var l1 = "Good morning. How may I help you?";
 
-      var n2 = "Player";
+      var n2 = agent_name;
       var l2 = "I want to set up a bank account.";
 
       var n3 = "Bank Rep";
       var l3 = "Okay. I will open up a checking and savings account.";
 
-      var n4 = "Player";
+      var n4 = agent_name;
       var l4 = "What's a checking and savings account?";
 
       var n5 = "Bank Rep";
       var l5 = "A checking account helps keep your money safe.";
 
-      var n6 = "Player";
+      var n6 = agent_name;
       var l6 = "Okay.";
 
       var n7 = "Bank Rep";
       var l7 = "You can easily access your money for daily spendings.";
 
-      var n8 = "Player";
+      var n8 = agent_name;
       var l8 = "How?";
 
       var n9 = "Bank Rep";
       var l9 = "With a debit card or checks, that we provide.";
 
-      var n10 = "Player";
+      var n10 = agent_name;
       var l10 = "What about a savings account?";
 
       var n11 = "Bank Rep";
       var l11 = "Saving accounts save your money for the future";
 
-      var n12 = "Player";
+      var n12 = agent_name;
       var l12 = "Okay...";
 
       var n13 = "Bank Rep";
       var l13 = "They reward you with interest for the money you save.";
 
-      var n14 = "Player";
+      var n14 = agent_name;
       var l14 = "I see.";
 
       var n15 = "Bank Rep";
       var l15 = "Shall we get started?";
 
-      var n16 = "Player";
+      var n16 = agent_name;
       var l16 = "Yes!";
 
       var n17 = "Bank Rep";
       var l17 = "Okay, first I need your opening deposit.";
 
-      var n18 = "Player";
+      var n18 = agent_name;
       var l18 = "Here it is.";
 
       var n19 = "Bank Rep";
       var l19 = "Thanks. Are you aware of our services and fees?";
 
-      var n20 = "Player";
+      var n20 = agent_name;
       var l20 = "Yes, my agent went through everything with me.";
 
       var n21 = "Bank Rep";
       var l21 = "Perfect. Let me process everything right now.";
 
-      var n22 = "Player";
+      var n22 = agent_name;
       var l22 = "Awesome!";
 
       var n23 = "Bank Rep";
       var l23 = "Congratulations, your account has been created.";
 
-      var n24 = "Player";
+      var n24 = agent_name;
       var l24 = "Thank you so much!";
 
       var n25 = "end";

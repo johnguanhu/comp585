@@ -5,7 +5,7 @@ var layer3= null;
 var cursors= null;
 var sprite= null;
 var line= null;
-var agent_name= null;
+var agent_name= "Fancy Agent";
 var dialTable= null;
 var storage= null;
 var moneybar= null;
@@ -14,7 +14,7 @@ var tileHits = null;
 var plotting = false;
 var dialogBool=false;
 var wantsToCall=false;
-var player_name = null;
+var player_name = "Harry Giles";
 var boolean_clicked=false;
 var boolean_paused=false;
 var phoneBool=false;
@@ -78,7 +78,6 @@ Business.HomeScene= function(game){
     this.sprite= null;
     this.line= null;
     this.dial= null;
-    agent_name= null;
     this.dialTable= null;
     this.storage= null;
 
@@ -87,7 +86,6 @@ Business.HomeScene= function(game){
     this.plotting = false;
     this.dialogBool=false;
     this.wantsToCall=false;
-    player_name = null;
     this.boolean_clicked=false;
     this.phoneBool=false;
     this.reminded=false;
@@ -423,7 +421,6 @@ Business.HomeScene.prototype = {
         this.portal.body.immovable=true;
 
         //agent_name= prompt("What is the your name");
-        agent_name="JIM";
         var BusinessTips = this.add.button(730,580, "wallet"); 
         BusinessTips.scale.setTo(.22,.22);
         BusinessTips.inputEnabled=true;
@@ -538,40 +535,40 @@ Business.HomeScene.prototype = {
     },
     fillDialogueTable: function (){
 
-        var n1 = "Agent";
+        var n1 = agent_name;
         var l1 = "It’s time to manage your finances.";
 
-        var n2 = "Player";
+        var n2 = player_name;
         var l2 = "Okay, what do I need to do?";
 
-        var n3 = "Agent";
+        var n3 = agent_name;
         var l3 = "You need a bank account and credit card.";
 
-        var n4 = "Player";
+        var n4 = player_name;
         var l4 = "Okay, why is that?";
 
-        var n5 = "Agent";
+        var n5 = agent_name;
         var l5 = "A bank account helps save and protect your money.";
 
-        var n6 = "Player";
+        var n6 = player_name;
         var l6 = "I see. Why do I need a credit card?";
 
-        var n7 = "Agent";
+        var n7 = agent_name;
         var l7 = "It helps you build up good credit.";
 
-        var n8 = "Player";
+        var n8 = player_name;
         var l8 = "What is that?";
 
-        var n9 = "Agent";
+        var n9 = agent_name;
         var l9 = "Good credit qualifies you for loans, rent, ...";
 
-        var n10 = "Player";
+        var n10 = player_name;
         var l10 = "And... ?";
 
-        var n11 = "Agent";
+        var n11 = agent_name;
         var l11 = "You can make big purchases through payment plans.";
 
-        var n12 = "Player";
+        var n12 = player_name;
         var l12 = "I see. What bank should we go to then?";
 
         var n13 = "Choice";
@@ -589,13 +586,13 @@ Business.HomeScene.prototype = {
         var n17 = "1"
         var l17 = "void";
 
-        var n18 = "Agent";
+        var n18 = agent_name;
         var l18 = "Let's go to Wells Fargo.";
 
-        var n19 = "Player";
+        var n19 = player_name;
         var l19 = "Okay.";
 
-        var n20 = "Agent";
+        var n20 = agent_name;
         var l20 = "Great, don’t be late!";
 
         var n21 = "money";
@@ -610,13 +607,13 @@ Business.HomeScene.prototype = {
         var n24 = "2"
         var l24 = "void";
 
-        var n25 = "Agent";
+        var n25 = agent_name;
         var l25 = "We should go to BestBank.";
 
-        var n26 = "Player";
+        var n26 = player_name;
         var l26 = "Sounds good.";
 
-        var n27 = "Agent";
+        var n27 = agent_name;
         var l27 = "Great, don’t be late!";
 
         var n28 = "money";
@@ -631,13 +628,13 @@ Business.HomeScene.prototype = {
         var n31 = "3"
         var l31 = "void";
 
-        var n32 = "Agent";
+        var n32 = agent_name;
         var l32 = "We should go to Bank of America.";
 
-        var n33 = "Player";
+        var n33 = player_name;
         var l33 = "Okay, sounds good.";
 
-        var n34 = "Agent";
+        var n34 = agent_name;
         var l34 = "Great, don’t be late!";
 
         var n35 = "money";
@@ -652,13 +649,13 @@ Business.HomeScene.prototype = {
         var n38 = "4"
         var l38 = "void";
 
-        var n39 = "Agent";
+        var n39 = agent_name;
         var l39 = "We should go to Chase Bank.";
 
-        var n40 = "Player";
+        var n40 = player_name;
         var l40 = "Okay, sounds good.";
 
-        var n41 = "Agent";
+        var n41 = agent_name;
         var l41 = "Great, don’t be late!";
 
         var n42 = "money";
@@ -678,16 +675,16 @@ Business.HomeScene.prototype = {
         //end tag will cause dialogue to end.
          //if you want to increase money or happiness in dialogue, if the name of the speaker is money & text is a number, it shoudl increment or decrement happiness by specific amount.
 
-         var  pn1=      "Agent";
-         var  pl1=      "Hi, is this *P* speaking?";
+         var  pn1=      agent_name;
+         var  pl1=      "Hi, is this" + player_name + "speaking?";
 
-         var   pn2=     "Player";
+         var   pn2=     player_name;
          var   pl2=     "Yeah, who is this?";
 
-         var   pn3=     "Agent";
-         var   pl3=     "*P,* hope all is well.  This is *U* from *NAME OF AGENCY*.  We met last week.";
+         var   pn3=     agent_name;
+         var   pl3=     player_name +", hope all is well.  This is" + agent_name + "from BESTAGENTS.  We met last week.";
 
-         var   pn4=    "Player";
+         var   pn4=    player_name;
          var   pl4=    "Oh, right. Yeah.";
 
          var   pn5=     "Choice";
@@ -705,7 +702,7 @@ Business.HomeScene.prototype = {
          var   pn9=       "2";
          var   pl9=       "void";
 
-         var   pn10=     "Player";
+         var   pn10=     player_name;
          var   pl10=     "You picked 2";
 
 
@@ -838,7 +835,7 @@ Business.HomeScene.prototype = {
         this.stopMotion(obj1);
         //if (!this.wantsToCall) {
             this.setConfirmButton(true);
-            this.placeConfirmText("Would you like to call " + player_name);
+            this.placeConfirmText("Would you like to call " + player_name +"?");
         //}
     },
 
