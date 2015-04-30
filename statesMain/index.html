@@ -35,6 +35,12 @@
 	game.state.add('Game2', Business.Game2);
 	game.state.add('HomeScene', Business.HomeScene);
 	game.state.add('Bank', Business.Bank);
+	window.onload = function() {
+    if(!window.location.hash) {
+        window.location = window.location + '#loaded';
+        window.location.reload();
+    }
+}
 
 	// start the Boot state
 	game.state.start('Boot');

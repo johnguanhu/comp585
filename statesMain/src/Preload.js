@@ -66,5 +66,9 @@ Business.Preload.prototype = {
 	create: function(){
 		// start the MainMenu state
 		this.state.start('Scene1');
+		sessionStorage.setItem('money', 0);
+	  	sessionStorage.setItem('happiness', 0);
+	    sessionStorage.money=0;
+	    sessionStorage.happiness=0;
 	}
 };

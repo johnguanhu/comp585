@@ -12,6 +12,8 @@ var business_tips=null;
 var tip_counter=0;
 
 
+
+
 Business.Scene1 = function(game){
 	this.map = null;
 	this.layer1 = null;
@@ -31,6 +33,7 @@ Business.Scene1 = function(game){
 
 Business.Scene1.prototype = {
 	create: function(){
+
 		this.physics.startSystem(Phaser.Physics.ARCADE);
 		this.map = this.add.tilemap('map');
 
