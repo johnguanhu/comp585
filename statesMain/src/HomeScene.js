@@ -758,7 +758,7 @@ Business.HomeScene.prototype = {
     //probably means we should rename it
 
     setUpPause: function (){
-        var Pause_Label = this.add.button(700,600, "pause"); 
+        var Pause_Label = this.add.button(650,607, "pause"); 
 
         Pause_Label.inputEnabled=true;
 

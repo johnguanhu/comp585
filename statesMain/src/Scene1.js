@@ -114,7 +114,7 @@ Business.Scene1.prototype = {
         })
 	},
 	setUpPause: function (){
-        var Pause_Label = this.add.button(700,600, "pause"); 
+        var Pause_Label = this.add.button(650,607, "pause"); 
 
         Pause_Label.inputEnabled=true;
 

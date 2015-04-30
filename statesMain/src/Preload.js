@@ -20,6 +20,7 @@ Business.Preload.prototype = {
     	this.load.image('transparent', 'assets/transparent.png');
     	this.load.image('box', 'assets/blue-button.png');
     	this.load.image('optiontangle', 'assets/optiontangle.png');
+    	this.load.image('pause', 'assets/stats.png');
 		
 		//Characters
     	this.load.image('phaser', 'assets/phaser-dude.png');
