@@ -708,17 +708,17 @@ fillDialogueTable: function (){
          var pn9 = "1"
          var pl9 = "void";
 
-         var pn10 = agent_name;
-         var pl10 = "Here's $10";
+         var pn10 = player_name;
+         var pl10 = "...";
 
-         var pn11 = player_name;
-         var pl11 = "Thanks";
+         var pn11 = agent_name;
+         var pl11 = "Here's $10";
 
-         var pn12 = agent_name;
-         var pl12 = "Let's meet 10am tomorrow at Bruegger's Bagels.";
+         var pn12 = player_name;
+         var pl12 = "Thanks " + agent_name;
 
          var pn13 = player_name;
-         var pl13 = "See you then";
+         var pl13 = "Let's meet 10am tomorrow at Bruegger's Bagels.";
 
          var pn14 = "money";
          var pl14 = "-10";
