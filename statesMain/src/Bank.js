@@ -432,11 +432,46 @@ Business.Bank.prototype = {
       var n11 = "end";
       var l11 = "Shouldn't matter";
 
-      var richdial=[[n1,l1],[n2,l2],[n3,l3],[n4,l4],[n5,l5],[n6,l6],[n7,l7],[n8,l8],[n9,l9],[n10,l10],[n11,l11]];
-      var dial00= richdial; 
-      var dial01= richdial;
-      var dial10=richdial;
-      var dial11= richdial;
+
+      var pn1 = m;
+      var pl1 = "As you make more money, you should consider ways to invest it.";
+
+      var pn2 = p;
+      var pl2 = "Are you scamming me again?";
+
+      var pn3 = m;
+      var pl3 = "No, There are many ways you can capitalize on your money!";
+
+      var pn4 = p;
+      var pl4 = "I was scammed!";
+
+      var pn5 = m;
+      var pl5 = "Not all investments are good ones."
+
+      var pn6 = p;
+      var pl6 = "What should I invest in?";
+
+      var pn7 = m;
+      var pl7 = "Invest in ventures that not only promise, but demonstrate, good return.";
+      
+      var pn8 = p;
+      var pl8 = "But the Nigerian prince promised a good return";
+
+      var pn9 = m;
+      var pl9 = "Do your research. Don't invest blindly.";
+
+      var pn10= p
+      var pl10 = "Okay, thanks for the tips";
+
+      var pn11 = "end";
+      var pl11 = "Shouldn't matter";
+
+      var poordial=[[n1,l1],[n2,l2],[n3,l3],[n4,l4],[n5,l5],[n6,l6],[n7,l7],[n8,l8],[n9,l9],[n10,l10],[n11,l11]];
+      var richydial = [[pn1,pl1],[pn2,pl2],[pn3,pl3],[pn4,pl4],[pn5,pl5],[pn6,pl6],[pn7,pl7],[pn8,pl8],[pn9,pl9],[pn10,pl10],[pn11,pl11]];
+      var dial00= poordial; 
+      var dial01= poordial;
+      var dial10=poordial;
+      var dial11= richydial;
       OneLinerDialog=[[dial00,dial01],[dial10,dial11]];
   },
 
