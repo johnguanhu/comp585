@@ -472,6 +472,9 @@ Business.HomeScene.prototype = {
     },
 
     clearChoices: function(){
+            popup.visible=false;
+            popuptext.text="";
+            popuptext.visible=false;
             Business.HomeScene.prototype.setDialogs(false);
             texts[0].text="";
             texts[1].text= "";
