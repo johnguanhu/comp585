@@ -51,6 +51,7 @@ var remindertext;
 var paused;
 var bgColor='#B4D9E7';
 var BankDialog = null;
+var OneLinerDialog = null;
 
 
 Business.Bank = function(game){
@@ -158,6 +159,7 @@ Business.Bank.prototype = {
       this.setUpbankbuttons();
       this.setDialogs(false);
       this.fillDialogueTable();
+      this.fillOneLinerTable();
 
       this.money=Number(sessionStorage.money);
       this.happiness=Number(sessionStorage.happiness);
@@ -230,6 +232,16 @@ Business.Bank.prototype = {
       bgColor='#992d2d';
       this.dialog();
   },
+
+  playerCollision2: function (player, banker){
+      console.log("collision 2!!!")
+      this.stopMotion(player);
+      banker.body.drag.setTo(3000);
+      dial=this.oneLinerSelecter(happiness, money);
+      bgColor='#992d2d';
+      this.dialog();
+  },
+
   setUpPause: function (){
 <<<<<<< HEAD
       var Pause_Label = this.add.button(650,607, "pause"); 
@@ -329,7 +341,7 @@ Business.Bank.prototype = {
 
     this.physics.arcade.overlap(this.player, this.portal, this.checkCollision1, null, this);
     this.physics.arcade.collide(this.player, this.dialogCollision1, this.playerCollision, null, this);
-    this.physics.arcade.collide(this.player, this.dialogCollision2, this.playerCollision, null, this);
+    this.physics.arcade.collide(this.player, this.dialogCollision2, this.playerCollision2, null, this);
 
     this.player.body.velocity.x = 0;
     this.player.body.velocity.y = 0;
@@ -385,6 +397,67 @@ Business.Bank.prototype = {
     var y=Math.floor(mone/5);
 
     return dialTable[x][y];
+  },
+
+    oneLinerSelecter: function (hap, mon){
+      happ=hap;
+      mone=mon;
+      if (happ>9){
+          happ=9;
+      }
+      if (mone>9){
+          mone=9;
+      }
+      //you can have up to four dialogs
+      var x=Math.floor(happ/5);
+      var y=Math.floor(mone/5);
+
+      return OneLinerDialog[0][0];
+  },
+
+  fillOneLinerTable: function (){
+
+      var m="THE MASTER"
+      var p = "AGENT"
+      var n1 = m;
+      var l1 = "Sometimes random people will send emails to you asking for money.";
+
+      var n2 = p;
+      var l2 = "WHOA.";
+
+      var n3 = m;
+      var l3 = "They promise to reward you if you pay them a small fee.";
+
+      var n4 = p;
+      var l4 = "DON't lie to me!";
+
+      var n5 = m;
+      var l5 = "Others may lie and say your family has an emergency and you have to send in money."
+
+      var n6 = p;
+      var l6 = "Whoa";
+
+      var n7 = m;
+      var l7 = "A common example is the Nigerian Prince scam.";
+
+      var n8 = p;
+      var l8 = "I GAVE A NIGERIAN PRINCE my money yesterday!!!";
+
+      var n9 = m;
+      var l9 = "MUHAHAHAHA";
+
+      var n10= "money";
+      var l10 = "-50";
+
+      var n11 = "end";
+      var l11 = "Shouldn't matter";
+
+      var richdial=[[n1,l1],[n2,l2],[n3,l3],[n4,l4],[n5,l5],[n6,l6],[n7,l7],[n8,l8],[n9,l9],[n10,l10],[n11,l11]];
+      var dial00= richdial; 
+      var dial01= richdial;
+      var dial10= richdial;
+      var dial11= richdial;
+      OneLinerDialog=[[dial00,dial01],[dial10,dial11]];
   },
 
   fillDialogueTable: function (){
