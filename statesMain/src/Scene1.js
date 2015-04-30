@@ -91,7 +91,7 @@ Business.Scene1.prototype = {
         this.setUpPause();
 
 
-        var BusinessTips = this.add.button(750,580, "wallet"); 
+        var BusinessTips = this.add.button(730,580, "wallet"); 
         BusinessTips.scale.setTo(.22,.22);
         BusinessTips.inputEnabled=true;
         tips = this.add.sprite(200, 200, 'tipsheet');
