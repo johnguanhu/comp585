@@ -266,7 +266,7 @@ Business.Bank.prototype = {
              boolean_paused=true;
          }
      })
-=======
+
         var Pause_Label = this.add.button(700,600, "pause"); 
 
         Pause_Label.inputEnabled=true;
@@ -291,7 +291,7 @@ Business.Bank.prototype = {
                boolean_paused=true;
            }
        })
->>>>>>> stats button window upgrade
+
 
   },
 
