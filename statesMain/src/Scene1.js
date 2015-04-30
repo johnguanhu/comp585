@@ -78,7 +78,7 @@ Business.Scene1.prototype = {
         this.happiness=Number(sessionStorage.happiness);
 
         statsRec=this.add.sprite(0,0, 'rectangle3');
-        statsRec.scale.setTo(.3,.5);
+        statsRec.scale.setTo(.4,.5);
 
         moneyimg=this.add.sprite(10,50, 'money');
         moneylab=this.add.text(60,50,'err');
