@@ -217,13 +217,12 @@ Business.Bank.prototype = {
 
    checkCollision1: function(player, portal){
     this.stopMotion(player);
-      if(confirm("Porting back to main map.")){
         this.endDialog();
         this.stage.backgroundColor='#B4D9E7';
         sessionStorage.money=Number(money);
         sessionStorage.happiness=Number(happiness);
         this.state.start('Scene1');
-      }
+
   },
 
   playerCollision: function (player, banker){
@@ -243,32 +242,8 @@ Business.Bank.prototype = {
       this.dialog();
   },
 
-  setUpPause: function (){
-<<<<<<< HEAD
-      var Pause_Label = this.add.button(650,607, "pause"); 
-
-      Pause_Label.inputEnabled=true;
-
-      Pause_Label.onInputDown.add(function(){
-         if (boolean_paused){
-             console.log("unpausing...")
-             moneyimg.visible=false;
-             moneylab.visible=false;
-             happimg.visible=false;
-             happylab.visible=false;
-             boolean_paused=false;
-         }
-         else {
-             console.log("pausing...")
-             moneyimg.visible=true;
-             moneylab.visible=true;
-             happimg.visible=true;
-             happylab.visible=true;
-             boolean_paused=true;
-         }
-     })
-
-        var Pause_Label = this.add.button(700,600, "pause"); 
+ setUpPause: function (){
+        var Pause_Label = this.add.button(650,607, "pause"); 
 
         Pause_Label.inputEnabled=true;
 
@@ -294,7 +269,7 @@ Business.Bank.prototype = {
        })
 
 
-  },
+    },
 
   setUpMoney: function (){
       moneyUp=this.add.sprite(400,600, 'test');
@@ -393,11 +368,13 @@ Business.Bank.prototype = {
     if (mone<0){
         mone=0;
         }
+    console.log(hap)
+    console.log(mon)
     //you can have up to four dialogs
     var x=Math.floor(happ/5);
     var y=Math.floor(mone/5);
 
-    return dialTable[x][y];
+    return BankDialog[x][y];
   },
 
     oneLinerSelecter: function (hap, mon){
@@ -409,11 +386,17 @@ Business.Bank.prototype = {
       if (mone>9){
           mone=9;
       }
+      if (happ<0){
+        happ=0;
+      }
+      if (mone<0){
+        mone=0;
+        }
       //you can have up to four dialogs
       var x=Math.floor(happ/5);
       var y=Math.floor(mone/5);
 
-      return OneLinerDialog[0][0];
+      return OneLinerDialog[x][y];
   },
 
   fillOneLinerTable: function (){
@@ -456,7 +439,7 @@ Business.Bank.prototype = {
       var richdial=[[n1,l1],[n2,l2],[n3,l3],[n4,l4],[n5,l5],[n6,l6],[n7,l7],[n8,l8],[n9,l9],[n10,l10],[n11,l11]];
       var dial00= richdial; 
       var dial01= richdial;
-      var dial10= richdial;
+      var dial10=richdial;
       var dial11= richdial;
       OneLinerDialog=[[dial00,dial01],[dial10,dial11]];
   },

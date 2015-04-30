@@ -180,7 +180,6 @@ Business.Scene1.prototype = {
 		this.player.body.y=this.player.body.y+10;
 		//stop the motion
 		this.stopMotion(player);
-		if(confirm("Porting you to collection minigame.")){
 			this.layer1.destroy();
 			this.layer2.destroy();
 			this.layer3.destroy();
@@ -190,7 +189,7 @@ Business.Scene1.prototype = {
 			sessionStorage.money=Number(money);
         	sessionStorage.happiness=Number(happiness);
 			this.state.start('Game');
-		}
+
 	},
 
 	checkCollision2: function(player, portal){
@@ -198,7 +197,6 @@ Business.Scene1.prototype = {
 		this.player.body.y=this.player.body.y+10;
 		//stop the motion
 		this.stopMotion(player);
-		if(confirm("Porting you home.")){
 			this.layer1.destroy();
 			this.layer2.destroy();
 			this.layer3.destroy();
@@ -208,7 +206,7 @@ Business.Scene1.prototype = {
 			sessionStorage.money=Number(money);
         	sessionStorage.happiness=Number(happiness);
 			this.state.start('HomeScene');
-		}
+		
 	},
 
 	checkCollision3: function(player, portal){
@@ -217,7 +215,6 @@ Business.Scene1.prototype = {
 		this.player.body.y=this.player.body.y+10;
 		//stop the motion
 		this.stopMotion(player);
-		if(confirm("Porting you to the bank.")){
 			this.layer1.destroy();
 			this.layer2.destroy();
 			this.layer3.destroy();
@@ -227,10 +224,6 @@ Business.Scene1.prototype = {
 			sessionStorage.money=Number(money);
        		sessionStorage.happiness=Number(happiness);
 			this.state.start('Bank');
-		}else{
-
-
-		}
 	},
 
 	checkCollision4: function(player, portal){
@@ -239,7 +232,6 @@ Business.Scene1.prototype = {
 		this.player.body.y=this.player.body.y+10;
 		//stop the motion
 		this.stopMotion(player);
-		if(confirm("Porting you to the Ponzi minigame.")){
 			this.layer1.destroy();
 			this.layer2.destroy();
 			this.layer3.destroy();
@@ -249,7 +241,6 @@ Business.Scene1.prototype = {
 			sessionStorage.money=Number(money);
         	sessionStorage.happiness=Number(happiness);
 			this.state.start('Game2');
-		}
 	},
 
 	update: function(){
