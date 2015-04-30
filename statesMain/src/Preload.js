@@ -57,6 +57,10 @@ Business.Preload.prototype = {
 	    this.load.image('happyBar', 'assets/happyBar.png');
 	    this.load.image('door', 'assets/door.gif');
 
+	    //pause icons
+	   	this.load.image('happy', 'assets/smiley.png');
+	   	this.load.image('money', 'assets/money.png');
+
         
 	},
 	create: function(){

@@ -163,14 +163,23 @@ Business.Bank.prototype = {
       this.happiness=Number(sessionStorage.happiness);
 
 
+      statsRec=this.add.sprite(0,0, 'rectangle3');
+      statsRec.scale.setTo(.3,.5);
+
       moneyimg=this.add.sprite(10,50, 'money');
       moneylab=this.add.text(60,50,'err');
-      happimg=this.add.sprite(10,100,'happy');
+      happyimg=this.add.sprite(10,100,'happy');
       happylab=this.add.text(60,100,'err');
+
+      moneyimg.scale.setTo(.42,.42);
+      happyimg.scale.setTo(.017,.017);
+
+
       moneyimg.visible=false;
       moneylab.visible=false;
-      happimg.visible=false;
+      happyimg.visible=false;
       happylab.visible=false;
+      statsRec.visible=false;
 
       this.setUpMoney();
       this.setUpPause();
@@ -222,6 +231,7 @@ Business.Bank.prototype = {
       this.dialog();
   },
   setUpPause: function (){
+<<<<<<< HEAD
       var Pause_Label = this.add.button(650,607, "pause"); 
 
       Pause_Label.inputEnabled=true;
@@ -244,6 +254,32 @@ Business.Bank.prototype = {
              boolean_paused=true;
          }
      })
+=======
+        var Pause_Label = this.add.button(700,600, "pause"); 
+
+        Pause_Label.inputEnabled=true;
+
+        Pause_Label.onInputDown.add(function(){
+           if (boolean_paused){
+               console.log("unpausing...")
+               moneyimg.visible=false;
+               moneylab.visible=false;
+               happyimg.visible=false;
+               happylab.visible=false;
+               statsRec.visible=false;
+               boolean_paused=false;
+           }
+           else {
+               console.log("pausing...")
+               moneyimg.visible=true;
+               moneylab.visible=true;
+               happyimg.visible=true;
+               happylab.visible=true;
+               statsRec.visible=true;
+               boolean_paused=true;
+           }
+       })
+>>>>>>> stats button window upgrade
 
   },
 
@@ -282,7 +318,7 @@ Business.Bank.prototype = {
         // if(moneylab!=null){
         //     moneyimg=this.add.sprite(10,50, 'money');
         //     moneylab=this.add.text(60,50,money.toString());
-        //     happimg=this.add.sprite(10,100,'happy');
+        //     happyimg=this.add.sprite(10,100,'happy');
         //     happylab=this.add.text(60,100,happiness.toString());
         // }
 

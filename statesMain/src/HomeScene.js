@@ -162,14 +162,23 @@ Business.HomeScene.prototype = {
         this.camera.follow(this.sprite);
         this.cursors = this.input.keyboard.createCursorKeys();
 
+        statsRec=this.add.sprite(0,0, 'rectangle3');
+        statsRec.scale.setTo(.3,.5);
+
         moneyimg=this.add.sprite(10,50, 'money');
         moneylab=this.add.text(60,50,'err');
-        happimg=this.add.sprite(10,100,'happy');
+        happyimg=this.add.sprite(10,100,'happy');
         happylab=this.add.text(60,100,'err');
+
+        moneyimg.scale.setTo(.42,.42);
+        happyimg.scale.setTo(.017,.017);
+
+
         moneyimg.visible=false;
         moneylab.visible=false;
-        happimg.visible=false;
+        happyimg.visible=false;
         happylab.visible=false;
+        statsRec.visible=false;
 
 
         next = this.add.button(0, 0, "transparent");
@@ -767,16 +776,18 @@ Business.HomeScene.prototype = {
                console.log("unpausing...")
                moneyimg.visible=false;
                moneylab.visible=false;
-               happimg.visible=false;
+               happyimg.visible=false;
                happylab.visible=false;
+               statsRec.visible=false;
                boolean_paused=false;
            }
            else {
                console.log("pausing...")
                moneyimg.visible=true;
                moneylab.visible=true;
-               happimg.visible=true;
+               happyimg.visible=true;
                happylab.visible=true;
+               statsRec.visible=true;
                boolean_paused=true;
            }
        })
@@ -879,7 +890,7 @@ Business.HomeScene.prototype = {
             // if(moneylab!=null){
             //     moneyimg=this.add.sprite(10,50, 'money');
             //     moneylab=this.add.text(60,50,money.toString());
-            //     happimg=this.add.sprite(10,100,'happy');
+            //     happyimg=this.add.sprite(10,100,'happy');
             //     happylab=this.add.text(60,100,happiness.toString());
             // }
 
