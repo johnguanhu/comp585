@@ -251,10 +251,14 @@ business_tips=["Every employee rises to the level of his own incompetence. The P
   	createTip: function (){
   		dianebox.visible=true;
   		dianename.text="MASTER";
+  		if (money<5)
+  			dianequote.text="I GIVE NO TIPS TO PEOPLE WITH LESS THAN $5."
+  		else {
   		if (tip_counter>=12)
   			tip_counter=0
   		dianequote.text=business_tips[tip_counter];
   		tip_counter++;
+  		}
   	},
 
 	checkCollision2: function(player, portal){
