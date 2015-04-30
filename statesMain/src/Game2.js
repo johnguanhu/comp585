@@ -62,12 +62,12 @@ Business.Game2.prototype = {
 		
 		//this.placeDeadly();
 		this.deadly = this.add.group();
-		this.deadly.enableBody = true;
 	    for (var i = 0; i < 4; i++){
 			this.deadly = this.add.sprite(Math.random()*800+40,Math.random()*400+70,'deadly');
 			this.deadly.scale.setTo(0.25,0.25);
 			this.deadly.anchor.x = 0.5;
 			this.deadly.anchor.y = 0.5;
+			this.deadly.enableBody = true;
 	    	this.physics.enable(this.deadly);
 	    	this.add.tween(this.deadly).to({y:Math.random()*300 }, 3000, Phaser.Easing.Quadratic.InOut, true, 0, 1000, true);
 		}
