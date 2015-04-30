@@ -486,14 +486,20 @@ Business.HomeScene.prototype = {
             dialogBool=true;
     },
     dialogSelecter: function (hap, mon){
-            happ=hap;
-            mone=mon;
-            if (happ>9){
-                happ=9;
-            }
-            if (mone>9){
-                mone=9;
-            }
+        happ=hap;
+        mone=mon;
+        if (happ>9){
+            happ=9;
+        }
+        if (mone>9){
+            mone=9;
+        }
+        if (happ<0){
+            happ=0;
+        }
+        if (mone<0){
+            mone=0;
+        }
         //you can have up to four dialogs
         var x=Math.floor(happ/5);
         var y=Math.floor(mone/5);
