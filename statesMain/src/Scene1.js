@@ -79,17 +79,15 @@ Business.Scene1.prototype = {
 	    this.cursors = this.input.keyboard.createCursorKeys();
 
 	    //create diane
-	  this.banker2 = this.add.sprite(90,50, 'diane');
-      this.banker2.scale.setTo(0.2,0.2);
+	  this.dianemaster = this.add.sprite(90,50, 'diane');
+      this.dianemaster.scale.setTo(0.2,0.2);
       this.dialogCollision2 = this.add.sprite(90,50, 'transparent');
       this.dialogCollision2.scale.setTo(0.2,0.26);
       this.dialogCollision2.enableBody = true;
       this.physics.enable(this.dialogCollision2);
       this.dialogCollision2.body.immovable = true;
      // this.add.tween(this.dialogCollision2).to({ y:300 }, 4000, Phaser.Easing.Quadratic.InOut, true, 0, 1000, true);
-//     this.add.tween(this.banker2).to({ y:300 }, 4000, Phaser.Easing.Quadratic.InOut, true, 0, 1000, true);
-
-
+//     this.add.tween(this.dianemaster).to({ y:300 }, 4000, Phaser.Easing.Quadratic.InOut, true, 0, 1000, true);
 
       dianebox = this.add.sprite(100, 100, 'rectangle3');
       dianebox.scale.setTo(0.5,0.5);
