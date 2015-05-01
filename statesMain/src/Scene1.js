@@ -206,8 +206,8 @@ business_tips=["Every employee rises to the level of his own incompetence. The P
 
         moneyUp.inputEnabled=true;
         moneyUp.events.onInputDown.add(function(){
-            money=money+1;
-            happiness=happiness+1;
+            money=money+10;
+            happiness=happiness+10;
         });
 
         moneybar = this.add.sprite(0,600,'moneyBar');

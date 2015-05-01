@@ -272,8 +272,8 @@ Business.Bank.prototype = {
 
       moneyUp.inputEnabled=true;
       moneyUp.events.onInputDown.add(function(){
-          money=money+1;
-          happiness=happiness+1;
+          money=money+10;
+          happiness=happiness+10;
       });
 
       moneybar = this.add.sprite(0,600,'moneyBar');
@@ -293,6 +293,16 @@ Business.Bank.prototype = {
         this.cursors.right.isDown=false;
   },
   update: function(){
+
+    if(this.player.x<0){
+        this.player.x=0;
+    }
+    if (this.player.y<0){
+        this.player.y=0;
+    }
+    if (this.player.y>550){
+        this.player.y=550;
+    }
     if(moneybar!=null){
         moneybar.width= Number(money);
         happybar.width= Number(happiness);
