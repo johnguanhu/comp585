@@ -169,14 +169,22 @@ Business.Game2.prototype = {
 
     },
 
-   setUpMoney: function (){
-        moneyUp=this.add.sprite(400,600, 'test');
+    setUpMoney: function (){
+        moneyUp=this.add.sprite(400,600, 'arrow');
+
+        reset=this.add.sprite(450,600, 'test');
+
 
         moneyUp.inputEnabled=true;
         moneyUp.events.onInputDown.add(function(){
             money=money+10;
             happiness=happiness+10;
         });
+        reset.inputEnabled=true;
+        reset.events.onInputDown.add(function(){
+            money=0;
+            happiness=0;
+    });
 
         moneybar = this.add.sprite(0,600,'moneyBar');
         moneybar.scale.setTo(.1,.1);

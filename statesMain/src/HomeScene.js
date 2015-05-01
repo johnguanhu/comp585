@@ -870,25 +870,33 @@ endDialog: function (){
         remindertext.text="I need to make a phone call";
     } 
 },
-setUpMoney: function (){
-    moneyUp=this.add.sprite(400,600, 'test');
+    setUpMoney: function (){
+        moneyUp=this.add.sprite(400,600, 'arrow');
 
-    moneyUp.inputEnabled=true;
-    moneyUp.events.onInputDown.add(function(){
-        money=money+10;
-        happiness=happiness+10;
+        reset=this.add.sprite(450,600, 'test');
+
+
+        moneyUp.inputEnabled=true;
+        moneyUp.events.onInputDown.add(function(){
+            money=money+10;
+            happiness=happiness+10;
+        });
+        reset.inputEnabled=true;
+        reset.events.onInputDown.add(function(){
+            money=0;
+            happiness=0;
     });
 
-    moneybar = this.add.sprite(0,600,'moneyBar');
-    moneybar.scale.setTo(.1,.1);
+        moneybar = this.add.sprite(0,600,'moneyBar');
+        moneybar.scale.setTo(.1,.1);
 
-    moneybar.width=money*10;
+        moneybar.width=money*10;
 
-    happybar = this.add.sprite(0,620,'happyBar');
-    happybar.scale.setTo(.1,.1);
+        happybar = this.add.sprite(0,620,'happyBar');
+        happybar.scale.setTo(.1,.1);
 
-    happybar.width=happiness*10;
-},
+        happybar.width=happiness*10;
+    },
 
 
 checkCollision: function (obj1, obj2){

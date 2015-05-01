@@ -91,7 +91,7 @@ Business.Bank.prototype = {
     this.ak = this.input.keyboard.addKey(Phaser.Keyboard.A);
     this.sk = this.input.keyboard.addKey(Phaser.Keyboard.S);
     this.dk = this.input.keyboard.addKey(Phaser.Keyboard.D);
-    
+
       this.physics.startSystem(Phaser.Physics.ARCADE);
       this.map = this.add.tilemap('bank');
       this.map.addTilesetImage('masstileset');
@@ -273,25 +273,33 @@ Business.Bank.prototype = {
 
     },
 
-  setUpMoney: function (){
-      moneyUp=this.add.sprite(400,600, 'test');
+    setUpMoney: function (){
+        moneyUp=this.add.sprite(400,600, 'arrow');
 
-      moneyUp.inputEnabled=true;
-      moneyUp.events.onInputDown.add(function(){
-          money=money+10;
-          happiness=happiness+10;
-      });
+        reset=this.add.sprite(450,600, 'test');
 
-      moneybar = this.add.sprite(0,600,'moneyBar');
-      moneybar.scale.setTo(.1,.1);
 
-      moneybar.width=money*10;
+        moneyUp.inputEnabled=true;
+        moneyUp.events.onInputDown.add(function(){
+            money=money+10;
+            happiness=happiness+10;
+        });
+        reset.inputEnabled=true;
+        reset.events.onInputDown.add(function(){
+            money=0;
+            happiness=0;
+    });
 
-      happybar = this.add.sprite(0,620,'happyBar');
-      happybar.scale.setTo(.1,.1);
+        moneybar = this.add.sprite(0,600,'moneyBar');
+        moneybar.scale.setTo(.1,.1);
 
-      happybar.width=happiness*10;
-  },
+        moneybar.width=money*10;
+
+        happybar = this.add.sprite(0,620,'happyBar');
+        happybar.scale.setTo(.1,.1);
+
+        happybar.width=happiness*10;
+    },
   stopMotion: function(player){
     this.cursors.up.isDown=false;
     this.cursors.down.isDown=false;
