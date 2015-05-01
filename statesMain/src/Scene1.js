@@ -34,6 +34,13 @@ Business.Scene1 = function(game){
 Business.Scene1.prototype = {
 	create: function(){
 
+		this.wk = this.input.keyboard.addKey(Phaser.Keyboard.W);
+		this.ak = this.input.keyboard.addKey(Phaser.Keyboard.A);
+		this.sk = this.input.keyboard.addKey(Phaser.Keyboard.S);
+		this.dk = this.input.keyboard.addKey(Phaser.Keyboard.D);
+
+
+
 		this.physics.startSystem(Phaser.Physics.ARCADE);
 		this.map = this.add.tilemap('map');
 
@@ -80,6 +87,15 @@ Business.Scene1.prototype = {
 	    this.physics.enable(this.game2Portal);
 
 	    this.cursors = this.input.keyboard.createCursorKeys();
+
+        this.cursors = this.game.input.keyboard.createCursorKeys();
+
+        this.wasd = {
+            up: this.game.input.keyboard.addKey(Phaser.Keyboard.W),
+            down: this.game.input.keyboard.addKey(Phaser.Keyboard.S),
+            left: this.game.input.keyboard.addKey(Phaser.Keyboard.A),
+            right: this.game.input.keyboard.addKey(Phaser.Keyboard.D),
+        };
 
 	    //create diane
 	  this.dianemaster = this.add.sprite(90,50, 'diane');
@@ -225,6 +241,10 @@ business_tips=["Every employee rises to the level of his own incompetence. The P
 		this.cursors.down.isDown=false;
 		this.cursors.left.isDown=false;
 		this.cursors.right.isDown=false;
+		this.wk.isDown=false;
+		this.ak.isDown=false;
+		this.sk.isDown=false;
+		this.dk.isDown=false;
 	},
 
 	checkCollision1: function(player, portal){
@@ -348,25 +368,25 @@ business_tips=["Every employee rises to the level of his own incompetence. The P
 	    this.player.body.velocity.x = 0;
 	    this.player.body.velocity.y = 0;
 
-	    if (this.cursors.up.isDown)
+	    if (this.cursors.up.isDown || this.wk.isDown)
 	    {
 	        this.player.body.velocity.y = -200;
 	        this.player.animations.stop();
 	        this.player.frame = 4;
 	    }
-	    else if (this.cursors.down.isDown)
+	    else if (this.cursors.down.isDown || this.sk.isDown)
 	    {
 	        this.player.body.velocity.y = 200;
 	        this.player.animations.stop();
 	        this.player.frame = 4;
 	    }
 
-	    if (this.cursors.left.isDown)
+	    if (this.cursors.left.isDown || this.ak.isDown)
 	    {
 	        this.player.body.velocity.x = -200;
 	        this.player.animations.play('left');
 	    }
-	    else if (this.cursors.right.isDown)
+	    else if (this.cursors.right.isDown || this.dk.isDown)
 	    {
 	        this.player.body.velocity.x = 200;
 	        this.player.animations.play('right');

@@ -22,6 +22,11 @@ Business.Game = function(game){
 Business.Game.prototype = {
 	create: function(){
 
+        this.wk = this.input.keyboard.addKey(Phaser.Keyboard.W);
+        this.ak = this.input.keyboard.addKey(Phaser.Keyboard.A);
+        this.sk = this.input.keyboard.addKey(Phaser.Keyboard.S);
+        this.dk = this.input.keyboard.addKey(Phaser.Keyboard.D);
+
     	this.physics.startSystem(Phaser.Physics.ARCADE);
     	this.add.sprite(0, 0, 'sky');
 
@@ -202,13 +207,13 @@ Business.Game.prototype = {
         //  Reset the players velocity (movement)
         this.player.body.velocity.x = 0;
 
-        if (this.cursors.left.isDown)
+        if (this.cursors.left.isDown || this.ak.isDown)
         {
             //  Move to the left
             this.player.body.velocity.x = -150;
             this.player.animations.play('left');
         }
-        else if (this.cursors.right.isDown)
+        else if (this.cursors.right.isDown || this.dk.isDown)
         {
             //  Move to the right
             this.player.body.velocity.x = 150;
@@ -222,7 +227,7 @@ Business.Game.prototype = {
         }
         
         //  Allow the player to jump if they are touching the ground.
-        if (this.cursors.up.isDown && this.player.body.touching.down)
+        if ((this.cursors.up.isDown||  this.wk.isDown) && this.player.body.touching.down)
         {
             this.player.body.velocity.y = -350;
         }

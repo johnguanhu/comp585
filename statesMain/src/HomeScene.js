@@ -124,6 +124,11 @@ Business.HomeScene.prototype = {
 
     create: function() {  //    tipword=this.add.text(tips.x, tips.y , "Tips go here");
     
+        this.wk = this.input.keyboard.addKey(Phaser.Keyboard.W);
+        this.ak = this.input.keyboard.addKey(Phaser.Keyboard.A);
+        this.sk = this.input.keyboard.addKey(Phaser.Keyboard.S);
+        this.dk = this.input.keyboard.addKey(Phaser.Keyboard.D);
+
     this.money=Number(sessionStorage.money);
     this.happiness=Number(sessionStorage.happiness);
 
@@ -930,7 +935,13 @@ checkCollision: function (obj1, obj2){
         this.cursors.down.isDown=false;
         this.cursors.left.isDown=false;
         this.cursors.right.isDown=false;
+        this.wk.isDown=false;
+        this.ak.isDown=false;
+        this.sk.isDown=false;
+        this.dk.isDown=false;
     },
+
+
     update: function () {
 
 
@@ -976,24 +987,29 @@ checkCollision: function (obj1, obj2){
             this.sprite.y=550;
         }
 
-        if (this.cursors.up.isDown)
+        if (this.cursors.up.isDown || this.wk.isDown)
         {
             this.sprite.body.velocity.y = -200;
+            this.sprite.animations.stop();
+            this.sprite.frame = 4;
         }
-        else if (this.cursors.down.isDown)
+        else if (this.cursors.down.isDown || this.sk.isDown)
         {
             this.sprite.body.velocity.y = 200;
+            this.sprite.animations.stop();
+            this.sprite.frame = 4;
         }
 
-        if (this.cursors.left.isDown)
+        if (this.cursors.left.isDown || this.ak.isDown)
         {
             this.sprite.body.velocity.x = -200;
             this.sprite.animations.play('left');
         }
-        else if (this.cursors.right.isDown)
+        else if (this.cursors.right.isDown || this.dk.isDown)
         {
             this.sprite.body.velocity.x = 200;
             this.sprite.animations.play('right');
+
         }
         else {
             this.sprite.animations.stop();

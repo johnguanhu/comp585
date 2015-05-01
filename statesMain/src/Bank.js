@@ -86,6 +86,12 @@ Business.Bank = function(game){
 
 Business.Bank.prototype = {
 	create: function(){
+
+    this.wk = this.input.keyboard.addKey(Phaser.Keyboard.W);
+    this.ak = this.input.keyboard.addKey(Phaser.Keyboard.A);
+    this.sk = this.input.keyboard.addKey(Phaser.Keyboard.S);
+    this.dk = this.input.keyboard.addKey(Phaser.Keyboard.D);
+    
       this.physics.startSystem(Phaser.Physics.ARCADE);
       this.map = this.add.tilemap('bank');
       this.map.addTilesetImage('masstileset');
@@ -287,11 +293,16 @@ Business.Bank.prototype = {
       happybar.width=happiness*10;
   },
   stopMotion: function(player){
-        this.cursors.up.isDown=false;
-        this.cursors.down.isDown=false;
-        this.cursors.left.isDown=false;
-        this.cursors.right.isDown=false;
+    this.cursors.up.isDown=false;
+    this.cursors.down.isDown=false;
+    this.cursors.left.isDown=false;
+    this.cursors.right.isDown=false;
+    this.wk.isDown=false;
+    this.ak.isDown=false;
+    this.sk.isDown=false;
+    this.dk.isDown=false;
   },
+
   update: function(){
 
     if(this.player.x<0){
@@ -328,25 +339,30 @@ Business.Bank.prototype = {
     this.player.body.velocity.x = 0;
     this.player.body.velocity.y = 0;
 
-    if (this.cursors.up.isDown){
-        this.player.body.velocity.y = -200;
-        this.player.animations.stop();
-        this.player.frame = 4;
-    }
-    else if (this.cursors.down.isDown){
-        this.player.body.velocity.y = 200;
-        this.player.animations.stop();
-        this.player.frame = 4;
-    }
+      if (this.cursors.up.isDown || this.wk.isDown)
+      {
+          this.player.body.velocity.y = -200;
+          this.player.animations.stop();
+          this.player.frame = 4;
+      }
+      else if (this.cursors.down.isDown || this.sk.isDown)
+      {
+          this.player.body.velocity.y = 200;
+          this.player.animations.stop();
+          this.player.frame = 4;
+      }
 
-    if (this.cursors.left.isDown){
-        this.player.body.velocity.x = -200;
-        this.player.animations.play('left');
-    }
-    else if (this.cursors.right.isDown){
-        this.player.body.velocity.x = 200;
-        this.player.animations.play('right');
-    }
+      if (this.cursors.left.isDown || this.ak.isDown)
+      {
+          this.player.body.velocity.x = -200;
+          this.player.animations.play('left');
+      }
+      else if (this.cursors.right.isDown || this.dk.isDown)
+      {
+          this.player.body.velocity.x = 200;
+          this.player.animations.play('right');
+
+      }
     else {
        this.player.animations.stop();
     }
